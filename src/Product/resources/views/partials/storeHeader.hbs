@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>How To Create Bootstrap 5 Header For eCommerce Website</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/css/storehead.css">
+    </head>
+    <body>
+        <header>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <nav class="navbar navbar-expand-xl navbar-light">
+                            <div class="container-fluid">
+                                <a href="#" class="navbar-brand"><img src="/image/logo.png" alt="logo" class="img-fluid" /></a>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                    <ul class="navbar-nav mx-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" aria-current="page" href="#">Candle</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Wax</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Oil</a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Accessories
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                <li><a class="dropdown-item" href="#">Decoration</a></li>
+                                                <li><a class="dropdown-item" href="#">Bathroom</a></li>
+                                                <li><a class="dropdown-item" href="#">Tree</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+
+                    <div class="col-lg-4 col-md-3" style="padding-top: 20px;">
+                        <div class="header-search mt-2">
+                            <div class="search-form">
+                                <form method="get">
+                                    <div class="input-group">
+                                        <div class="select-style">
+                                            <select name="order">
+                                                <option class="topshow" value="1">All</option>
+                                                <option value="a">Candle</option>
+                                                <option value="b">Candle Wax</option>
+                                                <option value="c">Oil</option>
+                                                <option value="d">Decoration</option>
+                                                <option value="e">Accessories</option>
+                                                <option value="f">Others</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" name="search" id="search" class="form-control" placeholder="Search Here" />
+                                        <div class="input-group-addon">
+                                            <button type="submit"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-3 cart-login" style="padding-top: 15px;">
+                        <div class="float-end cart mt-2">
+                            <a href="#">
+                                <span class="number">10</span>
+                                <img class="img-fluid" style="width: 50px; height:50px" src="/image/cart2.png" alt="cart" />
+                                <span>Cart</span>
+                            </a>
+                        </div>       
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Bootstrap JS -->
+        <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
