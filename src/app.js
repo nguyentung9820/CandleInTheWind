@@ -9,8 +9,10 @@ app.use(express.urlencoded());
 
 const Product = require('./Product/index');
 const Customer = require('./Customer/index');
+const Blog = require('./Blog/index');
 app.use(Product)
 app.use(Customer)
+app.use(Blog)
 
 const db = require('./Config/database');
 db.connect();
