@@ -5,7 +5,7 @@ const path = require('path');
 
 const morgan = require('morgan');
 app.use(morgan('combined'));
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }))
 
 const Product = require('./Product/index');
 const Customer = require('./Customer/index');

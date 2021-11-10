@@ -1,13 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Blog = new Schema({
+const postPending = new Schema({
     username: {type: String},
-    postID: {type: String},
+    postID: {type: String },
     caption: {type: String},
     image:   {type: String},
-    availableToCmt: {type: Boolean},
     createdAt: { type: Date, default: Date.now},
     updateAt: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('posts', Blog);
+module.exports = mongoose.model('postpendings', postPending);

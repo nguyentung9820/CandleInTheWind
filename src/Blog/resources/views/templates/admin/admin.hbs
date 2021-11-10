@@ -1,0 +1,30 @@
+<table class="table mt-4">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">User</th>
+      <th scope="col">Image</th>
+      <th scope="col">Detail</th>
+      <th scope="col" colspan="2">Create Time</th> 
+    </tr>
+  </thead>
+  <tbody>
+    {{#each pending}}
+      <div>
+        <tr>
+          <th scope="row">{{ @index }}</th>
+          <td>{{this.username}}</td>
+         <td>
+          <img src="{{this.image}}"></img>
+         </td>
+          <td>{{this.caption}}</td>
+          <td>
+          <a href="/forum/admin/delete/{{this.postID}}" class="btn btn-danger" data-ID="" data-toggle="modal" data-target="#delete-form">Delete</a>
+          <a href="/forum/admin/store/{{this.postID}}" class="btn btn-primary" data-ID="" data-toggle="modal" data-target="#accept-form">Accept</a>
+          </td>
+        </tr>        
+      </div>
+    {{/each}}
+  </tbody>
+</table>
+

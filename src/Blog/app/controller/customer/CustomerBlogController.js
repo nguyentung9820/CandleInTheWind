@@ -1,13 +1,42 @@
 // const { mutipleMongooseToObject } = require('../../../util/mongoose')
-const { json } = require("express");
-const Customer = require("../../models/Blog")
+
+const blog = require("../../models/Blog")
+const postPending = require("../../models/PostPending")
 class CustomerBlogController {
 
     // [GET] /
-    homepage(req,res)
+    homepage(req,res,next)
     {
-        res.render('templates/store/customerblog');
+        blog.find({})
+        .then(query=> res.render('templates/store/customer',query))
+        .catch(next)
+      //  ;
     }
+    //[POST] /forum/customer/storepost
+    StorePost(req,res,next)
+    {
+        const postData = req.body;
+        postData.postID= postData.username + Math.random().toString();
+        const savePost = new postPending(postData);
+        savePost.save();
+        res.send("Waiting for respone");
+    }
+
+    Comment(req,res)
+    {
+
+    }
+
+    DeletePost(req,res)
+    {
+        
+    }
+
+    LockPost(req,res)
+    {
+        
+    }
+
 }
 
 
