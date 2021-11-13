@@ -1,4 +1,5 @@
 const { multipleMongoObj } = require('../../../util/mongoose');
+const { mongoToObj } = require('../../../util/mongoose');
 const Post = require("../../models/Blog")
 const CommentModel = require("../../models/Comment")
 class BlogController {
@@ -26,66 +27,48 @@ class BlogController {
                         cmts.push(id.caption)
                     })
                 arrPosts.push({
+                    username: element.username,
                     caption: element.caption,
-                    arrCmt: cmts
+                    arrCmt: cmts,
+                    postID: element.postID,
+                    allowToCmT: element.availableToCmt
                 })
             });
         })
         .then(tmp=> {      
          res.render("templates/blog/blog",{arrPosts})
-         console.log(arrPosts);   
+     // res.json(arrPosts)
         })
         )
         .catch(next)
-
-
-       
-
-        // Post.find({})
-        // .then((posts) => {
-        //   let elementsArr = [];
-        //   let cmtsArr = [];
-        //   let postArr = [];
-      
-        //   posts = multipleMongoObj(posts);
-        //   posts.forEach((element) => {
-        //     CommentModel.find({ postID: element.postID }).then((cmts) => {
-        //       elementsArr.push(element.caption);
-        //       cmtsArr.push(cmts);
-        //     });
-        //   });
-      
-        //   res.render("templates/blog/blog",  {
-        //     elements: elementsArr, //! mảng chứa các elements đã lấy trong forEach
-        //     cmt: cmtsArr, //! mảng chứa các cmt đã lấy trong forEach
-        //     post: postArr, //! chứa post
-        //   });
-        // })
-        // .catch(next);
-
     }
-     
-    ListPost(post,cmt)
-    {
-
-    }
-
 
     Comment(req,res,next)
     {        
+        if(req.body.comment.length>0)
+        {
         const cmt = new CommentModel();
         cmt.postID = req.params.slug;
         cmt.caption = req.body.comment;
         cmt.save();
-        //res.redirect('/forum');
-        res.json(cmt)
-
+        }
+        res.redirect('/forum');
     }
-}
 
-class ArrayPost{
-    caption
-    cmt = new Array()
+    LockComment(req,res,next)
+    {
+        Post.updateOne({postID: req.params.slug},{$set:{availableToCmt: false}})
+        .then(
+            res.redirect('/forum')         
+        )
+    }
+     OpenComment(req,res,next)
+    {
+        Post.updateOne({postID: req.params.slug},{$set:{availableToCmt: true}})
+        .then(
+            res.redirect('/forum')         
+        )
+    }
 }
 
 module.exports = new BlogController;

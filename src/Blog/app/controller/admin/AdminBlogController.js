@@ -33,9 +33,8 @@ class AdminBlogController {
         savePost.image = value.image;
         savePost.availableToCmt = true;
         
-        console.log(savePost);
         savePost.save();                  
-        })
+        }) 
         .catch(next)
 
         postPending.deleteOne({postID: req.params.slug})

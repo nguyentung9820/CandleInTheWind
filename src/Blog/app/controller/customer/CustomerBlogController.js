@@ -19,23 +19,9 @@ class CustomerBlogController {
         postData.postID= postData.username + Math.random().toString();
         const savePost = new postPending(postData);
         savePost.save();
-        res.send("Waiting for respone");
+        res.redirect('/');
     }
 
-    Comment(req,res)
-    {
-
-    }
-
-    DeletePost(req,res)
-    {
-        
-    }
-
-    LockPost(req,res)
-    {
-        
-    }
 
 }
 

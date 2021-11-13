@@ -3,30 +3,35 @@
   </thead>
   <tbody>
     {{#each arrPosts}}
-     <form method="POST" action="/forum/comment/{{this.postID}}">
-  <div class="form-group">
-      <label for="name">User Name</label>
-      <h1>{{this.username}}</h1>
-    </div>
-    <div class="form-group">
-      <label for="caption">Bai viet</label>
-      <h2>{{this.caption}}</h2>
-    </div>
-    <div class="form-group">
-      <img src="{{this.image}}"></img>
+      <form method="POST" action="/forum/comment/{{this.postID}}">
+        <div class="form-group">
+          <h1>User Name: {{this.username}}</h1>
+        </div>
+        <div class="form-group">
+          <label for="caption">Bai viet</label>
+          <h2>{{this.caption}}</h2>
+        </div>
+        <div class="form-group">
+          <img src="{{this.image}}"></img>
+        {{#each this.arrCmt}}
+            <li>
+              {{this}}
+            </li>
+          {{/each}}
 
-      {{#each this.arrCmt}}
-      <div>
-      <h2>{{this.caption}} </h2>  
-       </div>
-      {{/each}}
-
+      </div>
+      {{#if this.allowToCmT}}
+          <input name="comment"> </input>
+          <button type="submit" class="btn btn-primary" >Comment</button>
       
-    </div>
-    <input name="comment"> </input>
-    <button type="submit" class="btn btn-primary" >Comment</button>
-</form>
+          <a href="/forum/lockcomment/{{this.postID}}">Lock Comment </a>
+      {{else}}
+        {{!-- <button type="submit" class="btn btn-primary">Open Comment</button> --}}
+          <a href="/forum/opencomment/{{this.postID}}">Open Comment </a>
+      {{/if}}
+      </form>
     {{/each}}
-  </tbody>
+
+</tbody>
 
 

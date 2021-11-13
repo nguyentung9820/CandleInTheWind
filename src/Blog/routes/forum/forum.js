@@ -11,6 +11,8 @@ router.get('/admin/store/:slug', adminBlogController.ConfirmPost);
 router.get('/admin', adminBlogController.homepage);
 
 router.post('/comment/:slug',blogController.Comment)
+router.get('/lockcomment/:slug',blogController.LockComment)
+router.get('/opencomment/:slug',blogController.OpenComment)
 
 router.post('/customer/store', customerBlogController.StorePost);
 router.get('/customer', customerBlogController.homepage);
