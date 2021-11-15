@@ -11,10 +11,10 @@ class AdminController {
     async login(req, res){
         var user = req.body.username;
         var pass = req.body.password;
-        console.log(pass)
+        console.log(user)
         if(user == 'admin' && pass == 1){
             await res.cookie('oreo', 'admin')
-            res.redirect('/admin')
+            res.redirect('/admin/product')
             return;
         }else{
             res.redirect('/customer/admin')    

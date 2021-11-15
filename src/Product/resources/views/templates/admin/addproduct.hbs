@@ -1,4 +1,4 @@
-        <form class="form-group" id="product-form" method="POST" enctype="multipart/form-data" action="/admin/save" >
+ <form class="form-group" id="product-form" method="POST" enctype="multipart/form-data" action="/admin/product/save" >
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group px-2 py-2 rounded-pill bg-white shadow-sm">
@@ -28,9 +28,13 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="text" name="product_type" class="form-control" placeholder="Enter Product Type" id="type">
+                    <select class="form-control" name="product_type">
+                        <option>Wax</option>
+                        <option>Candle</option>
+                        <option>Accessory</option>
+                    </select>                
                 </div>
-            </div>
+            </div>{{!--  --}}
             <div class="col-md-6">
                 <div class="form-group">
                     <textarea rows="1" name="product_description" class="form-control" placeholder="Enter Product Description"
@@ -39,56 +43,15 @@
             </div>
             
             <div class="col-md-2">
-                <div class="form-group">
+                <div class="form-group" style="display: flex;">
                     <input type="submit" name="Submit" id="insert" 
                            class="btn btn-primary btn-sm"
-                           value="Insert Product">
+                           value="Save Product">
+                    <a href="/admin/product"><button style="margin-left: 10px;" type="button" class="btn btn-secondary" action=>Cancel</button></a>
                 </div>
             </div>
         
-        </form>
-    <div>
-        <table class="table">
-              <thead class="thead-dark">
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>SKU</th>
-                    <th >Description</th>
-                    <th>Price</th>
-                    <th>Type</th>
-                    <th>Action</th>
-            </thead>
-            {{#each products}}
-                <tbody>
-                    <tr>
-                            <th>{{@index}}</th>
-                            <th>{{this.product_name}}</th>
-                            <th>{{this.product_sku}}</th>
-                            <th>{{this.product_description}}</th>
-                            <th>{{this.product_price}}</th>
-                            <th>{{this.product_type}}</th>
-                            <th>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" 
-                                            type="button" 
-                                            id="dropdownMenuButton" 
-                                            data-toggle="dropdown" 
-                                            aria-haspopup="true" 
-                                            aria-expanded="false">
-                                            Action
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Edit</a>
-                                        <a class="dropdown-item" href="#">Delete</a>
-                                    </div>
-                                </div>
-                            </th>
-                    </tr>
-                </tbody>
-            {{/each}}
-        </table>
-    </div>
+</form>
 <style>
     #upload {
     opacity: 0;

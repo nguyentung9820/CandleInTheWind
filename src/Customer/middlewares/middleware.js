@@ -9,6 +9,15 @@ class middlewares{
             return;
         }
     }
+    checkLogin(req,res,next){
+        const auth = req.cookies['oreo'];
+        if(auth == 'admin'){
+            res.redirect('/admin/product')
+            return;
+        }else {
+            next();
+        }
+    }
 }
 
 

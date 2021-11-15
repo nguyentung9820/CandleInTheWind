@@ -5,10 +5,10 @@ const Product = require("../../models/Product")
 class AdminController {
 
     // [GET] /
-    admin(req, res){
+    product(req, res){
         Product.find({})
         .then(products => {
-            res.render('templates/admin/admin', { 
+            res.render('templates/admin/product', { 
                 products: mutipleMongooseToObject(products),
                 layout: 'admin' 
             });
@@ -23,10 +23,34 @@ class AdminController {
         try{
             var product = new Product(data);
             product.save();
-            res.redirect('/admin')       
+            res.redirect('/admin/product')       
         } catch (error) {
             res.send('fail')
         }        
+    }
+    
+    deleteProduct(req, res, next){
+        var param = req.params.id;
+        Product.deleteOne({_id: param})
+        .then(() => res.redirect('/admin/product'))
+        .catch(next);
+    }
+
+    add(req, res){
+        res.render('templates/admin/addproduct', { 
+            layout: 'admin' 
+        });
+    
+    }
+    editProduct(req, res){
+        var param = req.params.id;
+        Product.find({_id: param})
+        .then(products => {
+            res.render('templates/admin/editproduct', { 
+                products: mutipleMongooseToObject(products),
+                layout: 'admin' 
+            });
+        })
     }
 }
 
