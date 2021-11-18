@@ -17,7 +17,7 @@
     "formidable": "^1.2.2",
     "handlebars": "^4.7.7",
     "method-override": "^3.0.0",
-    "mongoose": "^5.13.12",
+    "mongoose": "^5.13.13",
     "morgan": "^1.10.0",
     "multer": "^1.4.3",
     "node-popup": "^0.1.14"

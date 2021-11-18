@@ -1,6 +1,7 @@
 const { mutipleMongooseToObject } = require('../../../util/mongoose')
 const { json } = require("express");
 const Product = require("../../models/Product")
+const Category = require("../../models/Category")
 
 class AdminController {
 
@@ -37,12 +38,16 @@ class AdminController {
     }
 
     add(req, res){
-        res.render('templates/admin/addproduct', { 
-            layout: 'admin' 
-        });
-    
+        Category.find({})
+        .then(categories => {
+            res.render('templates/admin/addproduct', { 
+                categories: mutipleMongooseToObject(categories),
+                layout: 'admin' 
+            });
+        })   
     }
-    editProduct(req, res){
+
+    editProduct(req, res, next){
         var param = req.params.id;
         Product.find({_id: param})
         .then(products => {
@@ -51,6 +56,7 @@ class AdminController {
                 layout: 'admin' 
             });
         })
+        .catch(next)
     }
 }
 

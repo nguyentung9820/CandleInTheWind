@@ -29,9 +29,9 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <select class="form-control" name="product_type">
-                        <option>Wax</option>
-                        <option>Candle</option>
-                        <option>Accessory</option>
+                        {{#each categories}}
+                        <option>{{this.product_category}}</option>
+                        {{/each}}
                     </select>                
                 </div>
             </div>{{!--  --}}
