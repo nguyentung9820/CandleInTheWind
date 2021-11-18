@@ -62,7 +62,8 @@ class BlogController {
             res.redirect('/forum')         
         )
     }
-     OpenComment(req,res,next)
+
+    OpenComment(req,res,next)
     {
         Post.updateOne({postID: req.params.slug},{$set:{availableToCmt: true}})
         .then(

@@ -3,13 +3,14 @@
   </thead>
   <tbody>
     {{#each arrPosts}}
+    <div class="form-css">
       <form method="POST" action="/forum/comment/{{this.postID}}">
         <div class="form-group">
           <h1>User Name: {{this.username}}</h1>
         </div>
         <div class="form-group">
-          <label for="caption">Bai viet</label>
-          <h2>{{this.caption}}</h2>
+          <label for="caption">Nội dung bài viết tại đây</label>
+          <h6>{{this.caption}}</h6>
         </div>
         <div class="form-group">
           <img src="{{this.image}}"></img>
@@ -21,15 +22,20 @@
 
       </div>
       {{#if this.allowToCmT}}
-          <input name="comment"> </input>
+          <input name="comment" placeholder="Nhập đánh giá"> </input>
+          <button name="lock"class="btn btn-primary" >
+          <a href="/forum/lockcomment/{{this.postID}}">Lock Comment</a>
+          </button>
           <button type="submit" class="btn btn-primary" >Comment</button>
       
-          <a href="/forum/lockcomment/{{this.postID}}">Lock Comment </a>
       {{else}}
         {{!-- <button type="submit" class="btn btn-primary">Open Comment</button> --}}
-          <a href="/forum/opencomment/{{this.postID}}">Open Comment </a>
+          <button name="open" class="btn btn-primary">
+            <a href="/forum/opencomment/{{this.postID}}">Open Comment </a>
+          </button>
       {{/if}}
       </form>
+      </div>  
     {{/each}}
 
 </tbody>
