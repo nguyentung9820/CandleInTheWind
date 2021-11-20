@@ -1,7 +1,8 @@
 // const { mutipleMongooseToObject } = require('../../../util/mongoose')
-
+const CommentModel = require("../../models/Comment")
 const blog = require("../../models/Blog")
-const postPending = require("../../models/PostPending")
+const postPending = require("../../models/PostPending");
+const { mongoToObj } = require("../../../util/mongoose");
 class CustomerBlogController {
 
     // [GET] /
@@ -22,7 +23,23 @@ class CustomerBlogController {
         res.redirect('/');
     }
 
+    EditPost(req,res,next)
+    {
+        console.log(req.query);
+        blog.updateOne({postID: req.params.slug},{ $set: { username: req.query.username,caption: req.query.caption, image: req.query.image} },)
+        .then(tmp => res.redirect('/forum'))
+    }
 
+    DeleteComment(req,res,next)
+    {
+        CommentModel.findOne({_id: req.params.slug})
+        .then(value => {
+            value = mongoToObj(value);
+            console.log(value);
+             CommentModel.deleteOne({_id: req.params.slug})
+            .then(tmp=> res.redirect('/forum/edit/' + value.postID))
+        })
+    }
 }
 
 

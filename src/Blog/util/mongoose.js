@@ -1,10 +1,11 @@
+const mongoose = require('mongoose');
 module.exports = {
-    multipleMongoObj: function(mongoose)
+    multipleMongoObj: function(paramObj)
     {
-        return  mongoose = mongoose.map(mongoose =>mongoose.toObject());
+        return  paramObj = paramObj.map(paramObj =>paramObj.toObject());
     },
-    mongoToObj: function(mongoose)
+    mongoToObj: function(paramObj)
     {
-        return mongoose? mongoose.toObject() : mongoose;
+        return paramObj? paramObj.toObject() : paramObj;
     }
 };

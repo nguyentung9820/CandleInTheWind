@@ -1,6 +1,7 @@
 const { multipleMongoObj } = require('../../../util/mongoose');
 const { mongoToObj } = require('../../../util/mongoose');
 const Post = require("../../models/Blog")
+
 const CommentModel = require("../../models/Comment")
 class BlogController {
 
@@ -29,6 +30,7 @@ class BlogController {
                 arrPosts.push({
                     username: element.username,
                     caption: element.caption,
+                    image: element.image,
                     arrCmt: cmts,
                     postID: element.postID,
                     allowToCmT: element.availableToCmt
@@ -49,6 +51,7 @@ class BlogController {
         {
         const cmt = new CommentModel();
         cmt.postID = req.params.slug;
+        cmt.commentID = req.params.slug;
         cmt.caption = req.body.comment;
         cmt.save();
         }
@@ -69,6 +72,39 @@ class BlogController {
         .then(
             res.redirect('/forum')         
         )
+    }
+
+    DeleteComment(req,res,next)
+    {
+        CommentModel.deleteOne({postID: req.params.slug})
+        .then(res.redirect('/forum'))
+    }
+
+    EditPost(req,res,next)
+    {
+        Post.findOne({postID: req.params.slug})
+        .then(posts => 
+        { 
+            posts = mongoToObj(posts);
+            CommentModel.find({postID: req.params.slug})
+            .then(arrCmt => {            
+                res.render('templates/store/edit',{
+                    username: posts.username,
+                    caption: posts.caption,
+                    image: posts.image,
+                    cmts: multipleMongoObj(arrCmt),
+                    postID: posts.postID,
+                    allowToCmT: posts.availableToCmt})            
+            })           
+        })
+    }
+
+    DeletePost(req,res,next)
+    {
+        CommentModel.deleteMany({postID: req.params.slug})
+        .then(cmt => {
+            Post.deleteOne({postID: req.params.slug})
+        })      
     }
 }
 

@@ -20,13 +20,19 @@
             </li>
           {{/each}}
 
-      </div>
+         </div>
+       </form>
+
       {{#if this.allowToCmT}}
+          <form method="POST" action="/forum/comment/{{this.postID}}">          
           <input name="comment" placeholder="Nhập đánh giá"> </input>
+          <button type="submit" class="btn btn-primary" >Comment</button>
+          </form>
+
           <button name="lock"class="btn btn-primary" >
           <a href="/forum/lockcomment/{{this.postID}}">Lock Comment</a>
-          </button>
-          <button type="submit" class="btn btn-primary" >Comment</button>
+          </button>       
+
       
       {{else}}
         {{!-- <button type="submit" class="btn btn-primary">Open Comment</button> --}}
@@ -34,7 +40,9 @@
             <a href="/forum/opencomment/{{this.postID}}">Open Comment </a>
           </button>
       {{/if}}
-      </form>
+     
+        <a href="/forum/edit/{{this.postID}}">Edit</a>
+
       </div>  
     {{/each}}
 
