@@ -27,11 +27,7 @@
           <form method="POST" action="/forum/comment/{{this.postID}}">          
           <input name="comment" placeholder="Nhập đánh giá"> </input>
           <button type="submit" class="btn btn-primary" >Comment</button>
-          </form>
-
-          <button name="lock"class="btn btn-primary" >
-          <a href="/forum/lockcomment/{{this.postID}}">Lock Comment</a>
-          </button>       
+          </form>     
 
       
       {{else}}
@@ -40,9 +36,12 @@
             <a href="/forum/opencomment/{{this.postID}}">Open Comment </a>
           </button>
       {{/if}}
-     
+        {{#if this.isAuthor}}
         <a href="/forum/edit/{{this.postID}}">Edit</a>
-
+          <button name="lock"class="btn btn-primary" >
+          <a href="/forum/lockcomment/{{this.postID}}">Lock Comment</a>
+          </button>  
+        {{/if}}
       </div>  
     {{/each}}
 

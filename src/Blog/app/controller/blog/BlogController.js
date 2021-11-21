@@ -33,13 +33,13 @@ class BlogController {
                     image: element.image,
                     arrCmt: cmts,
                     postID: element.postID,
-                    allowToCmT: element.availableToCmt
+                    allowToCmT: element.availableToCmt,
+                    isAuthor: true,
                 })
             });
         })
         .then(tmp=> {      
          res.render("templates/blog/blog",{arrPosts})
-     // res.json(arrPosts)
         })
         )
         .catch(next)
@@ -94,6 +94,7 @@ class BlogController {
                     image: posts.image,
                     cmts: multipleMongoObj(arrCmt),
                     postID: posts.postID,
+                    isAdmin: false,
                     allowToCmT: posts.availableToCmt})            
             })           
         })
