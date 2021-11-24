@@ -1,15 +1,14 @@
 const { multipleMongoObj } = require('../../../util/mongoose');
 const { mongoToObj } = require('../../../util/mongoose');
 const Post = require("../../models/Blog")
-
+const postPending = require("../../models/PostPending");
 const CommentModel = require("../../models/Comment")
+const adminPermission=false;
 class BlogController {
-
     // [GET] /
     homepage(req,res,next)
-    {
+    {   
         let savePosts = []
-        let saveCmts= []
         let arrPosts= []
         Post.find({})
         .then(posts =>
@@ -22,6 +21,7 @@ class BlogController {
             cmt = multipleMongoObj(cmt)
             savePosts.forEach(element => {
                 const cmts = []
+                const randomBoolean = Math.random() < 0.5;
                 cmt.forEach(id =>
                     {
                         if(id.postID==element.postID)
@@ -34,15 +34,40 @@ class BlogController {
                     arrCmt: cmts,
                     postID: element.postID,
                     allowToCmT: element.availableToCmt,
-                    isAuthor: true,
+                    isAuthor: randomBoolean,
                 })
             });
         })
         .then(tmp=> {      
-         res.render("templates/blog/blog",{arrPosts})
+         res.render("templates/blog/blog",{Posts: arrPosts, isAdmin: adminPermission})
         })
         )
         .catch(next)
+    }
+
+    StorePost(req,res,next)
+    {
+        const postID= req.body.username + Math.random().toString();
+        console.log(typeof(req.body.isAdmin))
+        if(req.body.isAdmin != 'true')
+        {  
+        const postData = req.body;
+        postData.postID = postID;
+        const savePost = new postPending(postData);
+        savePost.save();
+       }
+       else 
+       {
+        const savePost = new Post();
+        savePost.username = req.body.username;
+        savePost.caption = req.body.caption;
+        savePost.postID = postID;
+        savePost.image = req.body.image;
+        savePost.availableToCmt = true;       
+        savePost.save();                  
+       }
+       
+        res.redirect('/forum');
     }
 
     Comment(req,res,next)
@@ -58,6 +83,12 @@ class BlogController {
         res.redirect('/forum');
     }
 
+    WriteNewPost(req,res,next)
+    {
+        const isAdmin=adminPermission;
+        res.render('templates/blog/writenewpost',{isAdmin})
+    }
+    
     LockComment(req,res,next)
     {
         Post.updateOne({postID: req.params.slug},{$set:{availableToCmt: false}})
@@ -94,7 +125,7 @@ class BlogController {
                     image: posts.image,
                     cmts: multipleMongoObj(arrCmt),
                     postID: posts.postID,
-                    isAdmin: false,
+                    isAdmin: adminPermission,
                     allowToCmT: posts.availableToCmt})            
             })           
         })
@@ -105,6 +136,8 @@ class BlogController {
         CommentModel.deleteMany({postID: req.params.slug})
         .then(cmt => {
             Post.deleteOne({postID: req.params.slug})
+            .then(tmp => res.redirect('/forum'))
+            
         })      
     }
 }
