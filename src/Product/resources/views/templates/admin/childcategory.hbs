@@ -1,0 +1,30 @@
+<a href="/admin/childcategory/{{this.child}}/add"><button type="button" style="margin-bottom: 20px;" class="btn btn-success" action=>Add Child Category</button></a>
+<h1>Child Category</h1>
+   <div>
+        <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Category</th>
+                    <th>Create at</th>
+                    <th>Update at</th>
+                    <th>Action</th>
+            </thead>
+            {{#each childcategories}}
+                <tbody>
+                    <tr>
+                            <th>{{@index}}</th>
+                            <th>{{this.child_category}}</th>
+                            <th>{{this.created_at}}</th>
+                            <th>{{this.update_at}}</th>
+                            <th>
+                                <a href="/admin/childcategory/delete/{{this._id}}"><button class="btn btn-success">Delete</button></a>
+                            </th>
+                    </tr>
+                </tbody>
+            {{/each}}
+        </table>
+    </div>
+    
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>

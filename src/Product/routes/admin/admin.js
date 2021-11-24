@@ -1,19 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const adminController = require('../../app/controller/admin/AdminController');
+const productController = require('../../app/controller/admin/ProductController');
 const categoryController = require('../../app/controller/admin/CategoryController');
 
 const upload = require('../../multer')
 const authMiddleware = require('../../middlewares/middleware');
 
-router.get('/product/edit/:id', authMiddleware.checkAdmin, adminController.editProduct)
-router.get('/product/delete/:id', authMiddleware.checkAdmin, adminController.deleteProduct)
-router.post('/product/save',authMiddleware.checkAdmin, upload.single('product_image'), adminController.save)
-router.get('/product/add',authMiddleware.checkAdmin, adminController.add);
-router.get('/product',authMiddleware.checkAdmin, adminController.product);
+router.post('/product/update/:id', authMiddleware.checkAdmin, upload.single('product_image'), productController.update)
+router.get('/product/edit/:id', authMiddleware.checkAdmin, productController.editProduct)
+router.get('/product/delete/:id', authMiddleware.checkAdmin, productController.deleteProduct)
+router.post('/product/save',authMiddleware.checkAdmin, upload.single('product_image'), productController.save)
+router.get('/product/add',authMiddleware.checkAdmin, productController.add);
+router.get('/product',authMiddleware.checkAdmin, productController.product);
 
-router.get('/category/add', categoryController.add);
-router.post('/category/save', upload.single('category_image'), categoryController.save)
-router.get('/category', categoryController.category);
+router.post('/category/update/:id', authMiddleware.checkAdmin, upload.single('category_image'), categoryController.update)
+router.get('/category/edit/:id', authMiddleware.checkAdmin, categoryController.editCategory);
+router.get('/category/detele/:id', authMiddleware.checkAdmin, categoryController.deleteCategory);
+router.get('/category/add', authMiddleware.checkAdmin, categoryController.add);
+router.post('/category/save', authMiddleware.checkAdmin, upload.single('category_image'), categoryController.save)
+router.get('/category',authMiddleware.checkAdmin, categoryController.category);
+
+router.get('/childcategory/delete/:id', authMiddleware.checkAdmin, categoryController.deleteChild);
+router.post('/childcategory/save', authMiddleware.checkAdmin, categoryController.saveChild)
+router.get('/childcategory/:id',authMiddleware.checkAdmin, categoryController.childCategory);
+router.get('/childcategory/:id/add',authMiddleware.checkAdmin, categoryController.addchild);
 
 module.exports = router;
