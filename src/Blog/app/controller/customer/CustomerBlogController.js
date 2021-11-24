@@ -9,8 +9,14 @@ class CustomerBlogController {
 
     EditPost(req,res,next)
     {
-        blog.updateOne({postID: req.params.slug},{ $set: { username: req.query.username,caption: req.query.caption, image: req.query.image} },)
-        .then(tmp => res.redirect('/forum'))
+        if(req.query.caption.length<=0 && req.query.image.length<=0)
+        {
+            res.redirect('/forum/deletepost/'+ req.params.slug);
+        }
+        else{
+            blog.updateOne({postID: req.params.slug},{ $set: { username: req.query.username,caption: req.query.caption, image: req.query.image} },)
+            .then(tmp => res.redirect('/forum'))
+        }
     }
 
     DeleteComment(req,res,next)
