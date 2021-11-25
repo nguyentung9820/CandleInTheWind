@@ -45,30 +45,29 @@ class BlogController {
         .catch(next)
     }
 
-    StorePost(req,res,next)
-    {
-        const postID= req.body.username + Math.random().toString();
-        console.log(typeof(req.body.isAdmin))
-        if(req.body.isAdmin != 'true')
-        {  
-        const postData = req.body;
-        postData.postID = postID;
-        const savePost = new postPending(postData);
-        savePost.save();
-       }
-       else 
-       {
-        const savePost = new Post();
-        savePost.username = req.body.username;
-        savePost.caption = req.body.caption;
-        savePost.postID = postID;
-        savePost.image = req.body.image;
-        savePost.availableToCmt = true;       
-        savePost.save();                  
-       }
+    // StorePost(req,res,next)
+    // {
+    //     const postID= req.body.username + Math.random().toString();
+    //     if(req.params.slug != 'true')
+    //     {  
+    //     const postData = req.body;
+    //     postData.postID = postID;
+    //     const savePost = new postPending(postData);
+    //     savePost.save();
+    //    }
+    //    else 
+    //    {
+    //     const savePost = new Post();
+    //     savePost.username = req.body.username;
+    //     savePost.caption = req.body.caption;
+    //     savePost.postID = postID;
+    //     savePost.image = req.body.image;
+    //     savePost.availableToCmt = true;       
+    //     savePost.save();                  
+    //    }
        
-        res.redirect('/forum');
-    }
+    //     res.redirect('/forum');
+    // }
 
     Comment(req,res,next)
     {        
@@ -83,11 +82,11 @@ class BlogController {
         res.redirect('/forum');
     }
 
-    WriteNewPost(req,res,next)
-    {
-        const isAdmin=adminPermission;
-        res.render('templates/blog/writenewpost',{isAdmin})
-    }
+    // WriteNewPost(req,res,next)
+    // {
+    //     const isAdmin=adminPermission;
+    //     res.render('templates/blog/writenewpost',{isAdmin})
+    // }
     
     LockComment(req,res,next)
     {

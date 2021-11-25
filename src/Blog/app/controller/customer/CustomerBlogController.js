@@ -1,11 +1,48 @@
-// const { mutipleMongooseToObject } = require('../../../util/mongoose')
+const { multipleMongoObj } = require('../../../util/mongoose');
 const CommentModel = require("../../models/Comment");
 const blog = require("../../models/Blog");
-const AdminBlogController = require("../../controller/admin/AdminBlogController");
+const postPending = require("../../models/PostPending");
 const { mongoToObj } = require("../../../util/mongoose");
 class CustomerBlogController {
 
-    //[POST] /forum/customer/storepost
+    homepage(req,res,next)
+    {   
+        let savePosts = []
+        let arrPosts= []
+        blog.find({})
+        .then(posts =>
+        {        
+            savePosts= multipleMongoObj(posts)                  
+        })
+        .then( 
+            CommentModel.find({})
+             .then(cmt => {
+            cmt = multipleMongoObj(cmt)
+            savePosts.forEach(element => {
+                const cmts = []
+                const randomBoolean = Math.random() < 0.5;
+                cmt.forEach(id =>
+                    {
+                        if(id.postID==element.postID)
+                        cmts.push(id.caption)
+                    })
+                arrPosts.push({
+                    username: element.username,
+                    caption: element.caption,
+                    image: element.image,
+                    arrCmt: cmts,
+                    postID: element.postID,
+                    allowToCmT: element.availableToCmt,
+                    isAuthor: randomBoolean,
+                })
+            });
+        })
+        .then(tmp=> {      
+         res.render("templates/store/forumcustomer",{Posts: arrPosts, isAdmin: false})
+        })
+        )
+        .catch(next)
+    }
 
     EditPost(req,res,next)
     {
@@ -19,6 +56,12 @@ class CustomerBlogController {
         }
     }
 
+    WriteNewPost(req,res,next)
+    {
+        const isAdmin=false;
+        res.render('templates/customer/writenewpost',{isAdmin})
+    }
+
     DeleteComment(req,res,next)
     {
         CommentModel.findOne({_id: req.params.slug})
@@ -28,6 +71,16 @@ class CustomerBlogController {
              CommentModel.deleteOne({_id: req.params.slug})
             .then(tmp=> res.redirect('/forum/edit/' + value.postID))
         })
+    }
+
+    StorePost(req,res,next)
+    {
+        const postID= req.body.username + Math.random().toString();
+        const postData = req.body;
+        postData.postID = postID;
+        const savePost = new postPending(postData);
+        savePost.save();
+        res.redirect('/forum/customer/homepage');
     }
 }
 
