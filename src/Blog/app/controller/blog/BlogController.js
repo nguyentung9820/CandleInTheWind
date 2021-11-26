@@ -69,18 +69,18 @@ class BlogController {
     //     res.redirect('/forum');
     // }
 
-    Comment(req,res,next)
-    {        
-        if(req.body.comment.length>0)
-        {
-        const cmt = new CommentModel();
-        cmt.postID = req.params.slug;
-        cmt.commentID = req.params.slug;
-        cmt.caption = req.body.comment;
-        cmt.save();
-        }
-        res.redirect('/forum');
-    }
+    // Comment(req,res,next)
+    // {        
+    //     if(req.body.comment.length>0)
+    //     {
+    //     const cmt = new CommentModel();
+    //     cmt.postID = req.params.slug;
+    //     cmt.commentID = req.params.slug;
+    //     cmt.caption = req.body.comment;
+    //     cmt.save();
+    //     }
+    //     res.redirect('/forum/customer/homepage');
+    // }
 
     // WriteNewPost(req,res,next)
     // {
@@ -88,57 +88,57 @@ class BlogController {
     //     res.render('templates/blog/writenewpost',{isAdmin})
     // }
     
-    LockComment(req,res,next)
-    {
-        Post.updateOne({postID: req.params.slug},{$set:{availableToCmt: false}})
-        .then(
-            res.redirect('/forum')         
-        )
-    }
+    // LockComment(req,res,next)
+    // {
+    //     Post.updateOne({postID: req.params.slug},{$set:{availableToCmt: false}})
+    //     .then(
+    //         res.redirect('/forum')         
+    //     )
+    // }
 
-    OpenComment(req,res,next)
-    {
-        Post.updateOne({postID: req.params.slug},{$set:{availableToCmt: true}})
-        .then(
-            res.redirect('/forum')         
-        )
-    }
+    // OpenComment(req,res,next)
+    // {
+    //     Post.updateOne({postID: req.params.slug},{$set:{availableToCmt: true}})
+    //     .then(
+    //         res.redirect('/forum')         
+    //     )
+    // }
 
-    DeleteComment(req,res,next)
-    {
-        CommentModel.deleteOne({postID: req.params.slug})
-        .then(res.redirect('/forum'))
-    }
+    // DeleteComment(req,res,next)
+    // {
+    //     CommentModel.deleteOne({postID: req.params.slug})
+    //     .then(res.redirect('/forum'))
+    // }
 
-    EditPost(req,res,next)
-    {
-        Post.findOne({postID: req.params.slug})
-        .then(posts => 
-        { 
-            posts = mongoToObj(posts);
-            CommentModel.find({postID: req.params.slug})
-            .then(arrCmt => {            
-                res.render('templates/blog/edit',{
-                    username: posts.username,
-                    caption: posts.caption,
-                    image: posts.image,
-                    cmts: multipleMongoObj(arrCmt),
-                    postID: posts.postID,
-                    isAdmin: adminPermission,
-                    allowToCmT: posts.availableToCmt})            
-            })           
-        })
-    }
+    // EditPost(req,res,next)
+    // {
+    //     Post.findOne({postID: req.params.slug})
+    //     .then(posts => 
+    //     { 
+    //         posts = mongoToObj(posts);
+    //         CommentModel.find({postID: req.params.slug})
+    //         .then(arrCmt => {            
+    //             res.render('templates/blog/edit',{
+    //                 username: posts.username,
+    //                 caption: posts.caption,
+    //                 image: posts.image,
+    //                 cmts: multipleMongoObj(arrCmt),
+    //                 postID: posts.postID,
+    //                 isAdmin: adminPermission,
+    //                 allowToCmT: posts.availableToCmt})            
+    //         })           
+    //     })
+    // }
 
-    DeletePost(req,res,next)
-    {
-        CommentModel.deleteMany({postID: req.params.slug})
-        .then(cmt => {
-            Post.deleteOne({postID: req.params.slug})
-            .then(tmp => res.redirect('/forum'))
+    // DeletePost(req,res,next)
+    // {
+    //     CommentModel.deleteMany({postID: req.params.slug})
+    //     .then(cmt => {
+    //         Post.deleteOne({postID: req.params.slug})
+    //         .then(tmp => res.redirect('/forum'))
             
-        })      
-    }
+    //     })      
+    // }
 }
 
 module.exports = new BlogController;

@@ -2,7 +2,7 @@
 <div class="edit-comment-modal">
 
 
-<form method="GET" action="/forum/admin/edit/store/{{postID}}">
+<form method="GET" action="/forum/edit/{{postID}}">
   <div class="form-group">
       <label for="name">User Name</label>
        <button id='dongbaiviet' class="btn btn-danger button-deletecomment "><i class="fas fa-times-circle font-deletecomment"></i></button> 
@@ -27,16 +27,10 @@
     </div>
     
     <button type="submit" class="btn btn-primary" > Save </button>
-        {{#if this.allowToCmT}}
-          <button name="lock"class="btn btn-primary" >
-          <a href="/forum/admin/lockcomment/{{this.postID}}">Lock Comment</a>
+              <button name="lock"class="btn btn-primary" >
+          <a href="/forum/lockcomment/{{this.postID}}">Lock Comment</a>
           </button>  
-      {{else}}
-        {{!-- <button type="submit" class="btn btn-primary">Open Comment</button> --}}
-          <button name="open" class="btn btn-primary">
-            <a href="/forum/admin/opencomment/{{this.postID}}">Open Comment </a>
-          </button>
-        {{/if}}
+
            {{!-- <button name="edit-post" class="btn btn-primary" >
           <a href="/forum/lockcomment/{{this.postID}}">Quản lý bài viết </a>
           </button>   --}}
@@ -49,7 +43,7 @@
 
 {{#each cmts}}
 
-<form method="GET" action="/forum/admin/deletecomment/{{this._id}}">
+<form method="GET" action="/forum/customer/deletecomment/{{this._id}}">
 <input value="{{this.caption}}"></input>
 <button class="btn btn-danger"> Xóa </button>
 </form>

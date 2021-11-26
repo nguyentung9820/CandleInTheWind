@@ -43,6 +43,27 @@ class AdminBlogController {
         .catch(next)
     }
 
+    Comment(req,res,next)
+    {        
+        if(req.body.comment.length>0)
+        {
+        const cmt = new CommentModel();
+        cmt.postID = req.params.slug;
+        cmt.commentID = req.params.slug;
+        cmt.caption = req.body.comment;
+        cmt.save();
+        }
+        res.redirect('/forum/admin/homepage');
+    }
+
+    LockComment(req,res,next)
+    {
+        Post.updateOne({postID: req.params.slug},{$set:{availableToCmt: false}})
+        .then(
+            res.redirect('/forum/admin/edit/'+req.params.slug)         
+        )
+    }
+
     ShowPending(req,res,next)
     {
         postPending.find({})
@@ -50,9 +71,21 @@ class AdminBlogController {
         .catch(next)      
     }
 
+    EditPost(req,res,next)
+    {
+        if(req.query.caption.length<=0 && req.query.image.length<=0)
+        {
+            res.redirect('/forum/deletepost/'+ req.params.slug);
+        }
+        else{
+            Post.updateOne({postID: req.params.slug},{ $set: { username: req.query.username,caption: req.query.caption, image: req.query.image} },)
+            .then(tmp => res.redirect('/forum/admin/homepage'))
+        }
+    }
+
     ShowEditForm(req,res,next)
     {
-        blog.findOne({postID: req.params.slug})
+        Post.findOne({postID: req.params.slug})
         .then(posts => 
         { 
             posts = mongoToObj(posts);
@@ -64,7 +97,7 @@ class AdminBlogController {
                     image: posts.image,
                     cmts: multipleMongoObj(arrCmt),
                     postID: posts.postID,
-                    isAdmin: adminPermission,
+                    isAdmin: true,
                     allowToCmT: posts.availableToCmt})            
             })           
         })
@@ -74,9 +107,10 @@ class AdminBlogController {
     {
         postPending.deleteOne({postID: req.params.slug})
         .then(result => {           
-            res.redirect('/forum/admin')})
+            res.redirect('/forum/admin/homepage')})
         .catch(next)
     }
+
     StorePost(req,res,next)
     {
         const savePost = new Post();
@@ -90,6 +124,14 @@ class AdminBlogController {
         res.redirect('/forum/admin/homepage');              
     }
 
+    OpenComment(req,res,next)
+    {
+        Post.updateOne({postID: req.params.slug},{$set:{availableToCmt: true}})
+        .then(
+            res.redirect('/forum/admin/edit/' + req.params.slug)         
+        )
+    }
+
     WriteNewPost(req,res,next)
     {
         const isAdmin=true;
@@ -98,10 +140,10 @@ class AdminBlogController {
 
     ConfirmPost(req,res,next)
     {   
-         postPending.findOne({postID: req.params.slug})
+        postPending.findOne({postID: req.params.slug})
         .then(value =>   
        {
-        const savePost = new Blog();
+        const savePost = new Post();
         savePost.username = value.username;
         savePost.caption = value.caption;
         savePost.postID = value.postID;
@@ -113,7 +155,7 @@ class AdminBlogController {
         .catch(next)
 
         postPending.deleteOne({postID: req.params.slug})
-        .then(value=> res.redirect('/forum/admin'))
+        .then(value=> res.redirect('/forum/admin/homepage'))
         .catch(next)
      
     }

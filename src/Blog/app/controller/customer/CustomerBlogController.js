@@ -44,6 +44,14 @@ class CustomerBlogController {
         .catch(next)
     }
 
+    OpenComment(req,res,next)
+    {
+        blog.updateOne({postID: req.params.slug},{$set:{availableToCmt: true}})
+        .then(
+            res.redirect('/forum/customer/edit/' + req.params.slug)         
+        )
+    }
+
     ShowEditForm(req,res,next)
     {
         blog.findOne({postID: req.params.slug})
@@ -58,10 +66,22 @@ class CustomerBlogController {
                     image: posts.image,
                     cmts: multipleMongoObj(arrCmt),
                     postID: posts.postID,
-                    isAdmin: adminPermission,
                     allowToCmT: posts.availableToCmt})            
             })           
         })
+    }
+
+    Comment(req,res,next)
+    {        
+        if(req.body.comment.length>0)
+        {
+        const cmt = new CommentModel();
+        cmt.postID = req.params.slug;
+        cmt.commentID = req.params.slug;
+        cmt.caption = req.body.comment;
+        cmt.save();
+        }
+        res.redirect('/forum/customer/homepage');
     }
 
     EditPost(req,res,next)
@@ -72,8 +92,16 @@ class CustomerBlogController {
         }
         else{
             blog.updateOne({postID: req.params.slug},{ $set: { username: req.query.username,caption: req.query.caption, image: req.query.image} },)
-            .then(tmp => res.redirect('/forum'))
+            .then(tmp => res.redirect('/forum/customer/homepage'))
         }
+    }
+
+    DeletePost(req,res,next)
+    {
+        postPending.deleteOne({postID: req.params.slug})
+        .then(result => {           
+            res.redirect('/forum/customer/homepage')})
+        .catch(next)
     }
 
     WriteNewPost(req,res,next)
@@ -89,8 +117,16 @@ class CustomerBlogController {
             value = mongoToObj(value);
             console.log(value);
              CommentModel.deleteOne({_id: req.params.slug})
-            .then(tmp=> res.redirect('/forum/edit/' + value.postID))
+            .then(tmp=> res.redirect('/forum/customer/edit/' + value.postID))
         })
+    }
+
+    LockComment(req,res,next)
+    {
+        blog.updateOne({postID: req.params.slug},{$set:{availableToCmt: false}})
+        .then(
+            res.redirect('/forum/customer/edit/'+req.params.slug)         
+        )
     }
 
     StorePost(req,res,next)
