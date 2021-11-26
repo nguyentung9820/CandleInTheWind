@@ -118,7 +118,7 @@ class BlogController {
             posts = mongoToObj(posts);
             CommentModel.find({postID: req.params.slug})
             .then(arrCmt => {            
-                res.render('templates/store/customeredit',{
+                res.render('templates/blog/edit',{
                     username: posts.username,
                     caption: posts.caption,
                     image: posts.image,

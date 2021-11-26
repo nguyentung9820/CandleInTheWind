@@ -50,6 +50,26 @@ class AdminBlogController {
         .catch(next)      
     }
 
+    ShowEditForm(req,res,next)
+    {
+        blog.findOne({postID: req.params.slug})
+        .then(posts => 
+        { 
+            posts = mongoToObj(posts);
+            CommentModel.find({postID: req.params.slug})
+            .then(arrCmt => {            
+                res.render('templates/admin/adminedit',{
+                    username: posts.username,
+                    caption: posts.caption,
+                    image: posts.image,
+                    cmts: multipleMongoObj(arrCmt),
+                    postID: posts.postID,
+                    isAdmin: adminPermission,
+                    allowToCmT: posts.availableToCmt})            
+            })           
+        })
+    }
+
     DeletePost(req,res,next)
     {
         postPending.deleteOne({postID: req.params.slug})

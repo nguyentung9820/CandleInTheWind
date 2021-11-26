@@ -1,6 +1,7 @@
 <div class="edit-comment">
 <div class="edit-comment-modal">
 
+
 <form method="GET" action="/forum/customer/edit/{{postID}}">
   <div class="form-group">
       <label for="name">User Name</label>
@@ -30,6 +31,9 @@
           <a href="/forum/lockcomment/{{this.postID}}">Lock Comment</a>
           </button>  
 
+           {{!-- <button name="edit-post" class="btn btn-primary" >
+          <a href="/forum/lockcomment/{{this.postID}}">Quản lý bài viết </a>
+          </button>   --}}
             <button name="lock" id= "quanlybaiviet"class="btn btn-primary" >
           {{!-- <a href="/forum/lockcomment/{{this.postID}}"> </a>--}} Xóa bài viết
           </button>  

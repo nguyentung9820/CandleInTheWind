@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Candle In The Wind</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-
+ <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 {{!-- CSS blog --}}
 <style>
 
@@ -17,7 +20,7 @@
      background-clip: padding-box;
      padding: 0.375rem 0.75rem;
      width:100%;
-   height: 400px;
+  max-height: 2000px;
      border: 1px solid #ced4da;
     border-radius: 0.25rem;
     margin: 10px;
@@ -52,7 +55,7 @@ button[type="submit"] {
   cursor: pointer;
   float: right;
 }
-button[name="lock"]{
+button[name="lock"] {
    background-color: #ca3328;
   color: white;
   padding: 12px 20px;
@@ -62,6 +65,11 @@ button[name="lock"]{
   float: right;
   text-decoration: none;
 }
+button[name="lock"] a{
+  color:white;
+  text-decoration: none;
+}
+
 button[name="open"]{
   background-color:rgb(76, 212, 236);
   color: white;
@@ -71,15 +79,93 @@ button[name="open"]{
   cursor: pointer;
   float: left;
 }
+button[name="edit-post"] a ,button[name="open"] a{
+   text-decoration: none;
+}
 button[name="open"]:hover{
   text-decoration: none;
   
 }
+
 .form-group li{
    border-left: 6px solid rgb(71, 194, 23);
   background-color: rgb(228, 226, 226);
   margin:10px;
 }
+
+.edit-comment{
+
+ position: fixed;
+ top: 50px;
+ bottom: 0;
+ left: 0;
+ right: 0;
+
+}
+.edit-comment-modal{
+margin:auto;
+background-color:#58af9b;
+width:600px;
+height:600px;
+z-index: 1;
+border-radius: 7px;
+padding: 12px;
+}
+.button-deletecomment{
+float: right
+}
+
+.padding-name{
+  padding-top: 20px
+}
+
+
+#form-group-comment{
+display: none;
+ position: fixed;
+ top: 0;
+ bottom: 0;
+ left: 0;
+ right: 0;
+background-color:rgba(0, 0, 0, 0.4)
+}
+.form-group-comment-post{
+margin:auto;
+background-color:#58af9b;
+width: 1000px;
+height:800px;
+
+z-index: 1;
+border-radius: 7px;
+
+}
+.form-group-comment-post form{
+  margin: 20px;
+}
+.form-group-comment-btn{
+
+  margin-left: 450px;
+}
+button[name="edit-post"]{
+   background-color: rgb(9, 32, 102);
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  text-decoration: none;
+}
+.form-group img{
+width: 574px;
+    height: 242px;
+}
+
+button[name="edit-post"]:hover{
+  background-color:rgb(128, 140, 175);
+  text-decoration: none;
+}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap');
 </style>
   
   
@@ -90,9 +176,25 @@ button[name="open"]:hover{
           {{{body}}}
       </div>
     </div>
+    <script>
+
+document.getElementById('quanlybaiviet').onclick = function(){
+ document.getElementById('edit-comment').style.display ='block'
+
+
+};
+document.getElementById('dongbaiviet').onclick = function(){
+ document.getElementById('edit-comment').style.display ='none'
+
+
+};
+
+      </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </body>
   
 </html>
   
+
+    

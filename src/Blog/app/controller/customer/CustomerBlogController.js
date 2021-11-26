@@ -44,6 +44,26 @@ class CustomerBlogController {
         .catch(next)
     }
 
+    ShowEditForm(req,res,next)
+    {
+        blog.findOne({postID: req.params.slug})
+        .then(posts => 
+        { 
+            posts = mongoToObj(posts);
+            CommentModel.find({postID: req.params.slug})
+            .then(arrCmt => {            
+                res.render('templates/store/customeredit',{
+                    username: posts.username,
+                    caption: posts.caption,
+                    image: posts.image,
+                    cmts: multipleMongoObj(arrCmt),
+                    postID: posts.postID,
+                    isAdmin: adminPermission,
+                    allowToCmT: posts.availableToCmt})            
+            })           
+        })
+    }
+
     EditPost(req,res,next)
     {
         if(req.query.caption.length<=0 && req.query.image.length<=0)
@@ -59,7 +79,7 @@ class CustomerBlogController {
     WriteNewPost(req,res,next)
     {
         const isAdmin=false;
-        res.render('templates/customer/writenewpost',{isAdmin})
+        res.render('templates/store/writenewpost',{isAdmin})
     }
 
     DeleteComment(req,res,next)
