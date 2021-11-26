@@ -1,5 +1,5 @@
    <thead>
-      <h1>Home Page - ADMIN: {{isAdmin}}</h1>
+      <h1>Home Page</h1>
   </thead>
   <tbody>
     {{#each Posts}}
@@ -28,22 +28,41 @@
           <input name="comment" placeholder="Nhập đánh giá"> </input>
           <button type="submit" class="btn btn-primary" >Comment</button>
           </form>     
-      {{/if}}
 
-        <a href="/forum/edit/{{this.postID}}">Edit</a>
-         {{#if this.allowToCmT}}
-          <button name="lock"class="btn btn-primary" >
-          <a href="/forum/lockcomment/{{this.postID}}">Lock Comment</a>
-          </button>    
-         {{else}}
+      
+      {{else}}
         {{!-- <button type="submit" class="btn btn-primary">Open Comment</button> --}}
           <button name="open" class="btn btn-primary">
             <a href="/forum/opencomment/{{this.postID}}">Open Comment </a>
           </button>
-          {{/if}}
+      {{/if}}
+         <button name="edit-post" class="btn btn-primary">
+        <a href="/forum/edit/{{this.postID}}">Quản lý bài viết</a>
+        </button>
       </div>  
     {{/each}}
 
+{{#each cmts}}
+
+<form method="GET" action="/forum/customer/deletecomment/{{this._id}}">
+<input value="{{this.caption}}"></input>
+<button class="btn btn-danger"> <i class="far fa-trash-alt"></i> </button>
+</form>
+
+
+
+{{/each}}
+
 </tbody>
 
+<script>
+  const deleteBtns = document.querySelectorAll('.button-deletecomment')
 
+  function showPost() {
+
+  }
+
+  for (const deleteBtn of deleteBts) {
+    deleteBtn.addEventListener('click', showPost)
+  }
+</script>

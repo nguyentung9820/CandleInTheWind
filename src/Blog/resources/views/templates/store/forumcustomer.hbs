@@ -6,7 +6,7 @@
     <div class="form-css">
       <form method="POST" action="/forum/comment/{{this.postID}}">
         <div class="form-group">
-          <h1>User Name: {{this.username}}  - isAuthor {{isAuthor}}</h1>
+          <h1>User Name: {{this.username}}</h1>
         </div>
         <div class="form-group">
           <label for="caption">Nội dung bài viết tại đây</label>
@@ -28,25 +28,41 @@
           <input name="comment" placeholder="Nhập đánh giá"> </input>
           <button type="submit" class="btn btn-primary" >Comment</button>
           </form>     
-      {{/if}}
 
-
-        {{#if this.isAuthor}}
-        <a href="/forum/edit/{{this.postID}}">Edit</a>
-         {{#if this.allowToCmT}}
-          <button name="lock"class="btn btn-primary" >
-          <a href="/forum/lockcomment/{{this.postID}}">Lock Comment</a>
-          </button>    
-         {{else}}
+      
+      {{else}}
         {{!-- <button type="submit" class="btn btn-primary">Open Comment</button> --}}
           <button name="open" class="btn btn-primary">
             <a href="/forum/opencomment/{{this.postID}}">Open Comment </a>
           </button>
-          {{/if}}
-        {{/if}}
+      {{/if}}
+         <button name="edit-post" class="btn btn-primary">
+        <a href="/forum/edit/{{this.postID}}">Quản lý bài viết</a>
+        </button>
       </div>  
     {{/each}}
 
+{{#each cmts}}
+
+<form method="GET" action="/forum/customer/deletecomment/{{this._id}}">
+<input value="{{this.caption}}"></input>
+<button class="btn btn-danger"> <i class="far fa-trash-alt"></i> </button>
+</form>
+
+
+
+{{/each}}
+
 </tbody>
 
+<script>
+  const deleteBtns = document.querySelectorAll('.button-deletecomment')
 
+  function showPost() {
+
+  }
+
+  for (const deleteBtn of deleteBts) {
+    deleteBtn.addEventListener('click', showPost)
+  }
+</script>

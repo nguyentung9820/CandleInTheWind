@@ -1,0 +1,48 @@
+<div class="edit-comment">
+<div class="edit-comment-modal">
+
+<form method="GET" action="/forum/customer/edit/{{postID}}">
+  <div class="form-group">
+      <label for="name">User Name</label>
+       <button id='dongbaiviet' class="btn btn-danger button-deletecomment "><i class="fas fa-times-circle font-deletecomment"></i></button> 
+      <input type="text" class="form-control" id="name" name="username" value="{{username}}">
+    </div>
+    <div class="form-group">
+      <label for="caption">Hãy nhập nội dung bài viết </label>
+      <input type="text" class="form-control" id="caption" aria-describedby="caption" name="caption" value="{{caption}}">
+    </div>
+    <div class="form-group">
+          <img src="{{this.image}}"></img>
+        {{#each this.arrCmt}}
+            <li>
+              {{this}}
+            </li>
+          {{/each}}
+
+         </div>
+    <div class="form-group">
+      <label for="link">Link Image</label>
+      <input type="text" class="form-control" id="image" placeholder="URL" name="image" value="{{image}}">
+    </div>
+    
+    <button type="submit" class="btn btn-primary" > Save </button>
+              <button name="lock"class="btn btn-primary" >
+          <a href="/forum/lockcomment/{{this.postID}}">Lock Comment</a>
+          </button>  
+
+            <button name="lock" id= "quanlybaiviet"class="btn btn-primary" >
+          {{!-- <a href="/forum/lockcomment/{{this.postID}}"> </a>--}} Xóa bài viết
+          </button>  
+ </form>
+
+{{#each cmts}}
+
+<form method="GET" action="/forum/customer/deletecomment/{{this._id}}">
+<input value="{{this.caption}}"></input>
+<button class="btn btn-danger"> Xóa </button>
+</form>
+
+{{/each}}
+</div>
+
+</div>
