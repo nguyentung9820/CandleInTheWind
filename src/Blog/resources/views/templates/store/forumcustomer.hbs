@@ -22,13 +22,6 @@
 
          </div>
        </form>
-
-      {{#if this.allowToCmT}}
-          <form method="POST" action="/forum/customer/comment/{{this.postID}}">          
-          <input name="comment" placeholder="Nhập đánh giá"> </input>
-          <button type="submit" class="btn btn-primary" >Comment</button>
-          </form>     
-      {{/if}}
          <button name="edit-post" class="btn btn-primary">
         <a href="/forum/customer/edit/{{this.postID}}">Quản lý bài viết</a>
         </button>

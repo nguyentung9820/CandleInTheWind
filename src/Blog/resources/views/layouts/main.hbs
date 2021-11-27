@@ -24,8 +24,8 @@
      border: 1px solid #ced4da;
     border-radius: 0.25rem;
     margin: 10px;
-    background-color: #ccc;
-overflow: scroll;
+    background-color: #58af9b;
+overflow: auto;
 }
 .h1{
       font-size: 1.9rem;
@@ -71,13 +71,12 @@ button[name="lock"] a{
 }
 
 button[name="open"]{
-  background-color:rgb(76, 212, 236);
+  background-color:#037468!important;
   color: white;
   padding: 12px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  float: left;
 }
 button[name="edit-post"] a ,button[name="open"] a{
    text-decoration: none;
@@ -105,9 +104,10 @@ button[name="open"]:hover{
 .edit-comment-modal{
 margin:auto;
 background-color:#58af9b;
-width:600px;
-height:600px;
-z-index: 1;
+
+width: 750px;
+overflow: auto;
+    max-height: 800px;
 border-radius: 7px;
 padding: 12px;
 }
@@ -157,8 +157,10 @@ button[name="edit-post"]{
   text-decoration: none;
 }
 .form-group img{
-width: 574px;
-    height: 242px;
+max-width:330px;
+   display: block;
+    margin-left: auto;
+     margin-right: auto;
 }
 
 button[name="edit-post"]:hover{
@@ -214,6 +216,13 @@ height: 49px;
 
 #xoabaiviet-co{
   background-color: red !important;
+  color: white;
+  text-decoration: none;
+}
+
+#xoabaiviet-co a{
+  color: white;
+  text-decoration: none;
 }
 
 #xoabaiviet-co, #xoabaiviet-khong{
@@ -227,10 +236,222 @@ height: 49px;
   font-size: 20px;
   width: 120px;
   height: 60px;
-      margin-left: 150px;
-    margin-top: 60px;
-    cursor: pointer;
+  margin-left: 150px;
+  margin-top: 60px;
+  cursor: pointer;
 }
+.homepage{
+width: 100%;
+    background-color: black;
+    height: 77px;
+    color: rgb(245, 244, 243);
+        border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+
+    margin: 10px;
+}
+.edit-comment-modal-store {
+
+  height:333px
+}
+.newpost h1{
+   text-align: center;
+   color:white;
+}
+.newpost {
+background-color:black;
+width: 750px;
+margin: auto;
+height: 77px;
+    border-radius: 7px;
+      margin-bottom: 20px;
+}
+.homepage h1{
+    text-align: center;
+   color:white;
+}
+
+.btn-space {
+  margin: 0 12px 0 12px;
+}
+
+.btn-right {
+  float: right;
+}
+
+.btn-right a {
+  color:white;
+}
+
+
+#nav-container > nav > ul {
+  list-style-type: none;
+}
+body, p, h1, h2, h3, h4, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  max-height: 100vh;
+}
+#nav-container > nav > ul {
+  list-style-type: none;
+}
+
+
+/* NAVIGATION */
+#nav-background {
+  position: fixed;
+  top: 0;
+  z-index: 9000;
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  /*
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+  */
+}
+
+#nav-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 1000px;
+  margin: 0 auto;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#nav-header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+#nav-logo {
+  color: #444;
+  text-decoration: none;
+}
+#nav-logo:hover {
+  color: #666;
+}
+
+.nav-ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 700px;
+}
+
+.nav-ul > li {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-link {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  color: #444;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+
+.nav-link:hover {
+  background-color: #f1f1f1;
+}
+
+.active-link {
+  background-color: #f1f1f1;
+}
+
+/* END NAVIGATION */
+
+
+/* MOBILE MENU */
+@media screen and (max-width: 700px) {
+
+  #nav-container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  #nav-menu-button {
+    padding: 1rem;
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+
+  .nav-ul {
+    display: block;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow: auto;
+    direction: rtl;
+    transition: max-height 400ms;
+    max-height: 80vh;
+  }
+
+  .hide-ul {
+    max-height: 0;
+  }
+
+  .nav-link {
+    padding: 1rem 0;
+    font-size: 1.3rem;
+    border-bottom: 1px solid #f4f4f4;
+  }
+}
+/* END MOBILE MENU */
+
+/* DESKTOP MENU */
+@media screen and (min-width: 701px) {
+
+  #nav-menu-button {
+    display: none;
+  }
+
+  .nav-link {
+    flex-basis: auto;
+    padding: 1rem 1.5rem;
+  }
+}
+
+/* This moves the logo so that it's not touching the left side */
+@media screen and (max-width: 1040px) {
+  #nav-logo {
+    margin-left: 1rem;
+  }
+}
+/* END DESKTOP MENU */
 
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap');
