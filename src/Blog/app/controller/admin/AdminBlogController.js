@@ -83,6 +83,17 @@ class AdminBlogController {
         }
     }
 
+    DeleteComment(req,res,next)
+    {
+        CommentModel.findOne({_id: req.params.slug})
+        .then(value => {
+            value = mongoToObj(value);
+            console.log(value);
+             CommentModel.deleteOne({_id: req.params.slug})
+            .then(tmp=> res.redirect('/forum/admin/edit/' + value.postID))
+        })
+    }
+
     ShowEditForm(req,res,next)
     {
         Post.findOne({postID: req.params.slug})
@@ -103,12 +114,22 @@ class AdminBlogController {
         })
     }
 
-    DeletePost(req,res,next)
+    DeletePendingPost(req,res,next)
     {
         postPending.deleteOne({postID: req.params.slug})
         .then(result => {           
             res.redirect('/forum/admin/homepage')})
         .catch(next)
+    }
+
+    DeletePost(req,res,next)
+    {
+        CommentModel.deleteMany({postID: req.params.slug})
+        .then(cmt => {
+            Post.deleteOne({postID: req.params.slug})
+            .then(tmp => res.redirect('/forum/admin/homepage'))
+            
+        })      
     }
 
     StorePost(req,res,next)

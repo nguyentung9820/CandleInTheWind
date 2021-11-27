@@ -1,7 +1,6 @@
 <div class="edit-comment">
 <div class="edit-comment-modal">
 
-
 <form method="GET" action="/forum/admin/edit/store/{{postID}}">
   <div class="form-group">
       <label for="name">User Name</label>
@@ -26,25 +25,21 @@
       <input type="text" class="form-control" id="image" placeholder="URL" name="image" value="{{image}}">
     </div>
     
-    <button type="submit" class="btn btn-primary" > Save </button>
+    <button type="submit" class="btn btn-primary" >Save</button>
         {{#if this.allowToCmT}}
           <button name="lock"class="btn btn-primary" >
           <a href="/forum/admin/lockcomment/{{this.postID}}">Lock Comment</a>
           </button>  
       {{else}}
-        {{!-- <button type="submit" class="btn btn-primary">Open Comment</button> --}}
+
           <button name="open" class="btn btn-primary">
             <a href="/forum/admin/opencomment/{{this.postID}}">Open Comment </a>
           </button>
         {{/if}}
-           {{!-- <button name="edit-post" class="btn btn-primary" >
-          <a href="/forum/lockcomment/{{this.postID}}">Quản lý bài viết </a>
-          </button>   --}}
-            <button name="lock" id= "quanlybaiviet"class="btn btn-primary" >
-          {{!-- <a href="/forum/lockcomment/{{this.postID}}"> </a>--}} Xóa bài viết
-          </button>  
+
  </form>
 
+      <button name="lock" id= "quanlybaivietcomment"class="btn btn-primary">Xóa bài viết</button>  
 
 
 {{#each cmts}}
@@ -58,3 +53,23 @@
 </div>
 
 </div>
+
+<div class="xoabaiviet" id="xoabaivietcomment">
+  <div class="xoabaiviet-hienthi">
+    <div class="xoabaiviet-luachon">
+      <header class="xoabaiviet-tieude">
+      <p >Bạn có chắc chắn muốn xóa bài viết không?</p>
+      <button id='dongbaivietcomment' class="btn btn-danger button-deletecomment xoabaiviet-close">
+         <i class="fas fa-times-circle font-deletecomment"></i>
+      </button> 
+      </header>
+    <button id="xoabaiviet-co">
+        <a href="/forum/admin/deletepost/{{postID}}">
+      Có
+      </a></button>
+    <button id="xoabaiviet-khong">Không</button>
+    </div>
+  </div>
+</div>
+      
+

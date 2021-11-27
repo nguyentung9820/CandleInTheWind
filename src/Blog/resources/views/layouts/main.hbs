@@ -165,6 +165,74 @@ button[name="edit-post"]:hover{
   background-color:rgb(128, 140, 175);
   text-decoration: none;
 }
+
+.xoabaiviet{
+  position: fixed !important;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+display:none;
+  align-items: center;
+  justify-content: center;
+}
+
+.xoabaiviet-hienthi {
+  background-color: #f1f1f1;
+  width: 700px;
+  min-height: 300px;
+}
+
+
+.xoabaiviet-tieude {
+    height: 100px;
+    background: #009688;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #fff;
+}
+.xoabaiviet-tieude p{
+  width: 93%;
+  margin-top: 0;
+    margin-bottom: 1rem;
+    padding: 93px;
+}
+
+.xoabaiviet-close{
+width: 7%;
+margin-top: -50px;
+height: 49px;
+}
+
+.xoabaiviet-luachon{
+  margin: auto;
+}
+
+
+#xoabaiviet-co{
+  background-color: red !important;
+}
+
+#xoabaiviet-co, #xoabaiviet-khong{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  width: 120px;
+  height: 60px;
+      margin-left: 150px;
+    margin-top: 60px;
+    cursor: pointer;
+}
+
+
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap');
 </style>
   
@@ -178,16 +246,33 @@ button[name="edit-post"]:hover{
     </div>
     <script>
 
-document.getElementById('quanlybaiviet').onclick = function(){
+ /*document.getElementById('quanlybaiviet').onclick = function(){
  document.getElementById('edit-comment').style.display ='block'
 
 
-};
+}*/
+/*
 document.getElementById('dongbaiviet').onclick = function(){
  document.getElementById('edit-comment').style.display ='none'
 
+*/
+document.getElementById('quanlybaivietcomment').onclick = function(){
+ document.getElementById('xoabaivietcomment').style.display='flex';
+
 
 };
+
+document.getElementById('dongbaivietcomment').onclick = function(){
+ document.getElementById('xoabaivietcomment').style.display ='none'
+
+
+};
+document.getElementById('xoabaiviet-khong').onclick = function(){
+ document.getElementById('xoabaivietcomment').style.display ='none'
+
+
+};
+
 
       </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>

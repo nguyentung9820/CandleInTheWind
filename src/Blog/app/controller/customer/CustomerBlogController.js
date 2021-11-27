@@ -98,10 +98,12 @@ class CustomerBlogController {
 
     DeletePost(req,res,next)
     {
-        postPending.deleteOne({postID: req.params.slug})
-        .then(result => {           
-            res.redirect('/forum/customer/homepage')})
-        .catch(next)
+        CommentModel.deleteMany({postID: req.params.slug})
+        .then(cmt => {
+            Post.deleteOne({postID: req.params.slug})
+            .then(tmp => res.redirect('/forum/customer/homepage'))
+            
+        })      
     }
 
     WriteNewPost(req,res,next)

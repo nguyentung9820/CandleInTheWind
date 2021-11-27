@@ -28,13 +28,6 @@
           <input name="comment" placeholder="Nhập đánh giá"> </input>
           <button type="submit" class="btn btn-primary" >Comment</button>
           </form>     
-
-      
-      {{else}}
-        {{!-- <button type="submit" class="btn btn-primary">Open Comment</button> --}}
-          <button name="open" class="btn btn-primary">
-            <a href="/forum/opencomment/{{this.postID}}">Open Comment </a>
-          </button>
       {{/if}}
          <button name="edit-post" class="btn btn-primary">
         <a href="/forum/customer/edit/{{this.postID}}">Quản lý bài viết</a>
