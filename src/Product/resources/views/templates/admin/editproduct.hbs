@@ -35,10 +35,10 @@
             </div> 
             <div class="col-md-6">
                 <div class="form-group">
-                    <select id="{{this.product_category}}" class="form-control select-cate" name="product_type">         
+                    <select id="{{this.child_category}}" class="form-control select-cate" name="product_type">         
 {{/each}}
                         {{#each this.categories}}
-                        <option id="{{this.child_category}}">{{this.product_category}}</option>
+                        <option id="{{this.child_category}}">{{this.child_category}}</option>
                         {{/each}}
                     </select>                
                 </div>

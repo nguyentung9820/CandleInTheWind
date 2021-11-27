@@ -55,6 +55,7 @@ class ProductController {
         })   
     }
 
+
     async editProduct(req, res, next){
         var param = req.params.id;
         var category = [];
@@ -62,7 +63,7 @@ class ProductController {
         await Category.find({})
             .then(categories => {
                     categories = mutipleMongooseToObject(categories)
-                    category = categories
+                    category = [...categories]
                 }
             ).catch(next)
         await Product.find({_id: param})

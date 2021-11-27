@@ -5,6 +5,9 @@ const ChildCategory = require("../../models/ChildCategory")
 
 class CategoryController {
 
+    temp(res,req) {
+        res.json('abc')
+    }
     //Category
     category(req, res){
         Category.find({})
