@@ -12,33 +12,36 @@
 {{!-- CSS blog --}}
 <style>
 
-.form-css{
-    
-    font-size: 1.5rem;
-   transition: none;
-    display: block;
-     background-clip: padding-box;
-     padding: 0.375rem 0.75rem;
-     width:100%;
+.form-css {
+  font-size: 1.5rem;
+  transition: none;
+  display: block;
+  background-clip: padding-box;
+  padding: 0.375rem 0.75rem;
+  width:100%;
   max-height: 2000px;
-     border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    margin: 10px;
-    background-color: #58af9b;
-overflow: auto;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  margin: 10px;
+  background-color: #58af9b;
+  overflow: auto;
+  margin-top: 55px;
 }
-.h1{
-      font-size: 1.9rem;
-    font-weight: 500;
+
+.h1 {
+  font-size: 1.9rem;
+  font-weight: 500;
 }
-.form-group li{
-list-style: none;
-    font-size: 1.5rem;
-    font-weight: 300;
-    font-size: 1.5rem;
-    color: #666;
-    line-height: 2.2rem;
+
+.form-group li {
+  list-style: none;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-size: 1.5rem;
+  color: #666;
+  line-height: 2.2rem;
 }
+
 input[name=comment] {
   width: 100%;
   padding: 12px;
@@ -47,7 +50,7 @@ input[name=comment] {
   resize: vertical;
 }
 button[type="submit"] {
-   background-color: #04AA6D;
+  background-color: #04AA6D;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -55,8 +58,9 @@ button[type="submit"] {
   cursor: pointer;
   float: right;
 }
+
 button[name="lock"] {
-   background-color: #ca3328;
+  background-color: #ca3328;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -65,12 +69,13 @@ button[name="lock"] {
   float: right;
   text-decoration: none;
 }
-button[name="lock"] a{
+
+button[name="lock"] a {
   color:white;
   text-decoration: none;
 }
 
-button[name="open"]{
+button[name="open"] {
   background-color:#037468!important;
   color: white;
   padding: 12px 20px;
@@ -78,76 +83,78 @@ button[name="open"]{
   border-radius: 4px;
   cursor: pointer;
 }
-button[name="edit-post"] a ,button[name="open"] a{
+
+button[name="edit-post"] a ,button[name="open"] a {
    text-decoration: none;
 }
-button[name="open"]:hover{
+
+button[name="open"]:hover {
   text-decoration: none;
-  
 }
 
-.form-group li{
-   border-left: 6px solid rgb(71, 194, 23);
+.form-group li {
+  border-left: 6px solid rgb(71, 194, 23);
   background-color: rgb(228, 226, 226);
   margin:10px;
 }
 
-.edit-comment{
-
- position: fixed;
- top: 50px;
- bottom: 0;
- left: 0;
- right: 0;
-
-}
-.edit-comment-modal{
-margin:auto;
-background-color:#58af9b;
-
-width: 750px;
-overflow: auto;
-    max-height: 800px;
-border-radius: 7px;
-padding: 12px;
-}
-.button-deletecomment{
-float: right
+.edit-comment {
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.padding-name{
-  padding-top: 20px
+.edit-comment-modal {
+  margin:auto;
+  background-color:#58af9b;
+  margin-top: 0;
+  width: 750px;
+  overflow: auto;
+  max-height: 830px;
+  border-radius: 7px;
+  padding: 12px;
+}
+
+.button-deletecomment {
+  float: right;
+}
+
+.padding-name {
+  padding-top: 20px;
 }
 
 
-#form-group-comment{
-display: none;
- position: fixed;
- top: 0;
- bottom: 0;
- left: 0;
- right: 0;
-background-color:rgba(0, 0, 0, 0.4)
+#form-group-comment {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color:rgba(0, 0, 0, 0.4);
 }
-.form-group-comment-post{
-margin:auto;
-background-color:#58af9b;
-width: 1000px;
-height:800px;
 
-z-index: 1;
-border-radius: 7px;
-
+.form-group-comment-post {
+  margin:auto;
+  background-color:#58af9b;
+  width: 1000px;
+  height:800px;
+  z-index: 1;
+  border-radius: 7px;
 }
-.form-group-comment-post form{
+
+.form-group-comment-post form {
   margin: 20px;
 }
-.form-group-comment-btn{
 
+.form-group-comment-btn {
   margin-left: 450px;
 }
-button[name="edit-post"]{
-   background-color: rgb(9, 32, 102);
+
+button[name="edit-post"] {
+  background-color: rgb(9, 32, 102);
   color: white;
   padding: 12px 20px;
   border: none;
@@ -156,26 +163,27 @@ button[name="edit-post"]{
   float: right;
   text-decoration: none;
 }
-.form-group img{
-max-width:330px;
-   display: block;
-    margin-left: auto;
-     margin-right: auto;
+
+.form-group img {
+  max-width:330px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-button[name="edit-post"]:hover{
+button[name="edit-post"]:hover {
   background-color:rgb(128, 140, 175);
   text-decoration: none;
 }
 
-.xoabaiviet{
+.xoabaiviet {
   position: fixed !important;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.4);
-display:none;
+  display:none;
   align-items: center;
   justify-content: center;
 }
@@ -186,46 +194,46 @@ display:none;
   min-height: 300px;
 }
 
-
 .xoabaiviet-tieude {
-    height: 100px;
-    background: #009688;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    color: #fff;
+  height: 100px;
+  background: #009688;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #fff;
 }
-.xoabaiviet-tieude p{
+
+.xoabaiviet-tieude p {
   width: 93%;
   margin-top: 0;
-    margin-bottom: 1rem;
-    padding: 93px;
+  margin-bottom: 1rem;
+  padding: 93px;
 }
 
-.xoabaiviet-close{
-width: 7%;
-margin-top: -50px;
-height: 49px;
+.xoabaiviet-close {
+  width: 7%;
+  margin-top: -50px;
+  height: 49px;
 }
 
-.xoabaiviet-luachon{
+.xoabaiviet-luachon {
   margin: auto;
 }
 
 
-#xoabaiviet-co{
+#xoabaiviet-co {
   background-color: red !important;
   color: white;
   text-decoration: none;
 }
 
-#xoabaiviet-co a{
+#xoabaiviet-co a {
   color: white;
   text-decoration: none;
 }
 
-#xoabaiviet-co, #xoabaiviet-khong{
+#xoabaiviet-co, #xoabaiviet-khong {
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
@@ -240,39 +248,44 @@ height: 49px;
   margin-top: 60px;
   cursor: pointer;
 }
-.homepage{
-width: 100%;
-    background-color: black;
-    height: 77px;
-    color: rgb(245, 244, 243);
-        border: 1px solid #ced4da;
-    border-radius: 0.25rem;
 
-    margin: 10px;
+.homepage {
+  width: 100%;
+  background-color: black;
+  height: 77px;
+  color: rgb(245, 244, 243);
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  margin: 10px;
 }
-.edit-comment-modal-store {
 
+.edit-comment-modal-store {
   height:333px
 }
-.newpost h1{
-   text-align: center;
-   color:white;
+
+.newpost h1 {
+  text-align: center;
+  color:white;
+  line-height: 1.8;
 }
+
 .newpost {
-background-color:black;
-width: 750px;
-margin: auto;
-height: 77px;
-    border-radius: 7px;
-      margin-bottom: 20px;
+  background-color:black;
+  width: 750px;
+  margin: auto;
+  height: 77px;
+  border-radius: 7px;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
-.homepage h1{
-    text-align: center;
-   color:white;
+
+.homepage h1 {
+  text-align: center;
+  color:white;
 }
 
 .btn-space {
-  margin: 0 12px 0 12px;
+  margin: 0 6px 0 6px;
 }
 
 .btn-right {
@@ -283,92 +296,54 @@ height: 77px;
   color:white;
 }
 
-
-#nav-container > nav > ul {
-  list-style-type: none;
-}
-body, p, h1, h2, h3, h4, ul, li {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  max-height: 100vh;
-}
-#nav-container > nav > ul {
-  list-style-type: none;
-}
-
-
-/* NAVIGATION */
 #nav-background {
   position: fixed;
   top: 0;
   z-index: 9000;
+  height: 60px;
   width: 100%;
   background-color: white;
   border-bottom: 1px solid #ddd;
-  /*
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
-  */
 }
 
-#nav-container {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
+#nav-container{
   display: flex;
   max-width: 1000px;
-  margin: 0 auto;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 #nav-header {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
+  width: 30%;
 }
 
-#nav-logo {
-  color: #444;
-  text-decoration: none;
+#nav-header h1 {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1.8;
 }
-#nav-logo:hover {
-  color: #666;
+
+#nav-header h1 a  {
+  text-decoration:none;
+}
+
+#nav-container > nav > ul {
+  list-style-type: none;
+  margin: 0 auto;
 }
 
 .nav-ul {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   max-width: 700px;
 }
 
 .nav-ul > li {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
+  text-align: -webkit-match-parent;
 }
 
 .nav-link {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
+  flex-basis: auto;
+  padding: 1rem 1.5rem;
   flex: 1;
   color: #444;
   text-decoration: none;
@@ -376,83 +351,22 @@ body {
   font-size: 1.2rem;
   -webkit-transition: 200ms;
   transition: 200ms;
+  text-align: center;
+  height: 60px;
+}
+
+.nav-link >li > a {
+  margin-top:12px;
+}
+
+.active-link {
+  height: 60px;
+  background-color: #f1f1f1;
 }
 
 .nav-link:hover {
   background-color: #f1f1f1;
 }
-
-.active-link {
-  background-color: #f1f1f1;
-}
-
-/* END NAVIGATION */
-
-
-/* MOBILE MENU */
-@media screen and (max-width: 700px) {
-
-  #nav-container {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  #nav-menu-button {
-    padding: 1rem;
-    background-color: #f1f1f1;
-    cursor: pointer;
-  }
-
-  .nav-ul {
-    display: block;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    overflow: auto;
-    direction: rtl;
-    transition: max-height 400ms;
-    max-height: 80vh;
-  }
-
-  .hide-ul {
-    max-height: 0;
-  }
-
-  .nav-link {
-    padding: 1rem 0;
-    font-size: 1.3rem;
-    border-bottom: 1px solid #f4f4f4;
-  }
-}
-/* END MOBILE MENU */
-
-/* DESKTOP MENU */
-@media screen and (min-width: 701px) {
-
-  #nav-menu-button {
-    display: none;
-  }
-
-  .nav-link {
-    flex-basis: auto;
-    padding: 1rem 1.5rem;
-  }
-}
-
-/* This moves the logo so that it's not touching the left side */
-@media screen and (max-width: 1040px) {
-  #nav-logo {
-    margin-left: 1rem;
-  }
-}
-/* END DESKTOP MENU */
-
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap');
 </style>
@@ -467,31 +381,16 @@ body {
     </div>
     <script>
 
- /*document.getElementById('quanlybaiviet').onclick = function(){
- document.getElementById('edit-comment').style.display ='block'
 
-
-}*/
-/*
-document.getElementById('dongbaiviet').onclick = function(){
- document.getElementById('edit-comment').style.display ='none'
-
-*/
 document.getElementById('quanlybaivietcomment').onclick = function(){
  document.getElementById('xoabaivietcomment').style.display='flex';
-
-
 };
 
 document.getElementById('dongbaivietcomment').onclick = function(){
  document.getElementById('xoabaivietcomment').style.display ='none'
-
-
 };
 document.getElementById('xoabaiviet-khong').onclick = function(){
  document.getElementById('xoabaivietcomment').style.display ='none'
-
-
 };
 
 
