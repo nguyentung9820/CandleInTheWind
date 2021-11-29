@@ -1,24 +1,35 @@
-   <thead>
-     <div id="nav-background">
+{{!-- <div id="nav-background">
       <div id="nav-container">
         <header id="nav-header">
-          <h1><a href="" id="nav-logo">HOME</a></h1>
+          <h1><a href="#" id="nav-logo">HOME</a></h1>
        
         </header>
         <nav>
           <ul class="nav-ul hide-ul">
-            <li><a class="nav-link active-link" href="/forum/customer/homepage">Home</a></li>
+            <li><a class="nav-link" href="/forum/customer/homepage">Home</a></li>
             <li><a class="nav-link" href="/forum/customer/newpost">Thêm bài mới</a></li>
-           
+            <li><a class="nav-link" href="/forum/customer/pending">Duyệt bài đăng</a></li>
             {{!-- <li><a class="nav-link" href="#">About</a></li> --}}
           </ul>
         </nav>
       </div>
+    </div> --}}
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button w3-wide">LOGO</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+      <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i> TEAM</a>
+      <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i> WORK</a>
+      <a href="#pricing" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> PRICING</a>
+      <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
     </div>
-  </thead>
+
+
 <div class="edit-comment">
 <div class="edit-comment-modal">
-
 
 <form method="GET" action="/forum/customer/edit/store/{{postID}}">
   <div class="form-group">
@@ -44,35 +55,78 @@
       <input type="text" class="form-control" id="image" placeholder="URL" name="image" value="{{image}}">
     </div>
     
-    <button type="submit" class="btn btn-primary" > Save </button>
-               {{#if this.allowToCmT}}
-         <button name="lock"class="btn btn-primary" >
-          <a href="/forum/customer/lockcomment/{{this.postID}}">Lock Comment</a>
+    <button type="submit" class="btn btn-primary btn-space" >Save</button>
+
+ </form>
+        {{#if this.allowToCmT}}
+          <button name="lock" class="btn btn-primary btn-space btn-lockcomment" id="lockButton">
+                Lock Comment
           </button>  
-       {{else}}
-        {{!-- <button type="submit" class="btn btn-primary">Open Comment</button> --}}
-          <button name="open" class="btn btn-primary btn-right btn-space">
-            <a href="/forum/customer/opencomment/{{this.postID}}">Open Comment </a>
+      {{else}}
+        
+          <button name="open" class="btn btn-primary btn-space btn-right btn-opencomment">
+                Open Comment    
           </button>
         {{/if}}
-           {{!-- <button name="edit-post" class="btn btn-primary" >
-          <a href="/forum/lockcomment/{{this.postID}}">Quản lý bài viết </a>
-          </button>   --}}
-            <button name="lock" id= "quanlybaiviet"class="btn btn-primary" >
-          {{!-- <a href="/forum/lockcomment/{{this.postID}}"> </a>--}} Xóa bài viết
-          </button>  
- </form>
 
+      <button name="lock" id= "quanlybaivietcomment"class="btn btn-primary btn-space">Xóa bài viết</button>  
 
 
 {{#each cmts}}
-
-<form method="GET" action="/forum/customer/deletecomment/{{this._id}}">
 <input value="{{this.caption}}"></input>
-<button class="btn btn-danger"> Xóa </button>
-</form>
+<button class="btn btn-danger btn-deleteCmt"> Xóa </button>
+
+<script>
+ var btndeleteCmt = document.querySelector('.btn-deleteCmt')
+   btndeleteCmt.addEventListener('click',function(e){
+   window.location.replace("/forum/customer/deletecomment/{{this._id}}")
+ })  
+</script>
 
 {{/each}}
 </div>
 
 </div>
+
+<div class="xoabaiviet" id="xoabaivietcomment">
+  <div class="xoabaiviet-hienthi">
+    <div class="xoabaiviet-luachon">
+      <header class="xoabaiviet-tieude">
+      <p >Bạn có chắc chắn muốn xóa bài viết không?</p>
+      <button id='dongbaivietcomment' class="btn btn-danger button-deletecomment xoabaiviet-close">
+         <i class="fas fa-times-circle font-deletecomment"></i>
+      </button> 
+      </header>
+    <button id="xoabaiviet-co" class="btn btn-accecptdelete">Có</button>
+    <button id="xoabaiviet-khong" class="btn btn-canceldelete">Không</button>
+    </div>
+  </div>
+</div>
+      
+<script>
+ var btn = document.querySelector('.btn-lockcomment')
+ btn.addEventListener('click',function(e){
+   window.location.replace("/forum/customer/lockcomment/{{postID}}")
+ })
+</script>
+
+<script>
+ var btn1 = document.querySelector('.btn-opencomment')
+ btn1.addEventListener('click',function(e){
+   window.location.replace("/forum/customer/opencomment/{{postID}}")
+ })  
+</script>
+
+<script>
+ var btn2 = document.querySelector('.btn-accecptdelete')
+ btn2.addEventListener('click',function(e){
+   window.location.replace("/forum/customer/deletepost/{{postID}}")
+ })
+</script>
+
+<script>
+  var btn3= document.querySelector('.btn-canceldelete')
+ btn3.addEventListener('click',function(e){
+  
+ })
+</script>

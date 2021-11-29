@@ -35,8 +35,8 @@
             </li>
           {{/each}}
 
-         </div>
-       </form>
+        </div>
+      </form>
 
       {{#if this.allowToCmT}}
           <form method="POST" action="/forum/admin/comment/{{this.postID}}">          
@@ -45,10 +45,17 @@
           </form>     
 
       {{/if}}
-         <button name="edit-post" class="btn btn-primary">
-        <a href="/forum/admin/edit/{{this.postID}}">Quản lý bài viết</a>
+      {{!-- <a href="/forum/admin/edit/{{this.postID}}">
+        <button name="edit-post" class="btn btn-primary">
+          Quản lý bài viết
         </button>
-      </div>  
+      </a> --}}
+      <form action="/forum/admin/edit/{{this.postID}}">
+         <button name="edit-post" class="btn btn-primary">Quản lý bài viết</button>
+      </form>
+
+
+    </div>  
     {{/each}}
 
 {{#each cmts}}
@@ -64,7 +71,7 @@
 
 </tbody>
 
-<script>
+{{!-- <script>
   const deleteBtns = document.querySelectorAll('.button-deletecomment')
 
   function showPost() {
@@ -74,4 +81,4 @@
   for (const deleteBtn of deleteBts) {
     deleteBtn.addEventListener('click', showPost)
   }
-</script>
+</script> --}}

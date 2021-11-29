@@ -100,7 +100,7 @@ class CustomerBlogController {
     {
         CommentModel.deleteMany({postID: req.params.slug})
         .then(cmt => {
-            Post.deleteOne({postID: req.params.slug})
+            blog.deleteOne({postID: req.params.slug})
             .then(tmp => res.redirect('/forum/customer/homepage'))
             
         })      

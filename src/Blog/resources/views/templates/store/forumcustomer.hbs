@@ -43,26 +43,33 @@
           <form method="POST" action="/forum/customer/comment/{{this.postID}}">          
           <input name="comment" placeholder="Nhập đánh giá"> </input>
           <button type="submit" class="btn btn-primary" >Comment</button>
-          </form>     
+          </form>
       {{/if}}
-         <button name="edit-post" class="btn btn-primary">
-        <a href="/forum/customer/edit/{{this.postID}}">Quản lý bài viết</a>
-        </button>
-      </div>  
+            <form action="/forum/customer/edit/{{this.postID}}">
+         <button name="edit-post" class="btn btn-primary">Quản lý bài viết</button>
+          </form>
     {{/each}}
 
 {{#each cmts}}
+
 
 <form method="GET" action="/forum/customer/deletecomment/{{this._id}}">
 <input value="{{this.caption}}"></input>
 <button class="btn btn-danger"> <i class="far fa-trash-alt"></i> </button>
 </form>
 
-
-
 {{/each}}
 
 </tbody>
+
+{{!-- <script>
+ var btndeleteCmt = document.querySelector('.btn-deleteCmt')
+   btndeleteCmt.addEventListener('click',function(e){
+   window.location.replace("/forum/customer/deletecomment/{{this._id}}")
+ })   --}}
+
+
+{{!-- </script>
 
 <script>
   const deleteBtns = document.querySelectorAll('.button-deletecomment')
@@ -74,4 +81,4 @@
   for (const deleteBtn of deleteBts) {
     deleteBtn.addEventListener('click', showPost)
   }
-</script>
+</script> --}}
