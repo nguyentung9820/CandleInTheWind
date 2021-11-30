@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express();
-const port = 9220;
+const port = 9221;
 const path = require('path');
 
 const morgan = require('morgan');
@@ -11,6 +11,7 @@ const Product = require('./Product/index');
 const Customer = require('./Customer/index');
 app.use(Product)
 app.use(Customer)
+
 
 const db = require('./Config/database');
 db.connect();

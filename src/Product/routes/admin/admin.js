@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../../app/controller/admin/ProductController');
 const categoryController = require('../../app/controller/admin/CategoryController');
+const promotionController = require('../../app/controller/admin/PromotionController')
 
 const upload = require('../../multer')
 const authMiddleware = require('../../middlewares/middleware');
@@ -12,6 +13,15 @@ router.get('/product/delete/:id', authMiddleware.checkAdmin, productController.d
 router.post('/product/save',authMiddleware.checkAdmin, upload.single('product_image'), productController.save)
 router.get('/product/add',authMiddleware.checkAdmin, productController.add);
 router.get('/product',authMiddleware.checkAdmin, productController.product);
+
+router.post('/promotion/update/:id', authMiddleware.checkAdmin, promotionController.update)
+router.get('/promotion/getByProductId/:id', authMiddleware.checkAdmin, promotionController.getByProductId)
+router.get('/promotion/edit/:id', authMiddleware.checkAdmin, promotionController.editPromotion)
+router.get('/promotion/delete/:id', authMiddleware.checkAdmin, promotionController.deletePromotion)
+router.post('/promotion/save',authMiddleware.checkAdmin, promotionController.save)
+router.get('/promotion/add',authMiddleware.checkAdmin, promotionController.add);
+router.get('/promotion',authMiddleware.checkAdmin, promotionController.promotion);
+
 
 router.post('/category/update/:id', authMiddleware.checkAdmin, upload.single('category_image'), categoryController.update)
 router.get('/category/edit/:id', authMiddleware.checkAdmin, categoryController.editCategory);
