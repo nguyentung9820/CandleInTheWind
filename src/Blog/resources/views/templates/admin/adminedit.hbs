@@ -74,10 +74,10 @@
 
 {{#each cmts}}
 <input value="{{this.caption}}"></input>
-<button class="btn btn-danger btn-deleteCmt"> Xóa </button>
+<button class="btn btn-danger btn-deleteCmt-{{this._id}}"> Xóa </button>
 
 <script>
- var btndeleteCmt = document.querySelector('.btn-deleteCmt')
+ var btndeleteCmt = document.querySelector('.btn-deleteCmt-{{this._id}}')
    btndeleteCmt.addEventListener('click',function(e){
    window.location.replace("/forum/admin/deletecomment/{{this._id}}")
  })  
