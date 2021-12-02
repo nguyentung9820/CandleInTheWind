@@ -1,0 +1,44 @@
+   
+   <div>
+        <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>product_id</th>
+                    <th>promotion_description</th>
+                    <th>promotion_discount</th>
+                    <th>available</th>
+                    <th>expiredAt</th>
+                    <th>Action</th>
+            </thead>
+            {{#each promotions}}
+                <tbody>
+                    <tr>
+                            <th>{{@index}}</th>
+                            <th>{{this.product_id}}</th>
+                            <th>{{this.promotion_description}}</th>
+                            <th>{{this.promotion_discount}}</th>
+                            <th>{{this.available}}</th>
+                            <th>{{this.expiredAt}}</th>
+                            <th>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" 
+                                            type="button" 
+                                            id="dropdownMenuButton" 
+                                            data-toggle="dropdown" 
+                                            aria-haspopup="true" 
+                                            aria-expanded="false">
+                                            Action
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="/admin/product/edit/{{this._id}}">Edit</a>
+                                        <a class="dropdown-item"  href="/admin/product/delete/{{this._id}}">Delete</a>
+                                    </div>
+                                </div>
+                            </th>
+                    </tr>
+                </tbody>
+            {{/each}}
+        </table>
+    </div>
+    
