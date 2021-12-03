@@ -1,28 +1,23 @@
-   <a href="/admin/product/add"><button type="button" style="margin-bottom: 20px;" class="btn btn-success" action=>Add Product</button></a>
-   <a href="/admin/category"><button type="button" style="margin-bottom: 20px;" class="btn btn-warning" action=>Category</button></a>
-   <a href="/admin/attributeset"><button type="button" style="margin-bottom: 20px;" class="btn btn-success" action=>Attribute Set</button></a>
-
+   <a href="/management/customer/add"><button type="button" style="margin-bottom: 20px;" class="btn btn-success" action=>Add Customer</button></a>
    <div>
         <table class="table">
               <thead class="thead-dark">
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>SKU</th>
-                    <th >Description</th>
-                    <th>Price</th>
-                    <th>Type</th>
+                    <th>Email</th>
+                    <th>Group</th>
+                    <th>Create At</th>
                     <th>Action</th>
             </thead>
-            {{#each products}}
+            {{#each customers}}
                 <tbody>
                     <tr>
                             <th>{{@index}}</th>
-                            <th>{{this.product_name}}</th>
-                            <th>{{this.product_sku}}</th>
-                            <th>{{this.product_description}}</th>
-                            <th>{{this.product_price}}</th>
-                            <th>{{this.product_type}}</th>
+                            <th>{{this.username}}</th>
+                            <th>{{this.email}}</th>
+                            <th>{{this.customer_group}}</th>
+                            <th>{{this.createdAt}}</th>
                             <th>
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" 
@@ -35,7 +30,9 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="/admin/product/edit/{{this._id}}">Edit</a>
-                                        <a data-id="{{this.product_sku}}" class="dropdown-item"  href="/admin/product/delete/{{this._id}}">Delete</a>
+                                        <a data-id="{{this.username}}" class="dropdown-item"  href="/admin/product/delete/{{this._id}}">Delete</a>
+                                        <a class="dropdown-item"  href="/management/customer/view/{{this._id}}">View</a>
+
                                     </div>
                                 </div>
                             </th>

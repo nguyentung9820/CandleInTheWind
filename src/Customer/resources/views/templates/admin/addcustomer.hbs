@@ -1,0 +1,110 @@
+ <form class="form-group" id="product-form" method="POST" enctype="multipart/form-data" action="/management/customer/save" >
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group px-2 py-2 rounded-pill bg-white shadow-sm">
+                        <input id="upload" type="file" name="avatar" onchange="readURL(this);" class="form-control border-0">
+                        <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
+                        <div class="input-group-append">
+                            <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                        </div>
+                    </div>
+                    <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" placeholder="Enter User Name" id="username">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="email" name="email" class="form-control" placeholder="Enter Email" id="email">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="number" name="phone" class="form-control" placeholder="Enter phone number" id="phone">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <select class="form-control" name="customer_group">
+                        <option>Normal</option>
+                        <option>Favourite</option>
+                    </select>                
+                </div>
+            </div>{{!--  --}}
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" name="address" class="form-control" placeholder="Enter Address" id="address">
+                </div>
+            </div>
+            
+            <div class="col-md-2">
+                <div class="form-group" style="display: flex;">
+                    <input type="submit" name="Submit" id="insert" 
+                           class="btn btn-primary btn-sm"
+                           value="Save Customer">
+                    <a href="/management/customer"><button style="margin-left: 10px;" type="button" class="btn btn-secondary" action=>Cancel</button></a>
+                </div>
+            </div>
+        
+</form>
+<style>
+    #upload {
+    opacity: 0;
+}
+
+#upload-label {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+}
+
+.image-area {
+    border: 2px dashed black;
+    padding: 1rem;
+    position: relative;
+}
+
+.image-area::before {
+    content: 'Uploaded image result';
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    z-index: 1;
+}
+
+.image-area img {
+    z-index: 2;
+    position: relative;
+}
+
+</style>
+<script>
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#imageResult')
+                .attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(function () {
+    $('#upload').on('change', function () {
+        readURL(input);
+    });
+});
+
+
+</script>

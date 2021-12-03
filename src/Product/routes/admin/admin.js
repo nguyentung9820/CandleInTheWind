@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../../app/controller/admin/ProductController');
 const categoryController = require('../../app/controller/admin/CategoryController');
+const attributeController = require('../../app/controller/admin/AttributeController');
 
 const upload = require('../../multer')
 const authMiddleware = require('../../middlewares/middleware');
@@ -25,4 +26,15 @@ router.post('/childcategory/save', authMiddleware.checkAdmin, categoryController
 router.get('/childcategory/:id',authMiddleware.checkAdmin, categoryController.childCategory);
 router.get('/childcategory/:id/add',authMiddleware.checkAdmin, categoryController.addchild);
 
+router.post('/attributeset/update/:id', authMiddleware.checkAdmin, upload.single('attributeset_image'), attributeController.updateAttributeSet)
+router.get('/attributeset/edit/:id', authMiddleware.checkAdmin, attributeController.editAttributeSet);
+router.get('/attributeset/detele/:id', authMiddleware.checkAdmin, attributeController.deleteAttributeSet);
+router.get('/attributeset/add', authMiddleware.checkAdmin, attributeController.addAttributeSet);
+router.post('/attributeset/save', authMiddleware.checkAdmin, upload.single('attributeset_image'), attributeController.saveAttributeSet)
+router.get('/attributeset',authMiddleware.checkAdmin, attributeController.attributeSet);
+
+router.get('/attribute/delete/:id', authMiddleware.checkAdmin, attributeController.deleteAttribute);
+router.post('/attribute/save', authMiddleware.checkAdmin, attributeController.saveAttribute)
+router.get('/attribute/:id',authMiddleware.checkAdmin, attributeController.attribute);
+router.get('/attribute/:id/add',authMiddleware.checkAdmin, attributeController.addAttribute);
 module.exports = router;

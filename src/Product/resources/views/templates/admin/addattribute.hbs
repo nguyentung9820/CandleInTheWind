@@ -1,0 +1,18 @@
+ <form class="form-group" id="product-form" method="POST" action="/admin/attribute/save" >
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for='name'><strong>Attribute name</strong></label>
+                    <input type="text" name="attribute_name" class="form-control" placeholder="Enter Attribute Name" id="name">
+                </div>
+            </div>
+            <input type="hidden" value="{{this.attributeset}}" name="attributeset"/>
+            <div class="col-md-2">
+                <div class="form-group" style="display: flex;">
+                    <input type="submit" name="Submit" id="insert" 
+                           class="btn btn-primary btn-sm"
+                           value="Save Attribute">
+                    <a href="/admin/attributeset"><button style="margin-left: 10px;" type="button" class="btn btn-secondary" action=>Cancel</button></a>
+                </div>
+            </div>
+        
+</form>
