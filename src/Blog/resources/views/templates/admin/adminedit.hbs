@@ -69,8 +69,9 @@
           </button>
         {{/if}}
 
-      <button name="lock" id= "quanlybaivietcomment"class="btn btn-primary btn-space">Xóa bài viết</button>  
+         <button name="lock" id= "quanlybaivietcomment" class="btn btn-primary btn-space">Xóa bài viết</button>  
 
+      
 
 {{#each cmts}}
 <input value="{{this.caption}}"></input>
@@ -101,7 +102,9 @@
          <i class="fas fa-times-circle font-deletecomment"></i>
       </button> 
       </header>
-    <button id="xoabaiviet-co" class="btn btn-accecptdelete">Có</button>
+        <form action="/forum/admin/deletepost/{{postID}}" method="POST">
+          <button id="xoabaiviet-co" class="btn btn-accecptdelete">Có</button>
+        </form>
     <button id="xoabaiviet-khong" class="btn btn-canceldelete">Không</button>
     </div>
   </div>
@@ -127,12 +130,12 @@
  }
 </script>
 
-<script>
+{{!-- <script>
  var btn2 = document.querySelector('.btn-accecptdelete')
  btn2.addEventListener('click',function(e){
    window.location.replace("/forum/admin/deletepost/{{postID}}")
  })
-</script>
+</script> --}}
 
 <script>
   var btn3= document.querySelector('.btn-canceldelete')

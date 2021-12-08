@@ -14,7 +14,7 @@ router.get('/admin/pending', adminBlogController.ShowPending);
 router.get('/admin/edit/:slug', adminBlogController.ShowEditForm);
 router.post('/admin/edit/store/:slug', adminBlogController.EditPost);
 router.get('/admin/newpost', adminBlogController.WriteNewPost);
-router.get('/admin/deletepost/:slug', adminBlogController.DeletePost);
+router.post('/admin/deletepost/:slug', adminBlogController.DeletePost);
 router.post('/admin/store', adminBlogController.StorePost);
 //Admin - Manage Comment
 router.post('/admin/comment/:slug', adminBlogController.Comment);

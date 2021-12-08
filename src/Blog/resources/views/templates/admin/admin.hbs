@@ -18,11 +18,11 @@
   </thead>
 
 
-<div class="w3-container">
+{{!-- <div class="w3-container">
   <h2>Card Exampleasdasf</h2>
     <div class="w3-container w3-center w3-dark-grey">
       <h3>Friend Request</h3>
-      <img src="img_avatar3.png" alt="Avatar" style="width:80%">
+      {{!-- <img src="img_avatar3.png" alt="Avatar" style="width:80%"> --}}
       <h5>John Doe</h5>
 
       <div class="w3-section">
@@ -32,7 +32,7 @@
     </div>
 
   </div>
-</div>
+</div> --}}
 
 
 
@@ -58,8 +58,12 @@
          </td>
           <td>{{this.caption}}</td>
           <td>
-          <a href="/forum/admin/pending/delete/{{this.postID}}" class="btn btn-danger" data-ID="" data-toggle="modal" data-target="#delete-form">Delete</a>
-          <a href="/forum/admin/pending/store/{{this.postID}}" class="btn btn-primary" data-ID="" data-toggle="modal" data-target="#accept-form">Accept</a>
+            <form action="/forum/admin/pending/delete/{{this.postID}}" method="POST">
+               <button class="btn btn-danger">Delete</button>
+            </form> 
+            <form action="/forum/admin/pending/store/{{this.postID}}" method="POST">
+               <button class="btn btn-primary">Accept</button>
+            </form>
           </td>
         </tr>        
       </div>
@@ -67,3 +71,6 @@
   </tbody>
 </table>
 
+<script>
+
+</script>

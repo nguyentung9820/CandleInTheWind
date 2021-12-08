@@ -181,7 +181,7 @@ class AdminBlogController {
     {
         postPending.deleteOne({postID: req.params.slug})
         .then(result => {           
-            res.redirect('/forum/admin/homepage')})
+            res.redirect('/forum/admin/pending')})
         .catch(next)
     }
 
@@ -239,7 +239,7 @@ class AdminBlogController {
         .catch(next)
 
         postPending.deleteOne({postID: req.params.slug})
-        .then(value=> res.redirect('/forum/admin/homepage'))
+        .then(value=> res.redirect('/forum/admin/pending'))
         .catch(next)
      
     }
