@@ -1,9 +1,69 @@
 // const { mutipleMongooseToObject } = require('../../../util/mongoose')
 const Post = require("../../models/Blog")
+const app = require('express')();
+const http = require('http')
 const postPending = require("../../models/PostPending")
 const { multipleMongoObj } = require('../../../util/mongoose');
 const { mongoToObj } = require('../../../util/mongoose');
-const CommentModel = require("../../models/Comment")
+const CommentModel = require("../../models/Comment");
+const { response } = require("express");
+let dataCmt={}
+
+function r(request, response, callback,Id) {
+    if (request.method == 'POST') {
+        let savePost = {};
+        let newPostData= {};
+        let body = '';
+        request.on('data', function (data) {
+            body += data;
+            var post = JSON.parse(body);
+            console.log("body: " + body);
+            dataCmt=post;
+            callback(post);
+
+            if (body.length > 1e6)
+                request.connection.destroy();
+                  
+        });
+
+        request.on('end', function () {
+
+            Post.findOne({postID: Id})
+            .then(posts =>
+            {   savePost=posts         
+                mongoToObj(savePost) 
+
+                CommentModel.find({postID: Id})
+                .then(cmt => {
+               cmt = multipleMongoObj(cmt)                       
+               newPostData=   
+                 {
+                        username: savePost.username,
+                        caption: savePost.caption,
+                        image: savePost.image,
+                        Cmts: cmt,
+                        postID: savePost.postID,
+                        allowToCmT: savePost.availableToCmt,
+                    }
+                // console.log("newPostData: " +newPostData);  
+
+                // console.log("newPostData caption: " +newPostData.caption);  
+
+                // newPostData.Cmts.forEach(element => {
+                //     console.log("cmt : " +element.caption);  
+                // });
+                
+                const stringPost=JSON.stringify(newPostData);
+                response.write(stringPost);  
+                response.end();
+                })
+            }) 
+
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            });
+        
+    }
+}
 class AdminBlogController {
 
     homepage(req,res,next)
@@ -45,16 +105,19 @@ class AdminBlogController {
 
     Comment(req,res,next)
     {        
-        if(req.body.comment.length>0)
-        {
-        const cmt = new CommentModel();
-        cmt.postID = req.params.slug;
-        cmt.commentID = req.params.slug;
-        cmt.caption = req.body.comment;
-        cmt.save();
-        }
-        res.redirect('/forum/admin/homepage');
+    //      if(req.body.comment.length>0)
+    //      {     
+        r(req,res,function(cap){
+            const cmt = new CommentModel();
+            cmt.postID = req.params.slug;
+            cmt.commentID = req.params.slug;
+            cmt.caption = cap.caption;
+            cmt.save();
+        },req.params.slug)
+        // }
     }
+
+  
 
     LockComment(req,res,next)
     {
@@ -73,12 +136,12 @@ class AdminBlogController {
 
     EditPost(req,res,next)
     {
-        if(req.query.caption.length<=0 && req.query.image.length<=0)
+        if(req.body.caption.length<=0 && req.body.image.length<=0)
         {
             res.redirect('/forum/deletepost/'+ req.params.slug);
         }
         else{
-            Post.updateOne({postID: req.params.slug},{ $set: { username: req.query.username,caption: req.query.caption, image: req.query.image} },)
+            Post.updateOne({postID: req.params.slug},{ $set: { username: req.body.username,caption: req.body.caption, image: req.body.image} },)
             .then(tmp => res.redirect('/forum/admin/homepage'))
         }
     }
@@ -91,7 +154,7 @@ class AdminBlogController {
             console.log(value);
              CommentModel.deleteOne({_id: req.params.slug})
             .then(tmp=> res.redirect('/forum/admin/edit/' + value.postID))
-        })
+        })     
     }
 
     ShowEditForm(req,res,next)
@@ -183,6 +246,5 @@ class AdminBlogController {
 
 }
 
-
-
 module.exports = new AdminBlogController;
+

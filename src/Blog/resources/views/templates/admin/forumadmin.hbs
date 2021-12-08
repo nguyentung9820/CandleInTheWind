@@ -29,20 +29,23 @@
         </div>
         <div class="form-group">
           <img src="{{this.image}}"></img>
+     <div id="user-comment-{{this.postID}}">
         {{#each this.arrCmt}}
             <li>
               {{this}}
             </li>
           {{/each}}
+     </div>
 
         </div>
       </form>
 
       {{#if this.allowToCmT}}
-          <form method="POST" action="/forum/admin/comment/{{this.postID}}">          
-          <input name="comment" placeholder="Nhập đánh giá"> </input>
-          <button type="submit" class="btn btn-primary" >Comment</button>
-          </form>     
+        <form id="cmtForm">
+          <input name="comment-{{this.postID}}" id="cmtValue-{{this.postID}}" placeholder="Nhập đánh giá"> </input>
+        </form>
+          <button onclick="postComment('{{this.postID}}')" >Comment</button>
+   
 
       {{/if}}
       {{!-- <a href="/forum/admin/edit/{{this.postID}}">
@@ -60,16 +63,18 @@
 
 {{#each cmts}}
 
-<form method="GET" action="/forum/customer/deletecomment/{{this._id}}">
+{{!-- <form method="GET" action="/forum/customer/deletecomment/{{this._id}}">
 <input value="{{this.caption}}"></input>
 <button class="btn btn-danger"> <i class="far fa-trash-alt"></i> </button>
-</form>
+</form> --}}
 
 
 
 {{/each}}
 
 </tbody>
+
+
 
 {{!-- <script>
   const deleteBtns = document.querySelectorAll('.button-deletecomment')
@@ -82,3 +87,47 @@
     deleteBtn.addEventListener('click', showPost)
   }
 </script> --}}
+
+<script>
+  function postComment(postID) {
+    
+    const request = new XMLHttpRequest();
+
+    request.open("POST", "comment/"+postID);
+    request.onreadystatechange = function() {
+        if(this.readyState === 4 && this.status === 200) {
+            const value = this.responseText;
+           // console.log(value);
+        }
+    };
+    
+    const myCmt = document.getElementById("cmtValue-"+postID);
+    const formData = new FormData();
+    formData.append('caption',myCmt.value);
+    const jsonData=JSON.stringify({caption: myCmt.value})
+
+    request.onload = function(resData)
+    {
+      const postData=JSON.parse(this.responseText);
+      const parentComment= document.getElementById("user-comment-"+postID);
+      console.log("parentComment.childElementCount " +parentComment.childElementCount)
+      console.log("postData.Cmts.length " +postData.Cmts.length)
+      const inputElement= document.getElementById("cmtValue-"+postID);
+      inputElement.value='';
+
+      for (let num =parentComment.childElementCount;num<postData.Cmts.length;num++)
+     {
+
+      const newLiElement= document.createElement('li');
+      const textNode= document.createTextNode(postData.Cmts[num].caption);
+      newLiElement.append(textNode);
+      parentComment.appendChild(newLiElement); 
+
+     //  console.log("resData= " +cmt.caption); 
+       }
+            
+    }
+    request.send(jsonData);
+
+}
+</script>

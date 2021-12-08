@@ -31,7 +31,7 @@
 <div class="edit-comment">
 <div class="edit-comment-modal">
 
-<form method="GET" action="/forum/admin/edit/store/{{postID}}">
+<form method="POST" action="/forum/admin/edit/store/{{postID}}">
   <div class="form-group">
       <label for="name">User Name</label>
        <button id='dongbaiviet' class="btn btn-danger button-deletecomment "><i class="fas fa-times-circle font-deletecomment"></i></button> 
@@ -74,14 +74,18 @@
 
 {{#each cmts}}
 <input value="{{this.caption}}"></input>
-<button class="btn btn-danger btn-deleteCmt-{{this._id}}"> Xóa </button>
 
-<script>
+<form action = "/forum/admin/deletecomment/{{this._id}}" method = "POST">
+<button class="btn btn-danger btn-deleteCmt-{{this._id}}"> Xóa </button>
+<form>
+
+{{!-- <script>
  var btndeleteCmt = document.querySelector('.btn-deleteCmt-{{this._id}}')
-   btndeleteCmt.addEventListener('click',function(e){
-   window.location.replace("/forum/admin/deletecomment/{{this._id}}")
+   {{!-- btndeleteCmt.addEventListener('click',function(e){
+   window.location.replace("/forum/admin/deletecomment/{{this._id}}") --}}
+   btndeleteCmt
  })  
-</script>
+</script> --}}
 
 {{/each}}
 </div>
@@ -105,16 +109,22 @@
       
 <script>
  var btn = document.querySelector('.btn-lockcomment')
- btn.addEventListener('click',function(e){
+  if(btn!=null)
+ {
+   btn.addEventListener('click',function(e){
    window.location.replace("/forum/admin/lockcomment/{{postID}}")
  })
+ }
 </script>
 
 <script>
  var btn1 = document.querySelector('.btn-opencomment')
- btn1.addEventListener('click',function(e){
+ if(btn1!=null)
+ {
+   btn1.addEventListener('click',function(e){
    window.location.replace("/forum/admin/opencomment/{{postID}}")
  })  
+ }
 </script>
 
 <script>
@@ -129,4 +139,31 @@
  btn3.addEventListener('click',function(e){
   
  })
+</script>
+
+<script>
+  function deleteComment(commentId) {
+    
+    const request = new XMLHttpRequest();
+
+    request.open("DELETE", "deletecomment/"+commentId);
+    request.onreadystatechange = function() {
+        if(this.readyState === 4 && this.status === 200) {
+            const value = this.responseText;
+            console.log(value);
+        }
+    };
+    
+    const formData = new FormData();
+    formData.append('commentId',commentId);
+    const jsonData=JSON.stringify({Id: commentId})
+
+    console.log(jsonData);
+    request.onload = function(resData)
+    {
+
+    }
+    request.send(jsonData);
+
+}
 </script>

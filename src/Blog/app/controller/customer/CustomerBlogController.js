@@ -3,6 +3,61 @@ const CommentModel = require("../../models/Comment");
 const blog = require("../../models/Blog");
 const postPending = require("../../models/PostPending");
 const { mongoToObj } = require("../../../util/mongoose");
+function r(request, response, callback,Id) {
+    if (request.method == 'POST') {
+        let savePost = {};
+        let newPostData= {};
+        let body = '';
+        request.on('data', function (data) {
+            body += data;
+            var post = JSON.parse(body);
+            console.log("body: " + body);
+            dataCmt=post;
+            callback(post);
+
+            if (body.length > 1e6)
+                request.connection.destroy();
+                  
+        });
+
+        request.on('end', function () {
+
+            blog.findOne({postID: Id})
+            .then(posts =>
+            {   savePost=posts         
+                mongoToObj(savePost) 
+
+                CommentModel.find({postID: Id})
+                .then(cmt => {
+               cmt = multipleMongoObj(cmt)                       
+               newPostData=   
+                 {
+                        username: savePost.username,
+                        caption: savePost.caption,
+                        image: savePost.image,
+                        Cmts: cmt,
+                        postID: savePost.postID,
+                        allowToCmT: savePost.availableToCmt,
+                    }
+                // console.log("newPostData: " +newPostData);  
+
+                // console.log("newPostData caption: " +newPostData.caption);  
+
+                // newPostData.Cmts.forEach(element => {
+                //     console.log("cmt : " +element.caption);  
+                // });
+                
+                const stringPost=JSON.stringify(newPostData);
+                response.write(stringPost);  
+                response.end();
+                })
+            }) 
+
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            });
+        
+    }
+}
 class CustomerBlogController {
 
     homepage(req,res,next)
@@ -73,15 +128,13 @@ class CustomerBlogController {
 
     Comment(req,res,next)
     {        
-        if(req.body.comment.length>0)
-        {
-        const cmt = new CommentModel();
-        cmt.postID = req.params.slug;
-        cmt.commentID = req.params.slug;
-        cmt.caption = req.body.comment;
-        cmt.save();
-        }
-        res.redirect('/forum/customer/homepage');
+        r(req,res,function(cap){
+            const cmt = new CommentModel();
+            cmt.postID = req.params.slug;
+            cmt.commentID = req.params.slug;
+            cmt.caption = cap.caption;
+            cmt.save();
+        },req.params.slug)
     }
 
     EditPost(req,res,next)
