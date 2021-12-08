@@ -19,7 +19,7 @@ router.get('/promotion/getByProductId/:id', authMiddleware.checkAdmin, promotion
 router.get('/promotion/edit/:id', authMiddleware.checkAdmin, promotionController.editPromotion)
 router.get('/promotion/delete/:id', authMiddleware.checkAdmin, promotionController.deletePromotion)
 router.post('/promotion/save',authMiddleware.checkAdmin, promotionController.save)
-router.get('/promotion/add',authMiddleware.checkAdmin, promotionController.add);
+router.get('/promotion/add/:id',authMiddleware.checkAdmin, promotionController.add);
 router.get('/promotion',authMiddleware.checkAdmin, promotionController.promotion);
 
 

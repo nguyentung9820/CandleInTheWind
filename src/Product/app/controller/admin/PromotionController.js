@@ -35,6 +35,7 @@ class PromotionController {
                 res.send('fail')
             }              
     }
+    
     update(req,res){
         var body = req.body;
         var data = Object.assign(body);
