@@ -4,6 +4,7 @@ const Blog = new Schema({
     postID: {type: String},
     commentID: {type: String},
     caption: {type: String},
+    username: {type: String},
     createdAt: { type: Date, default: Date.now},
     updateAt: { type: Date, default: Date.now }
 });

@@ -74,21 +74,20 @@
       
 
 {{#each cmts}}
-<input value="{{this.caption}}"></input>
-
-<form action = "/forum/admin/deletecomment/{{this._id}}" method = "POST">
-<button class="btn btn-danger btn-deleteCmt-{{this._id}}"> Xóa </button>
-<form>
+  <input value="{{this.caption}}"></input>
+  <form action = "/forum/admin/deletecomment/{{this._id}}" method = "POST">
+    <button class="btn btn-danger"> Xóa </button>
+  </form>
+{{/each}}
 
 {{!-- <script>
- var btndeleteCmt = document.querySelector('.btn-deleteCmt-{{this._id}}')
+// var btndeleteCmt = document.querySelector('.btn-deleteCmt-{{this._id}}')
    {{!-- btndeleteCmt.addEventListener('click',function(e){
-   window.location.replace("/forum/admin/deletecomment/{{this._id}}") --}}
-   btndeleteCmt
+//   window.location.replace("/forum/admin/deletecomment/{{this._id}}") --}}
+   {{!-- btndeleteCmt
  })  
 </script> --}}
 
-{{/each}}
 </div>
 
 </div>

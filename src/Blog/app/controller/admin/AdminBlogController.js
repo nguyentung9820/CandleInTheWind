@@ -1,13 +1,17 @@
 // const { mutipleMongooseToObject } = require('../../../util/mongoose')
-const Post = require("../../models/Blog")
+const Post = require("../../models/Blog");
 const app = require('express')();
-const http = require('http')
-const postPending = require("../../models/PostPending")
+const http = require('http');
+const postPending = require("../../models/PostPending");
 const { multipleMongoObj } = require('../../../util/mongoose');
 const { mongoToObj } = require('../../../util/mongoose');
 const CommentModel = require("../../models/Comment");
 const { response } = require("express");
-let dataCmt={}
+let dataCmt={};
+let adminData = {
+    adminId: 1000,
+    adminName: ''
+}
 
 function r(request, response, callback,Id) {
     if (request.method == 'POST') {
@@ -68,6 +72,10 @@ class AdminBlogController {
 
     homepage(req,res,next)
     {   
+         var query = require('url').parse(req.url,true).query;
+         console.log(query.id);
+         console.log(query.username);
+
         let savePosts = []
         let arrPosts= []
         Post.find({})
@@ -97,7 +105,7 @@ class AdminBlogController {
             });
         })
         .then(tmp=> {      
-         res.render("templates/admin/forumadmin",{Posts: arrPosts, isAdmin: true})
+         res.render("templates/admin/forumadmin",{Posts: arrPosts, adminName: query.username})
         })
         )
         .catch(next)
@@ -112,6 +120,7 @@ class AdminBlogController {
             cmt.postID = req.params.slug;
             cmt.commentID = req.params.slug;
             cmt.caption = cap.caption;
+            cmt.username = cap.username;
             cmt.save();
         },req.params.slug)
         // }

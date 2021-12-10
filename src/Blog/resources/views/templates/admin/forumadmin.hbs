@@ -3,7 +3,6 @@
       <div id="nav-container">
         <header id="nav-header">
           <h1><a href="" id="nav-logo">HOME</a></h1>
-       
         </header>
         <nav>
           <ul class="nav-ul hide-ul">
@@ -17,6 +16,7 @@
     </div>
   </thead>
   <tbody>
+              <h1 id="nameuser"> {{adminName}} </h1>
     {{#each Posts}}
     <div class="form-css">
       <form method="POST" action="/forum/comment/{{this.postID}}">
@@ -100,11 +100,12 @@
            // console.log(value);
         }
     };
-    
+    const name='{{adminName}}';
     const myCmt = document.getElementById("cmtValue-"+postID);
     const formData = new FormData();
     formData.append('caption',myCmt.value);
-    const jsonData=JSON.stringify({caption: myCmt.value})
+    const jsonData=JSON.stringify({caption: myCmt.value,username: name})
+    console.log(name);
 
     request.onload = function(resData)
     {

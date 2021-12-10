@@ -74,16 +74,17 @@
 
 {{#each cmts}}
 <input value="{{this.caption}}"></input>
-<button class="btn btn-danger btn-deleteCmt-{{this._id}}"> Xóa </button>
-
-<script>
- var btndeleteCmt = document.querySelector('.btn-deleteCmt-{{this._id}}')
-   btndeleteCmt.addEventListener('click',function(e){
-   window.location.replace("/forum/customer/deletecomment/{{this._id}}")
- })  
-</script>
-
+  <form action = "/forum/customer/deletecomment/{{this._id}}" method = "POST">
+    <button class="btn btn-danger"> Xóa </button>
+  </form>
 {{/each}}
+
+{{!-- <script>
+// var btndeleteCmt = document.querySelector('.btn-deleteCmt-{{this._id}}')
+//   btndeleteCmt.addEventListener('click',function(e){
+//   window.location.replace("/forum/customer/deletecomment/{{this._id}}")
+ })  
+</script> --}}
 </div>
 
 </div>
@@ -97,7 +98,9 @@
          <i class="fas fa-times-circle font-deletecomment"></i>
       </button> 
       </header>
-    <button id="xoabaiviet-co" class="btn btn-accecptdelete">Có</button>
+        <form action="/forum/customer/deletepost/{{postID}}" method="POST">
+          <button id="xoabaiviet-co" class="btn btn-accecptdelete">Có</button>
+        </form>
     <button id="xoabaiviet-khong" class="btn btn-canceldelete">Không</button>
     </div>
   </div>
@@ -117,12 +120,12 @@
  })  
 </script>
 
-<script>
- var btn2 = document.querySelector('.btn-accecptdelete')
- btn2.addEventListener('click',function(e){
-   window.location.replace("/forum/customer/deletepost/{{postID}}")
+{{!-- <script>
+// var btn2 = document.querySelector('.btn-accecptdelete')
+// btn2.addEventListener('click',function(e){
+ //  window.location.replace("/forum/customer/deletepost/{{postID}}")
  })
-</script>
+</script> --}}
 
 <script>
   var btn3= document.querySelector('.btn-canceldelete')

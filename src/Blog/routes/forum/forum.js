@@ -29,7 +29,7 @@ router.get('/admin/homepage', adminBlogController.homepage);
 router.get('/customer/edit/:slug', customerBlogController.ShowEditForm);
 router.post('/customer/edit/store/:slug', customerBlogController.EditPost);
 router.get('/customer/newpost', customerBlogController.WriteNewPost);
-router.get('/customer/deletepost/:slug', customerBlogController.DeletePost);
+router.post('/customer/deletepost/:slug', customerBlogController.DeletePost);
 router.post('/customer/store', customerBlogController.StorePost);
 //Customer - Manage Comment
 router.post('/customer/comment/:slug', customerBlogController.Comment);
