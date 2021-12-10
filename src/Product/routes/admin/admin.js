@@ -14,9 +14,9 @@ router.post('/product/save',authMiddleware.checkAdmin, upload.single('product_im
 router.get('/product/add',authMiddleware.checkAdmin, productController.add);
 router.get('/product',authMiddleware.checkAdmin, productController.product);
 
+router.get('/category/delete/:id', authMiddleware.checkAdmin, categoryController.deleteCategory);
 router.post('/category/update/:id', authMiddleware.checkAdmin, upload.single('category_image'), categoryController.update)
 router.get('/category/edit/:id', authMiddleware.checkAdmin, categoryController.editCategory);
-router.get('/category/detele/:id', authMiddleware.checkAdmin, categoryController.deleteCategory);
 router.get('/category/add', authMiddleware.checkAdmin, categoryController.add);
 router.post('/category/save', authMiddleware.checkAdmin, upload.single('category_image'), categoryController.save)
 router.get('/category',authMiddleware.checkAdmin, categoryController.category);
@@ -28,7 +28,7 @@ router.get('/childcategory/:id/add',authMiddleware.checkAdmin, categoryControlle
 
 router.post('/attributeset/update/:id', authMiddleware.checkAdmin, upload.single('attributeset_image'), attributeController.updateAttributeSet)
 router.get('/attributeset/edit/:id', authMiddleware.checkAdmin, attributeController.editAttributeSet);
-router.get('/attributeset/detele/:id', authMiddleware.checkAdmin, attributeController.deleteAttributeSet);
+router.get('/attributeset/delete/:id', authMiddleware.checkAdmin, attributeController.deleteAttributeSet);
 router.get('/attributeset/add', authMiddleware.checkAdmin, attributeController.addAttributeSet);
 router.post('/attributeset/save', authMiddleware.checkAdmin, upload.single('attributeset_image'), attributeController.saveAttributeSet)
 router.get('/attributeset',authMiddleware.checkAdmin, attributeController.attributeSet);

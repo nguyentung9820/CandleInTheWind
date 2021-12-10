@@ -9,8 +9,12 @@ app.use(express.urlencoded());
 
 const Product = require('./Product/index');
 const Customer = require('./Customer/index');
+const Checkout = require('./Checkout/index');
+
 app.use(Product)
 app.use(Customer)
+app.use(Checkout)
+
 
 const db = require('./Config/database');
 db.connect();

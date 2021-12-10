@@ -31,7 +31,11 @@ class ProductController {
     }
     update(req,res){
         var body = req.body;
-        var file = {product_image: req.file.filename}
+        if(req.file != null){
+            var file = {product_image: req.file.filename}
+        }else {
+            file = {product_image: req.body.last_image}
+        }
         var data = Object.assign(body, file);
         if(req.params.id != null){
             Product.updateOne({_id: req.params.id}, data)
