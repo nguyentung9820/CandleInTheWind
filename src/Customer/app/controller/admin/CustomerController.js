@@ -43,6 +43,28 @@ class CustomerController {
             });
         })    
     }
+    editCustomer(req, res){
+        Customer.find({_id: req.params.id})
+        .then(customers => {
+            res.render('templates/admin/editcustomer', { 
+                customers: mutipleMongooseToObject(customers),
+                layout: 'customer' 
+            });
+        })    
+    }
+    updateCustomer(req,res){
+        var body = req.body;
+        if(req.file != null){
+            var file = {avatar: req.file.filename}
+        }else{
+            var file = {avatar: req.body.last_image}
+        }
+        var data = Object.assign(body, file);
+        if(req.params.id != null){
+            Customer.updateOne({_id: req.params.id}, data)
+            .then(() => res.redirect('/management/customer'))
+        }
+    }
 }
 
 

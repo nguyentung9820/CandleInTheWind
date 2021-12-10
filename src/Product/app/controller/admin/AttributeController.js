@@ -30,7 +30,11 @@ class AttributeController {
     }
     updateAttributeSet(req,res){
         var body = req.body;
-        var file = {attributeset_image: req.file.filename}
+        if(req.file != null){
+            var file = {attributeset_image: req.file.filename}
+        }else{
+            var file = {attributeset_image: req.body.last_image}
+        }
         var data = Object.assign(body, file);
         if(req.params.id != null){
             AttributeSet.updateOne({_id: req.params.id}, data)
@@ -50,9 +54,9 @@ class AttributeController {
         .catch(next);
     }
 
-    async editAttributeSet(req, res, next){
+    editAttributeSet(req, res, next){
         var param = req.params.id;
-        await AttributeSet.find({_id: param})
+        AttributeSet.find({_id: param})
         .then(attributeSets => {
             res.render('templates/admin/editattributeset', { 
                 attributeSets: mutipleMongooseToObject(attributeSets),

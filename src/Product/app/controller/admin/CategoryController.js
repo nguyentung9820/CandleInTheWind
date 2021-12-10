@@ -33,7 +33,11 @@ class CategoryController {
     }
     update(req,res){
         var body = req.body;
-        var file = {category_image: req.file.filename}
+        if(req.file != null){
+            var file = {category_image: req.file.filename}
+        }else{
+            var file = {category_image: req.body.last_image}
+        }
         var data = Object.assign(body, file);
         if(req.params.id != null){
             Category.updateOne({_id: req.params.id}, data)
