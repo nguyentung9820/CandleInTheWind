@@ -1,128 +1,139 @@
-   <thead>
-     <div id="nav-background">
-      <div id="nav-container">
-        <header id="nav-header">
-          <h1><a href="" id="nav-logo">HOME</a></h1>
-       
-        </header>
-        <nav>
-          <ul class="nav-ul hide-ul">
-            <li><a class="nav-link active-link" href="/forum/customer/homepage">Home</a></li>
-            <li><a class="nav-link" href="/forum/customer/newpost">Thêm bài mới</a></li>
-           
-            {{!-- <li><a class="nav-link" href="#">About</a></li> --}}
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </thead>
-  <tbody>
-    {{#each Posts}}
-    <div class="form-css">
-      <form method="POST" action="/forum/comment/{{this.postID}}">
-        <div class="form-group">
-          <h1>User Name: {{this.username}}</h1>
-        </div>
-        <div class="form-group">
-          <label for="caption">Nội dung bài viết tại đây</label>
-          <h6>{{this.caption}}</h6>
-        </div>
-        <div class="form-group">
-          <img src="{{this.image}}"></img>
-     <div id="user-comment-{{this.postID}}">
-        {{#each this.arrCmt}}
-            <li>
-              {{this}}
-            </li>
-          {{/each}}
-     </div>
-             
-         </div>
-       </form>
+<thead>
+  <div id="nav-background">
+    <div id="nav-container">
+      <header id="nav-header">
+        <h1><a href="" id="nav-logo">HOME</a></h1>
 
-      {{#if this.allowToCmT}}
-        <form id="cmtForm">
-          <input name="comment-{{this.postID}}" id="cmtValue-{{this.postID}}" placeholder="Nhập đánh giá"> </input>
-        </form>
-          <button onclick="postComment('{{this.postID}}')" >Comment</button>
-      {{/if}}
-            <form action="/forum/customer/edit/{{this.postID}}">
-         <button name="edit-post" class="btn btn-primary">Quản lý bài viết</button>
-          </form>
+      </header>
+      <nav>
+        <ul class="nav-ul hide-ul">
+          <li><a class="nav-link active-link" href="/forum/customer/homepage">Home</a></li>
+          <li><a class="nav-link" href="/forum/customer/newpost">Thêm bài mới</a></li>
+
+          {{!-- <li><a class="nav-link" href="#">About</a></li> --}}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</thead>
+<tbody>
+
+  {{#each Posts}}
+  <div class="form-css">
+    <form method="POST" action="/forum/comment/{{this.postID}}">
+      <div class="form-group">
+        <h1>User Name: {{this.username}}</h1>
+      </div>
+      <div class="form-group">
+        <label for="caption">Nội dung bài viết tại đây</label>
+        <h6>{{this.caption}}</h6>
+      </div>
+      <div class="form-group">
+        <img src="{{this.image}}"></img>
+        <div id="user-comment-{{this.postID}}">
+          {{#each this.arrCmt}}
+          <div>
+            <h2>
+              {{this.username}}
+            </h2>
+            <li>
+              {{this.caption}}
+            </li>
+          </div>
+          {{/each}}
+        </div>
+
+      </div>
+    </form>
+
+    {{#if this.allowToCmT}}
+    <form id="cmtForm">
+      <input name="comment-{{this.postID}}" id="cmtValue-{{this.postID}}" placeholder="Nhập đánh giá"> </input>
+    </form>
+    <button onclick="postComment('{{this.postID}}')">Comment</button>
+    {{/if}}
+    <form action="/forum/customer/edit/{{this.postID}}">
+      <button name="edit-post" class="btn btn-primary">Quản lý bài viết</button>
+    </form>
+      </div>
     {{/each}}
 
-{{#each cmts}}
+    {{#each cmts}}
 
 
-{{!-- <form method="GET" action="/forum/customer/deletecomment/{{this._id}}">
-<input value="{{this.caption}}"></input>
-<button class="btn btn-danger"> <i class="far fa-trash-alt"></i> </button>
-</form> --}}
+    {{!-- <form method="GET" action="/forum/customer/deletecomment/{{this._id}}">
+      <input value="{{this.caption}}"></input>
+      <button class="btn btn-danger"> <i class="far fa-trash-alt"></i> </button>
+    </form> --}}
 
-{{/each}}
+    {{/each}}
 
 </tbody>
 
-{{!-- <script>
- var btndeleteCmt = document.querySelector('.btn-deleteCmt')
-   btndeleteCmt.addEventListener('click',function(e){
-   window.location.replace("/forum/customer/deletecomment/{{this._id}}")
- })   --}}
+{{!--
+<script>
+  var btndeleteCmt = document.querySelector('.btn-deleteCmt')
+  btndeleteCmt.addEventListener('click', function (e) {
+    window.location.replace("/forum/customer/deletecomment/{{this._id}}")
+  })--}}
 
-
-{{!-- </script>
 
 <script>
   const deleteBtns = document.querySelectorAll('.button-deletecomment')
 
-  function showPost() {
+    function showPost() {
 
-  }
+    }
 
-  for (const deleteBtn of deleteBts) {
-    deleteBtn.addEventListener('click', showPost)
-  }
+    for (const deleteBtn of deleteBts) {
+      deleteBtn.addEventListener('click', showPost)
+    }
 </script> --}}
 <script>
-  function postComment(postID) {
-    
-    const request = new XMLHttpRequest();
-    const parentComment= document.getElementById("user-comment-"+postID);
-    const inputElement= document.getElementById("cmtValue-"+postID);
+    function postComment(postID) {
 
-    request.open("POST", "comment/"+postID);
-    request.onreadystatechange = function() {
-        if(this.readyState === 4 && this.status === 200) {
-            const value = this.responseText;
-           // console.log(value);
+      const request = new XMLHttpRequest();
+      const parentComment = document.getElementById("user-comment-" + postID);
+      const inputElement = document.getElementById("cmtValue-" + postID);
+
+      request.open("POST", "comment/" + postID);
+      request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+          const value = this.responseText;
+          // console.log(value);
         }
-    };
-    
-    const myCmt = document.getElementById("cmtValue-"+postID);
-    const formData = new FormData();
-    formData.append('caption',myCmt.value);
-    const jsonData=JSON.stringify({caption: myCmt.value})
+      };
+      const name = '{{customerName}}';
+      const myCmt = document.getElementById("cmtValue-" + postID);
+      const formData = new FormData();
+      formData.append('caption', myCmt.value);
+      formData.append('caption', name);
+      const jsonData = JSON.stringify({ caption: myCmt.value, username: name })
+      console.log(name);
 
-    request.onload = function(resData)
-    {
-      const postData=JSON.parse(this.responseText);
-      
-      console.log("parentComment.childElementCount " +parentComment.childElementCount)
-      console.log("postData.Cmts.length " +postData.Cmts.length)
-      inputElement.value='';
-      for (let num =parentComment.childElementCount;num<postData.Cmts.length;num++)
-     {
-      console.log(num);
-      const newLiElement= document.createElement('li');
-      const textNode= document.createTextNode(postData.Cmts[num].caption);
-      newLiElement.append(textNode);
-      parentComment.appendChild(newLiElement); 
+      request.onload = function (resData) {
+        const postData = JSON.parse(this.responseText);
 
-     //  console.log("resData= " +cmt.caption); 
-       }
-            
+        console.log("parentComment.childElementCount " + parentComment.childElementCount)
+        console.log("postData.Cmts.length " + postData.Cmts.length)
+        inputElement.value = '';
+        for (let num = parentComment.childElementCount; num < postData.Cmts.length; num++) {
+          const newDivElement = document.createElement('div');
+          const newNameElement = document.createElement('h2');
+          const newLiElement = document.createElement('li');
+          const textNode = document.createTextNode(postData.Cmts[num].caption);
+          const name = document.createTextNode(postData.Cmts[num].username);
+          newLiElement.append(textNode);
+          newNameElement.append(name);
+          newDivElement.appendChild(newNameElement);
+          newDivElement.appendChild(newLiElement);
+
+          parentComment.appendChild(newDivElement);
+          //  console.log("resData= " +cmt.caption); 
+        }
+
+      }
+      request.send(jsonData);
+
     }
-    request.send(jsonData);
-
-}
 </script>

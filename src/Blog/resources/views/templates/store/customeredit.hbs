@@ -74,7 +74,7 @@
 
 {{#each cmts}}
 <input value="{{this.caption}}"></input>
-  <form action = "/forum/customer/deletecomment/{{this._id}}" method = "POST">
+  <form action = "/forum/customer/deletecomment?idCmt={{this._id}}&idPost={{this.postID}}" method = "POST">
     <button class="btn btn-danger"> Xóa </button>
   </form>
 {{/each}}

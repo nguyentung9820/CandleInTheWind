@@ -31,9 +31,14 @@
           <img src="{{this.image}}"></img>
      <div id="user-comment-{{this.postID}}">
         {{#each this.arrCmt}}
-            <li>
-              {{this}}
-            </li>
+            <div>
+              <h2>
+                {{this.username}}
+              </h2>
+              <li>
+                {{this.caption}}
+              </li> 
+            </div>
           {{/each}}
      </div>
 
@@ -100,7 +105,7 @@
            // console.log(value);
         }
     };
-    const name='{{adminName}}';
+    const name='{{customerName}}';
     const myCmt = document.getElementById("cmtValue-"+postID);
     const formData = new FormData();
     formData.append('caption',myCmt.value);
@@ -119,10 +124,17 @@
       for (let num =parentComment.childElementCount;num<postData.Cmts.length;num++)
      {
 
+      const newDivElement= document.createElement('div');
+      const newNameElement= document.createElement('h2');
       const newLiElement= document.createElement('li');
       const textNode= document.createTextNode(postData.Cmts[num].caption);
+      const name= document.createTextNode(postData.Cmts[num].username);
       newLiElement.append(textNode);
-      parentComment.appendChild(newLiElement); 
+      newNameElement.append(name);
+      newDivElement.appendChild(newNameElement);
+      newDivElement.appendChild(newLiElement);
+
+      parentComment.appendChild(newDivElement); 
 
      //  console.log("resData= " +cmt.caption); 
        }

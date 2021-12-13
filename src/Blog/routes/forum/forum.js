@@ -20,7 +20,7 @@ router.post('/admin/store', adminBlogController.StorePost);
 router.post('/admin/comment/:slug', adminBlogController.Comment);
 router.get('/admin/lockcomment/:slug', adminBlogController.LockComment);
 router.get('/admin/opencomment/:slug', adminBlogController.OpenComment);
-router.post('/admin/deletecomment/:slug', adminBlogController.DeleteComment);
+router.post('/admin/deletecomment', adminBlogController.DeleteComment);
 
 router.get('/admin/homepage', adminBlogController.homepage);
 
@@ -35,7 +35,7 @@ router.post('/customer/store', customerBlogController.StorePost);
 router.post('/customer/comment/:slug', customerBlogController.Comment);
 router.get('/customer/lockcomment/:slug', customerBlogController.LockComment);
 router.get('/customer/opencomment/:slug', customerBlogController.OpenComment);
-router.post('/customer/deletecomment/:slug', customerBlogController.DeleteComment);
+router.post('/customer/deletecomment', customerBlogController.DeleteComment);
 
 router.get('/customer/homepage', customerBlogController.homepage);
 
