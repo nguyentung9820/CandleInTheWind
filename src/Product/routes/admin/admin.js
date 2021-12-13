@@ -14,10 +14,10 @@ router.post('/product/save',authMiddleware.checkAdmin, upload.single('product_im
 router.get('/product/add',authMiddleware.checkAdmin, productController.add);
 router.get('/product',authMiddleware.checkAdmin, productController.product);
 
-router.post('/promotion/update/:id', authMiddleware.checkAdmin, promotionController.update)
-router.get('/promotion/getByProductId/:id', authMiddleware.checkAdmin, promotionController.getByProductId)
-router.get('/promotion/edit/:id', authMiddleware.checkAdmin, promotionController.editPromotion)
-router.get('/promotion/delete/:id', authMiddleware.checkAdmin, promotionController.deletePromotion)
+router.post('/promotion/update/:Promotionid', authMiddleware.checkAdmin, promotionController.update)
+router.get('/promotion/getProductCode/:code', authMiddleware.checkAdmin, promotionController.getProductCode)
+router.get('/promotion/edit/:Promotionid', authMiddleware.checkAdmin, promotionController.editPromotion)
+router.get('/promotion/delete/:Promotionid', authMiddleware.checkAdmin, promotionController.deletePromotion)
 router.post('/promotion/save',authMiddleware.checkAdmin, promotionController.save)
 router.get('/promotion/add/:id',authMiddleware.checkAdmin, promotionController.add);
 router.get('/promotion',authMiddleware.checkAdmin, promotionController.promotion);
