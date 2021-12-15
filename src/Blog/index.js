@@ -9,6 +9,8 @@ app.engine('hbs', handlebars({
 app.set('view engine','hbs');
 app.set('views', path.join(__dirname, '/resources','views'));
 app.use(express.static(path.join(__dirname,'/public')));
+app.use(express.static(path.join(__dirname,'resources')));
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
+
 route(app);

@@ -33,7 +33,7 @@
 <h1 id="save-name">{{adminName}}</h1>
 <h1 id="save-id">{{idAmin}}</h1>
 
-<form method="POST" action="/forum/admin/edit/store?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}">
+<form method="POST" action="/forum/admin/edit/store?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}" enctype="multipart/form-data">
   <div class="form-group">
       <label for="name">User Name</label>
        <button id='dongbaiviet' class="btn btn-danger button-deletecomment "><i class="fas fa-times-circle font-deletecomment"></i></button> 
@@ -56,7 +56,12 @@
       <label for="link">Link Image</label>
       <input type="text" class="form-control" id="image" placeholder="URL" name="image" value="{{image}}">
     </div>
-    
+    {{!-- //POST IMAGE --}}
+    <div>
+        <label>Select your profile picture:</label>
+        <input type="file" name="profile-file" />
+    </div>
+  {{!-- // --}}
     <button type="submit" class="btn btn-primary btn-space" >Save</button>
 
  </form>
@@ -89,6 +94,11 @@
     }
   </script>
 {{/each}}
+
+
+<form method="POST" action="/forum/profile-upload-single" enctype="multipart/form-data">
+   
+</form>
 
 {{!-- <script>
 // var btndeleteCmt = document.querySelector('.btn-deleteCmt-{{this._id}}')

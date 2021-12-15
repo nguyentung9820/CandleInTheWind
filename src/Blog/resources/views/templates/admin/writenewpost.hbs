@@ -28,7 +28,7 @@
 <div class="edit-comment-modal edit-comment-modal-store ">
 
 
-<form method="POST" action="/forum/admin/store?id={{adminId}}&username={{adminName}}">
+<form method="POST" action="/forum/admin/store?id={{adminId}}&username={{adminName}}" enctype="multipart/form-data">
   <div class="form-group">
       <label for="name">User Name - Admin</label>
       <input type="text" class="form-control" id="name" name="username" autocomplete="off">
@@ -39,6 +39,10 @@
     <div class="form-group">
       <label for="link">Link Image</label>
       <input type="text" class="form-control" id="image" placeholder="URL" name="image" autocomplete="off">
+    </div>
+     <div>
+        <label>Select your profile picture:</label>
+        <input type="file" name="profile-file" />
     </div>
     <button type="submit" class="btn btn-primary" >Submit</button>
 </form>
