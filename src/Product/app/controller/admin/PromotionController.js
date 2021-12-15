@@ -78,7 +78,7 @@ class PromotionController {
         .catch(next);
     }
 
-    add(req, res){
+    async add(req, res){
         var product_name;
         await Product.find({_id: req.params.id}).
             then(product =>{
