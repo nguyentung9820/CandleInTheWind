@@ -61,9 +61,7 @@ function r(request, response, callback, Id) {
 class CustomerBlogController {
 
     homepage(req, res, next) {
-        var query = require('url').parse(req.url, true).query;
-        //  console.log(query.id);
-        //  console.log(query.username);
+        let query = require('url').parse(req.url, true).query;
 
         let savePosts = []
         let arrPosts = []
@@ -90,29 +88,42 @@ class CustomerBlogController {
                                 postID: element.postID,
                                 allowToCmT: element.availableToCmt,
                                 isAuthor: randomBoolean,
+                                customerName: query.username,
+                                customerId: query.id
                             })
                         });
                     })
                     .then(tmp => {
-                        res.render("templates/store/forumcustomer", { Posts: arrPosts, isAdmin: false, customerName: query.username })
+                        res.render("templates/store/forumcustomer", { Posts: arrPosts, isAdmin: false, customerName: query.username,customerId: query.id })
                     })
             )
             .catch(next)
     }
 
     OpenComment(req, res, next) {
-        blog.updateOne({ postID: req.params.slug }, { $set: { availableToCmt: true } })
-            .then(
-                res.redirect('/forum/customer/edit/' + req.params.slug)
-            )
+        let query = require('url').parse(req.url, true).query;
+        blog.findOne({ postID: query.idPost })
+        .then(value =>{
+            value = mongoToObj(value)
+            if(value!=null)
+            {blog.updateOne({ postID: query.idPost }, { $set: { availableToCmt: true } })
+                .then(
+                    res.redirect('/forum/customer/editpost?idPost=' + query.idPost+"&username="+query.username+"&customerId="+query.customerId)
+                )
+            }
+            else {
+                res.redirect('/forum/customer/editpost?idPost=' + query.idPost+"&username="+query.username+"&customerId="+query.customerId)
+            }
+        })
     }
 
     ShowEditForm(req, res, next) {
-        blog.findOne({ postID: req.params.slug })
+        let query = require('url').parse(req.url, true).query;
+        blog.findOne({ postID: query.idPost })
             .then(posts => {
                 posts = mongoToObj(posts);
                 if (posts != null) {
-                    CommentModel.find({ postID: req.params.slug })
+                    CommentModel.find({ postID: query.idPost })
                     .then(arrCmt => {
                         res.render('templates/store/customeredit', {
                             username: posts.username,
@@ -120,7 +131,9 @@ class CustomerBlogController {
                             image: posts.image,
                             cmts: multipleMongoObj(arrCmt),
                             postID: posts.postID,
-                            allowToCmT: posts.availableToCmt
+                            allowToCmT: posts.availableToCmt,
+                            customerName: query.username,
+                            idCustomer: query.customerId
                         })
                     })
                 }
@@ -144,16 +157,18 @@ class CustomerBlogController {
     }
 
     EditPost(req, res, next) {
-        if (req.query.caption.length <= 0 && req.query.image.length <= 0) {
+        let query = require('url').parse(req.url, true).query;
+        if (req.body.caption.length <= 0 && req.body.image.length <= 0) {
             res.redirect('/forum/deletepost/' + req.params.slug);
         }
         else {
             blog.updateOne({ postID: req.params.slug }, { $set: { username: req.query.username, caption: req.query.caption, image: req.query.image } },)
-                .then(tmp => res.redirect('/forum/customer/homepage'))
+                .then(tmp => res.redirect('/forum/customer/homepage?id='+query.customerId+"&username="+query.username))
         }
     }
 
     DeletePost(req, res, next) {
+        let query = require('url').parse(req.url, true).query;
         blog.findOne({ postID: req.params.slug })
             .then(value => {
                 value = mongoToObj(value);
@@ -161,51 +176,61 @@ class CustomerBlogController {
                     CommentModel.deleteMany({ postID: req.params.slug })
                         .then(cmt => {
                             blog.deleteOne({ postID: req.params.slug })
-                                .then(tmp => res.redirect('/forum/customer/homepage'))
+                                .then(tmp => res.redirect('/forum/customer/homepage?id='+query.adminId+"&username="+query.username))
                         })
                 }
-                else { res.redirect('/forum/customer/homepage') }
+                else { res.redirect('/forum/customer/homepage?id='+query.adminId+"&username="+query.username) }
             })
     }
 
     WriteNewPost(req, res, next) {
         const isAdmin = false;
-        res.render('templates/store/writenewpost', { isAdmin })
+        let query = require('url').parse(req.url, true).query;
+        res.render('templates/store/writenewpost', { isAdmin, customerName: query.username,customerId: query.id })
     }
 
     DeleteComment(req, res, next) {
         var query = require('url').parse(req.url, true).query;
-        console.log(query.idCmt);
-        console.log(query.idPost);
 
-        CommentModel.findOne({ _id: req.params.slug })
+        CommentModel.findOne({ _id: query.idCmt })
             .then(value => {
                 if (value != null) {
                     value = mongoToObj(value);
                     console.log(value);
-                    CommentModel.deleteOne({ _id: req.params.slug })
-                        .then(tmp => res.redirect('/forum/customer/edit/' + value.postID))
+                    CommentModel.deleteOne({ _id: query.idCmt })
+                        .then(tmp => res.redirect('/forum/customer/editpost?idPost=' + value.postID+"&username="+query.username+"&customerId="+query.customerId))
                 }
                 else {
-                    res.redirect('/forum/admin/edit/' + query.idPost)
+                    res.redirect('/forum/customer/editpost?idPost=' + value.postID+"&username="+query.username+"&customerId="+query.customerId)
                 }
             })
     }
 
     LockComment(req, res, next) {
-        blog.updateOne({ postID: req.params.slug }, { $set: { availableToCmt: false } })
-            .then(
-                res.redirect('/forum/customer/edit/' + req.params.slug)
-            )
+        let query = require('url').parse(req.url, true).query;
+        blog.findOne({ postID: query.idPost })
+        .then(value =>{
+            value = mongoToObj(value)
+            if(value!=null)
+            {blog.updateOne({ postID: query.idPost }, { $set: { availableToCmt: false } })
+                .then(
+                    res.redirect('/forum/customer/editpost?idPost=' + query.idPost+"&username="+query.username+"&customerId="+query.customerId)
+                )
+            }
+            else {
+                res.redirect('/forum/customer/editpost?idPost=' + query.idPost+"&username="+query.username+"&customerId="+query.customerId)
+            }
+        })
     }
 
     StorePost(req, res, next) {
+        let query = require('url').parse(req.url, true).query;
         const postID = req.body.username + Math.random().toString();
         const postData = req.body;
         postData.postID = postID;
         const savePost = new postPending(postData);
         savePost.save();
-        res.redirect('/forum/customer/homepage');
+        res.redirect('/forum/customer/homepage?id='+query.id+"&username="+query.username);
     }
 }
 

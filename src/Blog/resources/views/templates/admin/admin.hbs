@@ -7,10 +7,10 @@
         </header>
         <nav>
           <ul class="nav-ul hide-ul">
-            <li><a class="nav-link" href="/forum/admin/homepage">Home</a></li>
-            <li><a class="nav-link" href="/forum/admin/newpost">Thêm bài mới</a></li>
+            <li><a class="nav-link" href="/forum/admin/homepage?id={{adminId}}&username={{adminName}}">Home</a></li>
+            <li><a class="nav-link" href="/forum/admin/newpost?id={{adminId}}&username={{adminName}}">Thêm bài mới</a></li>
            
-            <li><a class="nav-link active-link" href="/forum/admin/pending">Duyệt bài đăng</a></li>
+            <li><a class="nav-link active-link" href="/forum/admin/pending?id={{adminId}}&username={{adminName}}">Duyệt bài đăng</a></li>
           </ul>
         </nav>
       </div>
@@ -34,7 +34,49 @@
   </div>
 </div> --}}
 
+<script>
+    function onDelete(postID) {
+      console.log("click");
+      const request = new XMLHttpRequest();
+      request.open("POST", "pending/delete?idPost=" +postID+"&id={{adminId}}&username={{adminName}}");
+      request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+          const value = this.responseText;
+          // console.log(value);
+        }
+      };
+      const jsonData = JSON.stringify({ id: postID, username: '{{adminName}}', userId: '{{adminId}}' })
+      console.log(name);
 
+      request.onload = function (resData) {
+        window.location.replace("/forum/admin/pending?id={{adminId}}&username={{adminName}}")
+      }
+      request.send(jsonData);
+
+    }
+</script>
+
+<script>
+    function onAccept(postID) {
+      console.log("click");
+      const request = new XMLHttpRequest();
+      request.open("POST", "pending/store?idPost=" +postID+"&id={{adminId}}&username={{adminName}}");
+      request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+          const value = this.responseText;
+          // console.log(value);
+        }
+      };
+      const jsonData = JSON.stringify({ id: postID, username: '{{adminName}}', userId: '{{adminId}}' })
+      console.log(name);
+
+      request.onload = function (resData) {
+        window.location.replace("/forum/admin/pending?id={{adminId}}&username={{adminName}}")
+      }
+      request.send(jsonData);
+
+    }
+</script>
 
 
 <table class="table mt-4">
@@ -58,12 +100,8 @@
          </td>
           <td>{{this.caption}}</td>
           <td>
-            <form action="/forum/admin/pending/delete/{{this.postID}}" method="POST">
-               <button class="btn btn-danger">Delete</button>
-            </form> 
-            <form action="/forum/admin/pending/store/{{this.postID}}" method="POST">
-               <button class="btn btn-primary">Accept</button>
-            </form>
+            <button class="btn btn-danger" onclick="onDelete('{{this.postID}}')">Delete</button>
+            <button class="btn btn-primary" onclick="onAccept('{{this.postID}}')">Accept</button>
           </td>
         </tr>        
       </div>
@@ -71,6 +109,4 @@
   </tbody>
 </table>
 
-<script>
 
-</script>

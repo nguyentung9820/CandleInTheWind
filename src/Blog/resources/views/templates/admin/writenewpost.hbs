@@ -7,10 +7,10 @@
         </header>
         <nav>
           <ul class="nav-ul hide-ul">
-            <li><a class="nav-link" href="/forum/admin/homepage">Home</a></li>
-            <li><a class="nav-link active-link" href="/forum/admin/newpost">Thêm bài mới</a></li>
+            <li><a class="nav-link" href="/forum/admin/homepage?id={{adminId}}&username={{adminName}}">Home</a></li>
+            <li><a class="nav-link active-link" href="/forum/admin/newpost?id={{adminId}}&username={{adminName}}">Thêm bài mới</a></li>
            
-            <li><a class="nav-link" href="/forum/admin/pending">Duyệt bài đăng</a></li>
+            <li><a class="nav-link" href="/forum/admin/pending?id={{adminId}}&username={{adminName}}">Duyệt bài đăng</a></li>
           </ul>
         </nav>
       </div>
@@ -28,7 +28,7 @@
 <div class="edit-comment-modal edit-comment-modal-store ">
 
 
-<form method="POST" action="/forum/admin/store">
+<form method="POST" action="/forum/admin/store?id={{adminId}}&username={{adminName}}">
   <div class="form-group">
       <label for="name">User Name - Admin</label>
       <input type="text" class="form-control" id="name" name="username" autocomplete="off">

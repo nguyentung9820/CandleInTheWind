@@ -30,8 +30,10 @@
 
 <div class="edit-comment">
 <div class="edit-comment-modal">
+<h1 id="save-name">{{customerName}}</h1>
+<h1 id="save-id">{{idCustomer}}</h1>
 
-<form method="GET" action="/forum/customer/edit/store/{{postID}}">
+<form method="POST" action="/forum/customer/edit/store?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}">
   <div class="form-group">
       <label for="name">User Name</label>
        <button id='dongbaiviet' class="btn btn-danger button-deletecomment "><i class="fas fa-times-circle font-deletecomment"></i></button> 
@@ -73,10 +75,20 @@
 
 
 {{#each cmts}}
-<input value="{{this.caption}}"></input>
-  <form action = "/forum/customer/deletecomment?idCmt={{this._id}}&idPost={{this.postID}}" method = "POST">
-    <button class="btn btn-danger"> Xóa </button>
-  </form>
+<h1>{{this.caption}} </h1>
+  {{!-- <form action = "/forum/admin/deletecomment?idCmt={{this._id}}&idPost={{this.postID}}" method = "POST">
+  </form> --}}
+    <button class="btn btn-danger" onclick="onDeteleteComment('{{this._id}}')"> Xóa </button>
+
+  <script>
+    function onDeteleteComment(id)
+    {
+      let saveName=document.getElementById("save-name").textContent;
+      let saveId=document.getElementById("save-id").textContent;
+      console.log(saveName)
+      window.location.replace("/forum/customer/deletecomment?idCmt="+id+"&idPost={{this.postID}}&username="+saveName+"&customerId="+saveId)
+    }
+  </script>
 {{/each}}
 
 {{!-- <script>
@@ -98,7 +110,7 @@
          <i class="fas fa-times-circle font-deletecomment"></i>
       </button> 
       </header>
-        <form action="/forum/customer/deletepost/{{postID}}" method="POST">
+        <form action="/forum/customer/deletepost?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}" method="POST">
           <button id="xoabaiviet-co" class="btn btn-accecptdelete">Có</button>
         </form>
     <button id="xoabaiviet-khong" class="btn btn-canceldelete">Không</button>
@@ -109,14 +121,14 @@
 <script>
  var btn = document.querySelector('.btn-lockcomment')
  btn.addEventListener('click',function(e){
-   window.location.replace("/forum/customer/lockcomment/{{postID}}")
+   window.location.replace("/forum/customer/lockcomment?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}")
  })
 </script>
 
 <script>
  var btn1 = document.querySelector('.btn-opencomment')
  btn1.addEventListener('click',function(e){
-   window.location.replace("/forum/customer/opencomment/{{postID}}")
+   window.location.replace("/forum/customer/opencomment?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}")
  })  
 </script>
 
@@ -133,13 +145,3 @@
   
  })
 </script>
-
-{{!-- <script>
- var btndeleteCmt = document.querySelectorAll('.btn-deleteCmt')
- for(var i=0;i<btndeleteCmt.length;i++)
-  { var Id=
-   btndeleteCmt[i].addEventListener('click',function(e){
-   window.location.replace("/forum/customer/deletecomment/{{this._id}}")
-  }
- })  
-</script> --}}

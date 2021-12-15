@@ -1,20 +1,15 @@
 // const { mutipleMongooseToObject } = require('../../../util/mongoose')
 const Post = require("../../models/Blog");
-const app = require('express')();
-const http = require('http');
+//const app = require('express')();
+//const http = require('http');
 const postPending = require("../../models/PostPending");
 const { multipleMongoObj } = require('../../../util/mongoose');
 const { mongoToObj } = require('../../../util/mongoose');
 const CommentModel = require("../../models/Comment");
-const { response } = require("express");
+//const { response } = require("express");
 let dataCmt = {};
-let adminData = {
-    adminId: '',
-    adminName: ''
-}
-let adminHomepageURL='';
 
-function r(request, response, callback, Id) {
+function ajaxcmt(request, response, callback, Id) {
     if (request.method == 'POST') {
         let savePost = {};
         let newPostData = {};
@@ -50,13 +45,6 @@ function r(request, response, callback, Id) {
                                 postID: savePost.postID,
                                 allowToCmT: savePost.availableToCmt,
                             }
-                            // console.log("newPostData: " +newPostData);  
-
-                            // console.log("newPostData caption: " +newPostData.caption);  
-
-                            // newPostData.Cmts.forEach(element => {
-                            //     console.log("cmt : " +element.caption);  
-                            // });
 
                             const stringPost = JSON.stringify(newPostData);
                             response.write(stringPost);
@@ -69,10 +57,34 @@ function r(request, response, callback, Id) {
 
     }
 }
+
+function ajaxpending(request, response, callback, query) {
+    if (request.method == 'POST') {
+        let body = '';
+        request.on('data', function (data) {
+            body += data;
+            var data = JSON.parse(body);
+            callback(data.id);
+
+            if (body.length > 1e6)
+                request.connection.destroy();
+
+        });
+
+        request.on('end', function () {
+            const stringPost = JSON.stringify(query);
+            response.write(stringPost);
+            response.end();
+        });
+        response.writeHead(200, { 'Content-Type': 'application/json' });
+
+    }
+}
+
 class AdminBlogController {
-    constructor(id,username){
-        this.id=id;
-        this.username=username;
+    constructor(id, username) {
+        this.id = id;
+        this.username = username;
     }
     homepage(req, res, next) {
         let query = require('url').parse(req.url, true).query;
@@ -100,6 +112,8 @@ class AdminBlogController {
                                 arrCmt: cmts,
                                 postID: element.postID,
                                 allowToCmT: element.availableToCmt,
+                                adminName: query.username,
+                                adminId: query.id
                             })
                         });
                     })
@@ -111,15 +125,14 @@ class AdminBlogController {
     }
 
     Comment(req, res, next) {
-        r(req, res, function (cap) {
-            if(cap.caption.length>0)
-            {
-            const cmt = new CommentModel();
-            cmt.postID = req.params.slug;
-            cmt.commentID = req.params.slug;
-            cmt.caption = cap.caption;
-            cmt.username = cap.username;
-            cmt.save();
+        ajaxcmt(req, res, function (cap) {
+            if (cap.caption.length > 0) {
+                const cmt = new CommentModel();
+                cmt.postID = req.params.slug;
+                cmt.commentID = req.params.slug;
+                cmt.caption = cap.caption;
+                cmt.username = cap.username;
+                cmt.save();
             }
         }, req.params.slug)
     }
@@ -127,32 +140,46 @@ class AdminBlogController {
 
 
     LockComment(req, res, next) {
-        Post.updateOne({ postID: req.params.slug }, { $set: { availableToCmt: false } })
-            .then(
-                res.redirect('/forum/admin/edit/' + req.params.slug)
-            )
+        let query = require('url').parse(req.url, true).query;
+        Post.findOne({ postID: query.idPost })
+            .then(value => {
+                value = mongoToObj(value)
+                if (value != null) {
+                    Post.updateOne({ postID: query.idPost }, { $set: { availableToCmt: false } })
+                    .then(
+                        res.redirect('/forum/admin/editpost?idPost=' + query.idPost + "&username=" + query.username + "&adminId=" + query.adminId)
+                    )
+                }
+                else {
+                    res.redirect('/forum/admin/editpost?idPost=' + query.idPost + "&username=" + query.username + "&adminId=" + query.adminId)
+                }
+            })
     }
 
     ShowPending(req, res, next) {
+
+        let query = require('url').parse(req.url, true).query;
         postPending.find({})
-            .then(pending => res.render('templates/admin/admin', { pending: multipleMongoObj(pending) }))
+            .then(pending => {
+                res.render('templates/admin/admin', { pending: multipleMongoObj(pending), adminName: query.username, adminId: query.id })
+
+            })
             .catch(next)
     }
 
     EditPost(req, res, next) {
+        let query = require('url').parse(req.url, true).query;
         if (req.body.caption.length <= 0 && req.body.image.length <= 0) {
             res.redirect('/forum/deletepost/' + req.params.slug);
         }
         else {
             Post.updateOne({ postID: req.params.slug }, { $set: { username: req.body.username, caption: req.body.caption, image: req.body.image } },)
-                .then(tmp => res.redirect('/forum/admin/homepage'))
+                .then(tmp => res.redirect('/forum/admin/homepage?id=' + query.adminId + "&username=" + query.username))
         }
     }
 
     DeleteComment(req, res, next) {
         var query = require('url').parse(req.url, true).query;
-        console.log(query.idCmt);
-        console.log(query.idPost);
 
         CommentModel.findOne({ _id: query.idCmt })
             .then(value => {
@@ -160,33 +187,37 @@ class AdminBlogController {
                 console.log(value);
                 if (value != null) {
                     CommentModel.deleteOne({ _id: query.idCmt })
-                        .then(tmp => res.redirect('/forum/admin/edit/' + value.postID))
+                        .then(tmp => res.redirect('/forum/admin/editpost?idPost=' + value.postID + "&username=" + query.username + "&adminId=" + query.adminId))
                 }
                 else {
-                    res.redirect('/forum/admin/edit/' + query.idPost)
+                    res.redirect('/forum/admin/editpost?idPost=' + value.postID + "&username=" + query.username + "&adminId=" + query.adminId)
                 }
             })
     }
 
     ShowEditForm(req, res, next) {
-        Post.findOne({ postID: req.params.slug })
+        let query = require('url').parse(req.url, true).query;
+        console.log(query.idPost);
+        Post.findOne({ postID: query.idPost })
             .then(posts => {
                 posts = mongoToObj(posts);
-                if(posts!=null){
-                CommentModel.find({ postID: req.params.slug })
-                    .then(arrCmt => {
-                        res.render('templates/admin/adminedit', {
-                            username: posts.username,
-                            caption: posts.caption,
-                            image: posts.image,
-                            cmts: multipleMongoObj(arrCmt),
-                            postID: posts.postID,
-                            isAdmin: true,
-                            allowToCmT: posts.availableToCmt
+                if (posts != null) {
+                    CommentModel.find({ postID: query.idPost })
+                        .then(arrCmt => {
+                            res.render('templates/admin/adminedit', {
+                                username: posts.username,
+                                caption: posts.caption,
+                                image: posts.image,
+                                cmts: multipleMongoObj(arrCmt),
+                                postID: posts.postID,
+                                isAdmin: true,
+                                allowToCmT: posts.availableToCmt,
+                                adminName: query.username,
+                                idAmin: query.adminId
+                            })
                         })
-                    })
                 }
-                else{
+                else {
                     res.redirect('/forum/admin/homepage')
                 }
             })
@@ -194,38 +225,43 @@ class AdminBlogController {
     }
 
     DeletePendingPost(req, res, next) {
-        postPending.findOne({ postID: req.params.slug })
-            .then(value => {
-                value = mongoToObj(value);
-                if (value != null) {
-                    postPending.deleteOne({ postID: req.params.slug })
-                        .then(result => {
-                            res.redirect('/forum/admin/pending')
-                        })
-                        .catch(next)
-                }
-                else {
-                    res.redirect('/forum/admin/pending')
-                }
-            })
+        let query = require('url').parse(req.url, true).query;
+        ajaxpending(req, res, function (val) {
+            postPending.findOne({ postID: val })
+                .then(value => {
+                    value = mongoToObj(value);
+                    if (value != null) {
+                        postPending.deleteOne({ postID: val })
+                            .then(result => {
+                               // res.redirect('/forum/admin/pending?id=' + query.id + "&username=" + query.username)
+                            })
+                            .catch(next)
+                    }
+                    else {
+                      //  res.redirect('/forum/admin/pending?id=' + query.id + "&username=" + query.username)
+                    }
+                })
+        },query)
     }
 
     DeletePost(req, res, next) {
-        Post.findOne({ postID: req.params.slug })
+        let query = require('url').parse(req.url, true).query;
+        Post.findOne({ postID: query.idPost })
             .then(value => {
                 value = mongoToObj(value);
                 if (value != null) {
-                    CommentModel.deleteMany({ postID: req.params.slug })
+                    CommentModel.deleteMany({ postID: query.idPost })
                         .then(cmt => {
-                            Post.deleteOne({ postID: req.params.slug })
-                                .then(tmp => res.redirect(adminHomepageURL))
+                            Post.deleteOne({ postID: query.idPost })
+                                .then(tmp => res.redirect('/forum/admin/homepage?id=' + query.adminId + "&username=" + query.username))
                         })
                 }
-                else { res.redirect('/forum/admin/homepage') }
+                else { res.redirect('/forum/admin/homepage?id=' + query.adminId + "&username=" + query.username) }
             })
     }
 
     StorePost(req, res, next) {
+        let query = require('url').parse(req.url, true).query;
         const savePost = new Post();
         const postID = req.body.username + Math.random().toString();
         savePost.username = req.body.username;
@@ -234,48 +270,54 @@ class AdminBlogController {
         savePost.image = req.body.image;
         savePost.availableToCmt = true;
         savePost.save();
-        res.redirect('/forum/admin/homepage');
+        res.redirect('/forum/admin/homepage?id=' + query.adminId + "&username=" + query.username);
     }
 
     OpenComment(req, res, next) {
-        Post.findOne({ postID: req.params.slug })
-        .then(value =>{
-            value = mongoToObj(value)
-            if(value!=null)
-            {Post.updateOne({ postID: req.params.slug }, { $set: { availableToCmt: true } })
-                .then(
-                    res.redirect('/forum/admin/edit/' + req.params.slug)
-                )
-            }
-            else {
-                res.redirect('/forum/admin/homepage');
-            }
-        })
+        let query = require('url').parse(req.url, true).query;
+        Post.findOne({ postID: query.idPost })
+            .then(value => {
+                value = mongoToObj(value)
+                if (value != null) {
+                    Post.updateOne({ postID: query.idPost }, { $set: { availableToCmt: true } })
+                    .then(
+                        res.redirect('/forum/admin/editpost?idPost=' + query.idPost + "&username=" + query.username + "&adminId=" + query.adminId)
+                    )
+                }
+                else {
+                    res.redirect('/forum/admin/editpost?idPost=' + query.idPost + "&username=" + query.username + "&adminId=" + query.adminId)
+                }
+            })
     }
 
     WriteNewPost(req, res, next) {
         const isAdmin = true;
-        res.render('templates/admin/writenewpost', { isAdmin })
+        let query = require('url').parse(req.url, true).query;
+        res.render('templates/admin/writenewpost', { isAdmin, adminName: query.username, adminId: query.id })
     }
 
     ConfirmPost(req, res, next) {
-        postPending.findOne({ postID: req.params.slug })
-            .then(value => {
-                const savePost = new Post();
-                savePost.username = value.username;
-                savePost.caption = value.caption;
-                savePost.postID = value.postID;
-                savePost.image = value.image;
-                savePost.availableToCmt = true;
+        let query = require('url').parse(req.url, true).query;
+        ajaxpending(req,res, function(val){
+       postPending.findOne({ postID: val })
+           .then(value => {
+               value= mongoToObj(value);
+               if(value!=null)
+               {
+               const savePost = new Post();
+               savePost.username = value.username;
+               savePost.caption = value.caption;
+               savePost.postID = value.postID;
+               savePost.image = value.image;
+               savePost.availableToCmt = true;
+               savePost.save();
+            }
+           })
+           .catch(next)
 
-                savePost.save();
-            })
-            .catch(next)
-
-        postPending.deleteOne({ postID: req.params.slug })
-            .then(value => res.redirect('/forum/admin/pending'))
-            .catch(next)
-
+           postPending.deleteOne({ postID: val })
+           .catch(next)
+        },query)
     }
 
 }

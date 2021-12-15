@@ -30,8 +30,10 @@
 
 <div class="edit-comment">
 <div class="edit-comment-modal">
+<h1 id="save-name">{{adminName}}</h1>
+<h1 id="save-id">{{idAmin}}</h1>
 
-<form method="POST" action="/forum/admin/edit/store/{{postID}}">
+<form method="POST" action="/forum/admin/edit/store?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}">
   <div class="form-group">
       <label for="name">User Name</label>
        <button id='dongbaiviet' class="btn btn-danger button-deletecomment "><i class="fas fa-times-circle font-deletecomment"></i></button> 
@@ -69,15 +71,23 @@
           </button>
         {{/if}}
 
-         <button name="lock" id= "quanlybaivietcomment" class="btn btn-primary btn-space">Xóa bài viết</button>  
-
-      
+         <button name="lock" id= "quanlybaivietcomment" class="btn btn-primary btn-space">Xóa bài viết</button>       
 
 {{#each cmts}}
-  <input value="{{this.caption}}"></input>
-  <form action = "/forum/admin/deletecomment?idCmt={{this._id}}&idPost={{this.postID}}" method = "POST">
-    <button class="btn btn-danger"> Xóa </button>
-  </form>
+  <h1>{{this.caption}} </h1>
+  {{!-- <form action = "/forum/admin/deletecomment?idCmt={{this._id}}&idPost={{this.postID}}" method = "POST">
+  </form> --}}
+    <button class="btn btn-danger" onclick="onDeteleteComment('{{this._id}}')"> Xóa </button>
+
+  <script>
+    function onDeteleteComment(id)
+    {
+      let saveName=document.getElementById("save-name").textContent;
+      let saveId=document.getElementById("save-id").textContent;
+      console.log(saveName)
+      window.location.replace("/forum/admin/deletecomment?idCmt="+id+"&idPost={{this.postID}}&username="+saveName+"&adminId="+saveId)
+    }
+  </script>
 {{/each}}
 
 {{!-- <script>
@@ -101,7 +111,7 @@
          <i class="fas fa-times-circle font-deletecomment"></i>
       </button> 
       </header>
-        <form action="/forum/admin/deletepost/{{postID}}" method="POST">
+        <form action="/forum/admin/deletepost?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}" method="POST">
           <button id="xoabaiviet-co" class="btn btn-accecptdelete">Có</button>
         </form>
     <button id="xoabaiviet-khong" class="btn btn-canceldelete">Không</button>
@@ -114,7 +124,7 @@
   if(btn!=null)
  {
    btn.addEventListener('click',function(e){
-   window.location.replace("/forum/admin/lockcomment/{{postID}}")
+   window.location.replace("/forum/admin/lockcomment?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}")
  })
  }
 </script>
@@ -124,17 +134,10 @@
  if(btn1!=null)
  {
    btn1.addEventListener('click',function(e){
-   window.location.replace("/forum/admin/opencomment/{{postID}}")
+   window.location.replace("/forum/admin/opencomment?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}")
  })  
  }
 </script>
-
-{{!-- <script>
- var btn2 = document.querySelector('.btn-accecptdelete')
- btn2.addEventListener('click',function(e){
-   window.location.replace("/forum/admin/deletepost/{{postID}}")
- })
-</script> --}}
 
 <script>
   var btn3= document.querySelector('.btn-canceldelete')

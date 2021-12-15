@@ -6,10 +6,10 @@
         </header>
         <nav>
           <ul class="nav-ul hide-ul">
-            <li><a class="nav-link active-link" href="/forum/admin/homepage">Home</a></li>
-            <li><a class="nav-link" href="/forum/admin/newpost">Thêm bài mới</a></li>
+            <li><a class="nav-link active-link" href="/forum/admin/homepage?id={{adminId}}&username={{adminName}}">Home</a></li>
+            <li><a class="nav-link" href="/forum/admin/newpost?id={{adminId}}&username={{adminName}}">Thêm bài mới</a></li>
            
-            <li><a class="nav-link" href="/forum/admin/pending">Duyệt bài đăng</a></li>
+            <li><a class="nav-link" href="/forum/admin/pending?id={{adminId}}&username={{adminName}}">Duyệt bài đăng</a></li>
           </ul>
         </nav>
       </div>
@@ -53,45 +53,26 @@
    
 
       {{/if}}
-      {{!-- <a href="/forum/admin/edit/{{this.postID}}">
-        <button name="edit-post" class="btn btn-primary">
-          Quản lý bài viết
+      {{!-- <a href="/forum/admin/edit/{{this.postID}}">{{this.adminId}}
+        <button name="edit-post" class="btn btn-primary">{{this.adminName}}
+          Quản lý bài viết{{this.postID}}
         </button>
       </a> --}}
-      <form action="/forum/admin/edit/{{this.postID}}">
-         <button name="edit-post" class="btn btn-primary">Quản lý bài viết</button>
-      </form>
-
+      {{!-- <form action="/forum/admin/editpost?idPost=&username=&idUser=" method="get">
+      </form> --}}
+         <button class="btn btn-primary" id="forum-post-{{this.postID}}" onclick="onManage('{{this.postID}}')">Quản lý bài viết</button>
+    <script>
+        function onManage(id)
+        {
+          window.location.replace("/forum/admin/editpost?idPost="+id+"&username={{this.adminName}}&adminId={{this.adminId}}")
+        }
+    </script>
 
     </div>  
     {{/each}}
 
-{{#each cmts}}
-
-{{!-- <form method="GET" action="/forum/customer/deletecomment/{{this._id}}">
-<input value="{{this.caption}}"></input>
-<button class="btn btn-danger"> <i class="far fa-trash-alt"></i> </button>
-</form> --}}
-
-
-
-{{/each}}
 
 </tbody>
-
-
-
-{{!-- <script>
-  const deleteBtns = document.querySelectorAll('.button-deletecomment')
-
-  function showPost() {
-
-  }
-
-  for (const deleteBtn of deleteBts) {
-    deleteBtn.addEventListener('click', showPost)
-  }
-</script> --}}
 
 <script>
   function postComment(postID) {
@@ -105,7 +86,8 @@
            // console.log(value);
         }
     };
-    const name='{{customerName}}';
+
+    const name='{{adminName}}';
     const myCmt = document.getElementById("cmtValue-"+postID);
     const formData = new FormData();
     formData.append('caption',myCmt.value);
