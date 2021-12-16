@@ -1,6 +1,6 @@
-{{#each pro}}
+{{#each promotions}}
  <form class="form-group" id="promotion-form" method="POST" enctype="multipart/form-data" action="/admin/promotion/update/{{this._id}}" >
-           <div class="col-md-6">
+          <div class="col-md-6">
                 <div class="form-group">
                     <input type="text" name="product_id" class="form-control" value="" id="product_id">
                 </div>
@@ -8,36 +8,35 @@
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="text" name="promotion_description" class="form-control" placeholder="Enter Promotion Description" id="description">
+                    <input type="text" name="product_name" class="form-control" value="{{this.product_name}}" id="product_id">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" name="product_sku" class="form-control"  value="{{this.product_sku}}" placeholder="Enter Product SKU" id="sku">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="number" name="promotion_discount" class="form-control" placeholder="Enter Promotion Discount" id="discount">
+                    <input type="number" name="promotion_discount" class="form-control"  value="{{this.promotion_discount}}" placeholder="Enter Promotion Discount" id="discount">
                 </div>
             </div>
+             
             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="text" name="expiredAt" class="form-control" placeholder="Enter Date Expire" id="expired">
+                    <input type="text" name="expiredAt" class="form-control"  value="{{this.expireAt}}" placeholder="Enter Date Expire" id="expired">
                 </div>
             </div>
-            
-            <div class="col-md-6">
-                <div class="form-group">
-                    <select id="{{this.child_category}}" class="form-control select-cate" name="product_type">         
+                          
 {{/each}}
-                        {{#each this.categories}}
-                        <option id="{{this.child_category}}">{{this.child_category}}</option>
-                        {{/each}}
-                    </select>                
-                </div>
-            </div>
+                       
             <div class="col-md-2">
                 <div class="form-group" style="display: flex;">
                     <input type="submit" name="Submit" id="insert" 
                            class="btn btn-primary btn-sm"
-                           value="Save Product">
-                    <a href="/admin/product"><button style="margin-left: 10px;" type="button" class="btn btn-secondary" action=>Cancel</button></a>
+                           value="Save Promotion">
+                    <a href="/admin/promotion"><button style="margin-left: 10px;" type="button" class="btn btn-secondary" action=>Cancel</button></a>
                 </div>
             </div>
 </form>

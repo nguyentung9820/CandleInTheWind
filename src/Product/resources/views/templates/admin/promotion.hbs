@@ -3,22 +3,13 @@
         <table class="table">
               <thead class="thead-dark">
                 <tr>
-<<<<<<< HEAD
-                    <th>STT</th>
-                    <th>Product ID</th>
+                    <th>#</th>
+                    <th>Product Id</th>
+                    <th>Product Name</th>
                     <th>Promotion Description</th>
                     <th>Promotion Discount</th>
                     <th>Available</th>
                     <th>Expired At</th>
-=======
-                    <th>#</th>
-                    <th>product_id</th>
-                    <th>product_name</th>
-                    <th>promotion_description</th>
-                    <th>promotion_discount</th>
-                    <th>available</th>
-                    <th>expiredAt</th>
->>>>>>> FETCH_HEAD
                     <th>Action</th>
             </thead>
             {{#each promotions}}
@@ -42,8 +33,8 @@
                                             Action
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="/admin/product/edit/{{this._id}}">Edit</a>
-                                        <a class="dropdown-item"  href="/admin/product/delete/{{this._id}}">Delete</a>
+                                        <a class="dropdown-item" href="/admin/promotion/edit/{{this._id}}">Edit</a>
+                                        <a class="dropdown-item"  href="/admin/promotion/delete/{{this._id}}">Delete</a>
                                     </div>
                                 </div>
                             </th>
