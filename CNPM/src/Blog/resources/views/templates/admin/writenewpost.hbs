@@ -1,0 +1,66 @@
+<thead>
+  <div id="nav-background">
+
+    <header id="nav-header">
+
+    </header>
+    <nav style="    height: 72px;
+    position: absolute;">
+      <ul class="nav-ul hide-ul">
+        <li>
+          <img style="height:80%;" src="/image/logo.png" alt="logo" class="img-fluidd">
+        </li>
+        <li style="width: 100px;height:80%"></li>
+        <li style="width: 250px;height:80%"><a class="nav-link"
+            href="/forum/admin/homepage?id={{adminId}}&username={{adminName}}">Home</a></li>
+        <li style="width: 250px;height:80%"><a class="nav-link active-link"
+            href="/forum/admin/newpost?id={{adminId}}&username={{adminName}}">Thêm bài mới</a></li>
+        <li style="width: 250px;height:80%"><a class="nav-link"
+            href="/forum/admin/pending?id={{adminId}}&username={{adminName}}">Duyệt bài đăng</a></li>
+
+        <li style="max-width: 200px;height:80%; margin-left: 160px;">
+          <img style="align-items: center;"
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+            alt="" class="comment-img">
+
+
+          <p style="margin-top:15px"><strong style="align-items: center;">{{adminName}}
+            <strong  id="save-id">ID:{{adminId}}</strong>
+          </strong></p>
+
+
+
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</thead>
+<div class="edit-comment">
+
+  <div class="newpost">
+
+
+<h1>NEWPOST</h1>
+
+</div>
+
+<div class="edit-comment-modal edit-comment-modal-store edit-background">
+
+
+<form method="POST" action="/forum/admin/store?id={{adminId}}&username={{adminName}}" enctype="multipart/form-data">
+  <div class="form-group">
+      
+    <div class="form-group">
+      <label for="caption">Hãy nhập nội dung bài viết </label>
+      <textarea rows="10" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption" name="caption" autocomplete="off"></textarea>
+    </div>
+    
+     <div>
+        <label>Image</label>
+        <input type="file" name="profile-file" />
+    </div>
+    <button type="submit" class="btn btn-primary" >Submit</button>
+</form>
+</div>
+</div>

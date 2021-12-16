@@ -1,0 +1,192 @@
+<thead>
+  <div id="nav-background">
+
+    <header id="nav-header">
+
+    </header>
+    <nav style="    height: 72px;
+    position: absolute;">
+      <ul class="nav-ul hide-ul">
+        <li>
+          <img style="height:80%;" src="/image/logo.png" alt="logo" class="img-fluidd">
+        </li>
+        <li style="width: 100px;height:80%"></li>
+        <li style="width: 250px;height:80%"><a class="nav-link"
+            href="/forum/admin/homepage?id={{adminId}}&username={{adminName}}">Home</a></li>
+        <li style="width: 250px;height:80%"><a class="nav-link"
+            href="/forum/admin/newpost?id={{adminId}}&username={{adminName}}">Thêm bài mới</a></li>
+        <li style="width: 250px;height:80%"><a class="nav-link active-link"
+            href="/forum/admin/pending?id={{adminId}}&username={{adminName}}">Duyệt bài đăng</a></li>
+
+        <li style="max-width: 200px;height:80%; margin-left: 160px;">
+          <img style="align-items: center;"
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+            alt="" class="comment-img">
+
+
+          <p style="margin-top:15px"><strong style="align-items: center;">{{adminName}}</strong>
+          <strong  id="save-id">ID:{{adminId}}</strong>
+          </p>
+
+
+
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</thead>
+
+<script>
+  function onDelete(postID) {
+    console.log("click");
+    const request = new XMLHttpRequest();
+    request.open("POST", "pending/delete?idPost=" + postID + "&id={{adminId}}&username={{adminName}}");
+    request.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        const value = this.responseText;
+        // console.log(value);
+      }
+    };
+    const jsonData = JSON.stringify({ id: postID, username: '{{adminName}}', userId: '{{adminId}}' })
+    console.log(name);
+
+    request.onload = function (resData) {
+      window.location.replace("/forum/admin/pending?id={{adminId}}&username={{adminName}}")
+    }
+    request.send(jsonData);
+
+  }
+</script>
+
+<script>
+  function onAccept(postID) {
+    console.log("click");
+    const request = new XMLHttpRequest();
+    request.open("POST", "pending/store?idPost=" + postID + "&id={{adminId}}&username={{adminName}}");
+    request.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        const value = this.responseText;
+        // console.log(value);
+      }
+    };
+    const jsonData = JSON.stringify({ id: postID, username: '{{adminName}}', userId: '{{adminId}}' })
+    console.log(name);
+
+    request.onload = function (resData) {
+      window.location.replace("/forum/admin/pending?id={{adminId}}&username={{adminName}}")
+    }
+    request.send(jsonData);
+
+  }
+</script>
+
+
+
+<table class="table mt-44">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">User</th>
+      <th scope="col">Image</th>
+      <th scope="col">Detail</th>
+      <th scope="col" colspan="2">Confirm</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each pending}}
+    <div>
+      <tr>
+        <th scope="row">{{ this.idAuthor}}</th>
+        <td>{{this.username}}</td>
+        <td>
+          <img class="row-img-pending" src="{{this.image}}"></img>
+        </td>
+        <td style="    min-width: 50rem;   max-width: 60rem">{{this.caption}}</td>
+        <td>
+          <button style="width: 5rem;margin-top: 1rem;" class="btn btn-danger" onclick="onDelete('{{this.postID}}')">Delete</button>
+          <button style="width: 5rem;margin-top: 1rem;" class="btn btn-primary"
+            onclick="onAccept('{{this.postID}}')">Accept</button>
+
+        </td>
+      </tr>
+    </div>
+    <div class="xoabaiviet-pending" id="xoabaivietcomment-pending">
+      <div class="xoabaiviet-hienthi-pending">
+        <div class="xoabaiviet-luachon-pending">
+          <header class="xoabaiviet-tieude-pending">
+            <p>Bạn có chắc chắn muốn xóa bài viết không?</p>
+            <button id='dongbaivietcomment-pending' class="btn btn-danger button-deletecomment xoabaiviet-close">
+              <i class="fas fa-times-circle font-deletecomment"></i>
+            </button>
+            <button class="btn btn-danger" onclick="onDelete('{{this.postID}}')">Delete</button>
+            <button class="btn btn-primary" onclick="onAccept('{{this.postID}}')">Accept</button>
+        </div>
+      </div>
+    </div>
+
+    {{/each}}
+  </tbody>
+</table>
+<script>
+  document.getElementById('row-dele-pending').onclick = function () {
+    document.getElementById('xoabaivietcomment-pending').style.display = 'flex';
+  };
+
+  document.getElementById('dongbaivietcomment-pending').onclick = function () {
+    document.getElementById('xoabaivietcomment-pending').style.display = 'none'
+  };
+  document.getElementById('xoabaiviet-khong').onclick = function () {
+    document.getElementById('xoabaivietcomment-pending').style.display = 'none'
+  };
+
+
+</script>
+
+<script>
+
+</script>
+
+<script>
+  function onDelete(postID) {
+    console.log("click");
+    const request = new XMLHttpRequest();
+    request.open("POST", "pending/delete?idPost=" + postID + "&id={{adminId}}&username={{adminName}}");
+    request.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        const value = this.responseText;
+        // console.log(value);
+      }
+    };
+    const jsonData = JSON.stringify({ id: postID, username: '{{adminName}}', userId: '{{adminId}}' })
+    console.log(name);
+
+    request.onload = function (resData) {
+      window.location.replace("/forum/admin/pending?id={{adminId}}&username={{adminName}}")
+    }
+    request.send(jsonData);
+
+  }
+</script>
+
+<script>
+  function onAccept(postID) {
+    console.log("click");
+    const request = new XMLHttpRequest();
+    request.open("POST", "pending/store?idPost=" + postID + "&id={{adminId}}&username={{adminName}}");
+    request.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        const value = this.responseText;
+        // console.log(value);
+      }
+    };
+    const jsonData = JSON.stringify({ id: postID, username: '{{adminName}}', userId: '{{adminId}}' })
+    console.log(name);
+
+    request.onload = function (resData) {
+      window.location.replace("/forum/admin/pending?id={{adminId}}&username={{adminName}}")
+    }
+    request.send(jsonData);
+
+  }
+</script>

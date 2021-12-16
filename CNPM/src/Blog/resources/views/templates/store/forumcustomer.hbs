@@ -1,0 +1,355 @@
+<thead>
+  <div id="nav-background">
+
+    <header id="nav-header">
+
+    </header>
+    <nav style="    height: 72px;
+    position: absolute;">
+      <ul class="nav-ul hide-ul">
+        <li>
+          <img style="height:80%; margin-left: 75px;" src="/image/logo.png" alt="logo" class="img-fluidd">
+        </li>
+        <li style="width: 100px;height:80%"></li>
+        <li style="width: 300px;height:80%"><a class="nav-link active-link"
+            href="/forum/customer/homepage?id={{customerId}}&username={{customerName}}">Home</a></li>
+        <li style="width: 300px;height:80%"><a class="nav-link"
+            href="/forum/customer/newpost?id={{customerId}}&username={{customerName}}">Thêm bài mới</a></li>
+        <li style="width: 200px;height:80%"></li>
+
+        <li style="max-width: 200px;height:80%; margin-left: 110px;">
+          <img style="align-items: center;"
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+            alt="" class="comment-img">
+
+
+          <p style="margin-top:15px"><strong style="align-items: center;" >{{customerName}}</strong>
+           <strong  id="save-id">ID:{{customerId}}></strong>
+          </p>
+
+
+
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</thead>
+
+<div class="w3-content w3-display-container">
+  <img class="mySlides"
+    src="https://images7.alphacoders.com/361/thumb-1920-361622.jpg"
+    style="width:100%">
+  <img class="mySlides"
+    src="https://allhdwallpapers.com/wp-content/uploads/2015/05/Candle-6.jpg"
+    style="width:100%">
+  <img class="mySlides"
+    src="https://images3.alphacoders.com/107/1079373.jpg"
+    style="width:100%">
+  <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+    <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+    <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
+    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
+    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+  </div>
+</div>
+{{#each Posts}}
+<div class="fb-post" id="fpost2">
+
+  <!-- Top Section -->
+
+  <div class="top-s">
+    <div class="top-info">
+      <div class="profile-picture">
+        <img
+          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg">
+      </div>
+
+      <div class="top-title">
+        <div class="profile-name">
+          <a href="#">{{this.username}}</a>
+        </div>
+        <div class="post-time">
+          <span>{{this.postDate}}</span>
+          <i class="fas fa-lock"></i>
+        </div>
+      </div>
+      <div class="top-options">
+       {{#if this.isAuthor}}
+        <button title="Quản lý bài viết" class="btn btn-quanly" id="forum-post-{{this.postID}}"
+          onclick="onManage('{{this.postID}}')">
+          <istyle="margin-left: -28px; font-size: 1.4rem;" class="fas fa-user-edit">
+            </istyle=>
+        </button>
+
+        <script>
+          function onManage(id) {
+            window.location.replace("/forum/customer/editpost?idPost=" + id + "&username={{this.customerName}}&customerId={{this.customerId}}")
+          }
+        </script>
+      {{/if}}
+      </div>
+
+    </div>
+    <div class="post-content">
+      {{this.caption}}<br><br>
+      <img src="{{this.image}}" alt="">
+    </div>
+  </div>
+  <div class="bottom-part">
+
+  </div>
+  <!-- Like section -->
+
+
+  <!-- Comment section-->
+
+  <div class="all-comments">
+    <h4>All comments <img src="svg/sort-down.svg" class="all-comments-h4-i" alt=""></h4>
+  </div>
+  <div id="user-comment-{{this.postID}}" class="comment-box">
+    {{#each this.arrCmt}}
+    <div class="comment-container">
+      <div class="comment">
+        <img
+          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+          alt="" class="comment-img">
+
+
+        <div class="comment-text">
+          <div class="comment-header">
+            <p><strong> {{this.username}} </strong></p>
+          </div>
+          <p style="  hyphens: auto;"> {{this.caption}}</p>
+        </div>
+
+        <div class="three-dot">
+          <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  <div class="comment-s">
+    <div class="comment-area">
+      <div class="comment-profile-pic">
+        <img
+          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+          alt="user">
+      </div>
+      {{#if this.allowToCmT}}
+      <div class="comment-input-area">
+        <form id="cmtForm">
+          <input style="width:450px" name="comment-{{this.postID}}" id="cmtValue-{{this.postID}}"
+            placeholder="Nhập đánh giá">
+        </form>
+        <div class="comment-icon"> 
+          <button class="btn btn-primary cm "
+            onclick="postComment('{{this.postID}}')">Gửi</button>
+        </div>
+      </div>
+      {{/if}}
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+</div>
+
+
+{{/each}}
+
+
+
+<footer class="footer">
+  <div class="footer__addr">
+    <h1 class="footer__logo"><img src="/image/logo.png" alt="logo" style="width: 175px;"></h1>
+
+    <h2>Contact us</h2>
+
+    <address>
+      <i style="font-size:2rem" class="fab fa-facebook"></i>
+      <i style="font-size:2rem" class="fab fa-instagram"></i>
+      <i style="font-size:2rem" class="fab fa-twitter"></i>
+
+      <a class="footer__btn" href="mailto:example@gmail.com">Email Us</a>
+    </address>
+  </div>
+
+  <ul class="footer__nav">
+    <li class="nav__item">
+      <h2 class="nav__title">Media</h2>
+
+      <ul class="nav__ul">
+        <li>
+          <a href="#">Online</a>
+        </li>
+
+        <li>
+          <a href="#">Print</a>
+        </li>
+
+        <li>
+          <a href="#">Alternative Ads</a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav__item nav__item--extra">
+      <h2 class="nav__title">Technology</h2>
+
+      <ul class="nav__ul nav__ul--extra">
+        <li>
+          <a href="#">Hardware Design</a>
+        </li>
+
+        <li>
+          <a href="#">Software Design</a>
+        </li>
+
+        <li>
+          <a href="#">Digital Signage</a>
+        </li>
+
+        <li>
+          <a href="#">Automation</a>
+        </li>
+
+        <li>
+          <a href="#">Artificial Intelligence</a>
+        </li>
+
+        <li>
+          <a href="#">IoT</a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav__item">
+      <h2 class="nav__title">Legal</h2>
+
+      <ul class="nav__ul">
+        <li>
+          <a href="#">Privacy Policy</a>
+        </li>
+
+        <li>
+          <a href="#">Terms of Use</a>
+        </li>
+
+        <li>
+          <a href="#">Sitemap</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="legal">
+    <p>&copy; 2019 Something. All rights reserved.</p>
+
+
+  </div>
+</footer>
+
+
+
+{{!-- SCRIPT --}}
+
+
+<script>
+  var slideIndex = 1;
+  showDivs(slideIndex);
+
+  function plusDivs(n) {
+    showDivs(slideIndex += n);
+  }
+
+  function currentDiv(n) {
+    showDivs(slideIndex = n);
+  }
+
+  function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("demo");
+    if (n > x.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = x.length }
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" w3-white", "");
+    }
+    x[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " w3-white";
+  }
+</script>
+
+
+
+
+<script>
+  function postComment(postID) {
+
+    const request = new XMLHttpRequest();
+
+    request.open("POST", "comment/" + postID);
+    request.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        const value = this.responseText;
+        // console.log(value);
+      }
+    };
+    const name = '{{customerName}}';
+    const myCmt = document.getElementById("cmtValue-" + postID);
+    const formData = new FormData();
+    formData.append('caption', myCmt.value);
+    const jsonData = JSON.stringify({ caption: myCmt.value, username: name })
+    console.log(name);
+
+    request.onload = function (resData) {
+      const postData = JSON.parse(this.responseText);
+      const parentComment = document.getElementById("user-comment-" + postID);
+      console.log("parentComment.childElementCount " + parentComment.childElementCount)
+      console.log("postData.Cmts.length " + postData.Cmts.length)
+      const inputElement = document.getElementById("cmtValue-" + postID);
+      inputElement.value = '';
+
+      for (let num = parentComment.childElementCount; num < postData.Cmts.length; num++) {
+        const textNode = document.createTextNode(postData.Cmts[num].caption);
+        const newLiElement = document.createElement('div');
+
+        newLiElement.innerHTML = `<div class="comment-container">
+      <div class="comment">
+        <img src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg" alt="" class="comment-img">
+
+
+        <div class="comment-text">
+          <div class="comment-header">
+            <p><strong> ${postData.Cmts[num].username} </strong></p>
+          </div>
+          <p> ${postData.Cmts[num].caption} </p>
+        </div>
+
+        <div class="three-dot">
+          <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="" wfd-invisible="true">
+        </div>
+      </div>
+    </div> `
+
+
+        parentComment.appendChild(newLiElement);
+
+        console.log("resData= " + cmt.caption);
+      }
+
+    }
+    request.send(jsonData);
+
+  }
+</script>

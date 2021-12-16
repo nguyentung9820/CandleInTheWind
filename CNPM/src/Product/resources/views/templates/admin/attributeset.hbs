@@ -1,0 +1,55 @@
+<a href="/admin/attributeset/add"><button type="button" style="margin-bottom: 20px;" class="btn btn-success" action=>Add Attribute Set</button></a>
+<h1>Attribute Set</h1>
+   <div>
+        <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>image</th>
+                    <th>Attribute Set</th>
+                    <th>Active</th>
+                    <th>Create at</th>
+                    <th>Update at</th>
+                    <th>Action</th>
+                    <th>Attribute</th>
+            </thead>
+            {{#each attributesets}}
+                <tbody>
+                    <tr>
+                            <th>{{@index}}</th>
+                            <th><img style="width:60px; height:60px" src="/image/{{this.attributeset_image}}"/></th>
+                            <th>{{this.attribute_set_name}}</th>
+                            {{#if this.active}}
+                                <th>True</th>
+                                {{else}}
+                                <th>False</th>
+                            {{/if}}
+                            <th>{{this.created_at}}</th>
+                            <th>{{this.update_at}}</th>
+                            <th>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" 
+                                            type="button" 
+                                            id="dropdownMenuButton" 
+                                            data-toggle="dropdown" 
+                                            aria-haspopup="true" 
+                                            aria-expanded="false">
+                                            Action
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="/admin/attributeset/edit/{{this._id}}">Edit</a>
+                                        <a data-id="{{this.attribute_set_name}}" class="dropdown-item"  href="/admin/attributeset/delete/{{this._id}}">Delete</a>
+                                    </div>
+                                </div>
+                            </th>
+                            <th>
+                                <a href="/admin/attribute/{{this._id}}"><button class="btn btn-warning">View</button></a>
+                            </th>
+                    </tr>
+                </tbody>
+            {{/each}}
+        </table>
+    </div>
+    
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>

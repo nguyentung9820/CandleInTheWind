@@ -1,0 +1,39 @@
+<thead>
+  <h1>Home Page</h1>
+</thead>
+<tbody>
+  {{#each Posts}}
+  <div class="form-css">
+    <form method="POST" action="/forum/comment/{{this.postID}}">
+      <div class="form-group">
+        <h1>User Name: {{this.username}}</h1>
+      </div>
+      <div class="form-group">
+        <label for="caption">Nội dung bài viết tại đây</label>
+        <h6>{{this.caption}}</h6>
+      </div>
+      <div class="form-group">
+        <img src="{{this.image}}"></img>
+        {{#each this.arrCmt}}
+        <li>
+          {{this}}
+        </li>
+        {{/each}}
+
+      </div>
+    </form>
+  </div>
+  {{/each}}
+
+  {{#each cmts}}
+
+  <form method="GET" action="/forum/customer/deletecomment/{{this._id}}">
+    <input value="{{this.caption}}"></input>
+    <button class="btn btn-danger"> <i class="far fa-trash-alt"></i> </button>
+  </form>
+
+
+
+  {{/each}}
+
+</tbody>
