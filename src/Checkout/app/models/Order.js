@@ -17,10 +17,13 @@ const Order = new Schema({
     shipping_additional: { type: String },
     shipping_method: { type: String },
     coupon_code: { type: String },
-    product_list: { type: String },
+    product_list: { type: Array },
     discount: { type: String },
     bill_total: { type: String },
     last_total: { type: String },
+    money_discount: { type: String },
+    status: { type: String },
+    customer_id: { type: String },
     createdAt: { type: Date, default: Date.now},
     updateAt: { type: Date, default: Date.now }
 });

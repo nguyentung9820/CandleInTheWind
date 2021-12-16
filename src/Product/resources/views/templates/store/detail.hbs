@@ -4,14 +4,14 @@
             <div class="col-md-6 border-end">
                 <div class="d-flex flex-column justify-content-center">
                     <div id='main_image' class="main_image"> <img src="/image/{{this.product_image}}" id="main_product_image" width="350"> </div>
-                    <div class="thumbnail_images">
+                    {{!-- <div class="thumbnail_images">
                         <ul id="thumbnail">
                             <li><img onclick="changeImage(this)" src="https://i.imgur.com/TAzli1U.jpg" width="70"></li>
                             <li><img onclick="changeImage(this)" src="https://i.imgur.com/w6kEctd.jpg" width="70"></li>
                             <li><img onclick="changeImage(this)" src="https://i.imgur.com/L7hFD8X.jpg" width="70"></li>
                             <li><img onclick="changeImage(this)" src="https://i.imgur.com/6ZufmNS.jpg" width="70"></li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 			<input id='name_hidden' type="hidden" value={{this.product_name}}>
@@ -30,7 +30,7 @@
                     <div class="ratings d-flex flex-row align-items-center">
                         <div class="d-flex flex-row"> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bx-star'></i> </div> <span>441 reviews</span>
                     </div>
-                    <div class="mt-5"> <span class="fw-bold">Color</span>
+                    {{!-- <div class="mt-5"> <span class="fw-bold">Color</span>
                         <div class="colors">
                             <ul id="marker">
                                 <li id="marker-1"></li>
@@ -40,7 +40,7 @@
                                 <li id="marker-5"></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="buttons d-flex flex-row mt-5 gap-3"> 
                         {{!-- <button class="btn btn-info">Buy Now</button>  --}}
                         <main class="cd-main">
@@ -88,6 +88,9 @@
 </div>
 {{/each}}
 <script>
+  
+      
+  
   function changeImage(element) {
 
 var main_prodcut_image = document.getElementById('main_product_image');
@@ -375,8 +378,8 @@ Math.easeInOutQuad = function (t, b, c, d) {
 		function getCookie(input) {
             var cookies = document.cookie.split(';');
             for (var i = 0; i < cookies.length; i++) {
-                var name = cookies[i].split('=')[0].toLowerCase();
-                var value = cookies[i].split('=')[1].toLowerCase();
+                var name = cookies[i].split('=')[0];
+                var value = cookies[i].split('=')[1];
                 if (name === input) {
                 return value;
                 } else if (value === input) {
@@ -386,6 +389,12 @@ Math.easeInOutQuad = function (t, b, c, d) {
             return null;
             };
 		function addProduct(target) {
+      tmp = JSON.parse(getCookie('detail'));
+      if(tmp == null){
+        tmp = [];
+      }
+      console.log(tmp)
+
 			// this is just a product placeholder
 			// you should insert an item with the selected product info
 			// replace productId, productName, price and url with your real product info
@@ -403,10 +412,32 @@ Math.easeInOutQuad = function (t, b, c, d) {
 			} else {
 				qty = 1;
 			}
-			document.cookie = 'store='+ document.getElementById('product_id_hidden').value + ' ' + qty + ';path=/';
-			document.cookie = 'detail='+ document.getElementById('product_id_hidden').value + ' ' + qty;
-			document.cookie = 'checkout='+ document.getElementById('product_id_hidden').value + ' ' + qty + ' ' + product_name + ' ' + product_price + ' ' + product_image + ';path=/checkout/payment';
+      final_price = qty*product_price;
+      product_cart_list = [document.getElementById('product_id_hidden').value, qty, product_name, product_price, product_image, final_price ]
+      if(tmp.length != 0){
+        tmp.forEach(element => {
+          if(element[0] == document.getElementById('product_id_hidden').value){
+            index = tmp.indexOf(element);
+            console.log(index)
+            tmp.splice(index);
 
+            tmp.push(product_cart_list);
+          }else{
+            tmp.push(product_cart_list);
+            console.log(tmp)
+          }
+        })
+      }else{
+        tmp.push(product_cart_list);
+
+      }
+		//	document.cookie = 'store='+ document.getElementById('product_id_hidden').value + ' ' + qty + ';path=/';
+		//	document.cookie = 'detail='+ document.getElementById('product_id_hidden').value + ' ' + qty;
+		//	document.cookie = 'checkout='+ document.getElementById('product_id_hidden').value + ' ' + qty + ' ' + product_name + ' ' + product_price + ' ' + product_image + ';path=/checkout/payment';
+			document.cookie = 'detail='+ JSON.stringify(tmp);
+		  document.cookie = 'checkout='+ tmp + ';path=/checkout/payment';
+
+      
 			if(cartList.children[0] != null){
 				count++;
                 document.getElementById("number-in-small-cart").innerHTML = count;

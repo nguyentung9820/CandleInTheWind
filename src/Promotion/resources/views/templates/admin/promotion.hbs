@@ -1,0 +1,47 @@
+   <a href="/rule/promotion/add"><button type="button" style="margin-bottom: 20px;" class="btn btn-success" action=>Add Promotion</button></a>
+   <div>
+        <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Discount</th>
+                    <th>Expire</th>
+                    <th>Code</th>
+                    <th>Qty</th>
+                    <th>Action</th>
+            </thead>
+            {{#each promotions}}
+                <tbody>
+                    <tr>
+                            <th>{{@index}}</th>
+                            <th>{{this.promotion_name}}</th>
+                            <th>{{this.promotion_description}}</th>
+                            <th>{{this.promotion_discount}}</th>
+                            <th>{{this.expiredAt}}</th>
+                            <th>{{this.code}}</th>
+                            <th>{{this.qty}}</th>
+
+                            <th>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" 
+                                            type="button" 
+                                            id="dropdownMenuButton" 
+                                            data-toggle="dropdown" 
+                                            aria-haspopup="true" 
+                                            aria-expanded="false">
+                                            Action
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="/rule/promotion/edit/{{this._id}}">Edit</a>
+                                        <a class="dropdown-item"  href="/rule/promotion/delete/{{this._id}}">Delete</a>
+                                    </div>
+                                </div>
+                            </th>
+                    </tr>
+                </tbody>
+            {{/each}}
+        </table>
+    </div>
+    

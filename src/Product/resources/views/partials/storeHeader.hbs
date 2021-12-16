@@ -59,49 +59,49 @@
 
 
                     <div class="col-lg-2 col-md-3 cart-login" style="padding-top: 15px;">
-                        <div class="float-end cart mt-2">
+                        <div id='cart-checkout' class="float-end cart mt-2">
                             <a href="/checkout/payment">
                                 <span id='number-in-cart1' class="number"></span>
                                 <img class="img-fluid" style="width: 50px; height:50px" src="/image/cart2.png" alt="cart" />
                             </a>
-                        </div>       
+                        </div> 
+                        <div id='icon-customer' style="margin-right: 20px;" class="float-end cart mt-2 ">
+                            <a id="navbarDropdownMenuCustomer" style="padding-bottom: 30px;" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img  class="img-fluid" style="width: 50px; height:50px" src="/image/customer.png" alt="customer" /></a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuCustomer">
+                                <li><a class="dropdown-item" style="color: black;" href="/profile">Account</a></li>
+                                <li><a class="dropdown-item" style="color: black;" href="/order">Order</a></li>
+                                <li><a class="dropdown-item" style="color: black;" href="/logout">Log Out</a></li>
+
+                            </ul>
+                        </div> 
                     </div>
                 </div>
             </div>
         </header>
 
         <script>
-            
             function getCookie(input) {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var name = cookies[i].split('=')[0].toLowerCase();
-                var value = cookies[i].split('=')[1].toLowerCase();
-                if (name === input) {
-                return value;
-                } else if (value === input) {
-                return name;
+                var cookies = document.cookie.replace(/\s/g, '').split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var name = cookies[i].split('=')[0];
+                    console.log(name)
+                    var value = cookies[i].split('=')[1];
+                    if (name === input) {
+                    return value;
+                    } else if (value === input) {
+                    return name;
+                    }
                 }
-            }
-            return "";
+                return "";
             };
-            path = window.location.pathname;
-            console.log(path)
-            if(path == '/'){
-                data = getCookie('store');
-                array = data.split(" ")
-                document.getElementById("number-in-cart1").innerHTML = array[1];
-            }
-            if(path != '/'){
-                data2 = getCookie('detail');
-                array = data2.split(" ")
-                document.getElementById("number-in-cart1").innerHTML = array[1];
-            }
-            console.log(getCookie('login'))
-            if(getCookie('login') !== ''){
+            if(getCookie('customer') !== ''){
                 document.getElementById("login").innerHTML = '';
+                document.getElementById("cart-checkout").innerHTML = '<a href="/checkout/payment"><span id="number-in-cart1" class="number"></span><img class="img-fluid" style="width: 50px; height:50px" src="/image/cart2.png" alt="cart" /></a>';
 
-            } 
+            } else{
+                document.getElementById("icon-customer").innerHTML = '';
+
+            }
             
 
         </script>

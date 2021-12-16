@@ -1,3 +1,4 @@
+
 {{#each orders}}
 <div class="d-flex flex-column justify-content-center align-items-center" id="order-heading">
     <div class="text-uppercase">
@@ -7,7 +8,13 @@
     <div class="pt-1">
         <p>Order #{{this._id}} is currently<b class="text-dark"> {{this.status}}</b></p>
     </div>
-    <div class="btn close text-white"> &times; </div>
+    {{#if_eq this.status 'pending'}}
+    <a href="#"><button type="button" style="margin-bottom: 20px;" class="btn btn-outline-dark" action=>Shipment</button></a>
+    {{/if_eq}}
+    {{#if_eq this.status 'shipping'}}
+    <a href="#"><button type="button" style="margin-bottom: 20px;" class="btn btn-outline-dark" action=>Invoice</button></a>
+    {{/if_eq}}
+    <a href="/payment/order"><div class="btn close text-white"> &times; </div></a>
 </div>
 <div class="wrapper bg-white">
     <div class="table-responsive">
@@ -26,8 +33,16 @@
             </tbody>
         </table>
     </div>
+    {{#each this.product_list}}
     <div id="items-container">
+        <div id="items-order" class="d-flex justify-content-start align-items-center list py-1">
+            <div class="mx-3"> <img src="/image/{{[4]}}" alt="" width="80px" height="90px"> </div>
+            <div class="order-item">{{2}}</div>
+            <div class="mx-3"><strong>Qty: </strong>{{1}}</div>
+            <div class="mx-5"><strong>Unit Price: </strong>${{[3]}}</div>
+            <div class="mx-6"><strong>Final Price: </strong>${{[5]}}</div></div>
     </div>
+    {{/each}}
     <div class="pt-2 border-bottom mb-3"></div>
     <div class="d-flex justify-content-start align-items-center pl-3">
         <div class="text-muted">Payment Method</div>
@@ -38,8 +53,8 @@
         <div class="ml-auto"> <label>Free</label> </div>
     </div>
     <div class="d-flex justify-content-start align-items-center pb-4 pl-3">
-        <div class="text-muted"> <button class="text-white btn">{{this.discount}}% Discount</button> ({{this.coupon}}) </div>
-        <div class="ml-auto price"> -$<span>{{this.discount_amount}}</span> </div>
+        <div class="text-muted"> <button class="text-white btn">{{this.discount}}% Discount</button> ({{this.coupon_code}}) </div>
+        <div class="ml-auto price"> -$<span>{{this.money_discount}}</span> </div>
     </div>
     <div class="d-flex justify-content-start align-items-center pl-3 border-bottom">
         <div class="text-muted">Created At</div>
@@ -71,20 +86,9 @@
         <div> Total: <b> $68.8 for 10 items</b> </div>
     </div>
 </div>
-<input type="hidden" value="{{this.product_list}}" id="product_list" />
+<input type="hidden" id="product_list" value="{{this.product_list}}"/>
 {{/each}}
-<script>
-    product_list = document.getElementById('product_list').value.toString();
-    array = product_list.split(',');
-    array.forEach(
-        element => document.getElementById('items-container').insertAdjacentHTML('beforeend', '<div id="items-order" class="d-flex justify-content-start align-items-center list py-1"><div class="mx-3"> <img src="/image/'
-        + element.split(' ')[4] +'" alt="" width="80px" height="90px"> </div><div class="order-item">' 
-        + element.split(' ')[2] + '</div><div class="mx-3"><strong>Qty: </strong>'
-        + element.split(' ')[1] +'</div><div class="mx-4"><strong>SKU: </strong> CANDLE</div><div class="mx-5"><strong>Unit Price: </strong>$'
-        + element.split(' ')[3] +'</div><div class="mx-6"><strong>Total Price: </strong>$'
-        + element.split(' ')[3]*element.split(' ')[1]+'</div></div>')
-    )
-</script>
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
@@ -183,7 +187,7 @@ label {
     font-weight: 900
 }
 
-button.btn {
+button.text-white {
     font-size: 0.9rem;
     background-color: #66cdaa
 }
