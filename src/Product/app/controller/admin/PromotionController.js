@@ -65,7 +65,7 @@ class PromotionController {
     update(req,res){
         var body = req.body;
         var data = Object.assign(body);
-        if(req.params.id != null){
+        if(req.params.Promotionid != null){
             Promotion.updateOne({_id: req.params.Promotionid}, data)
             .then(() => res.redirect('/admin/promotion'))
         }
