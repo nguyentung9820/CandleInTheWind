@@ -1,31 +1,37 @@
 {{#each promotions}}
- <form class="form-group" id="promotion-form" method="POST" enctype="multipart/form-data" action="/admin/promotion/update/{{this._id}}" >
-          <div class="col-md-6">
+ <form class="form-group"  method="POST"  action="/admin/promotion/update/{{this._id}}" >
+          
+            <div class="col-md-6">
                 <div class="form-group">
-                    <input type="text" name="product_id" class="form-control" value="" id="product_id">
+                    <input type="text" name="product_id" class="form-control" value="{{this.product_id}}" id="product_id" readonly>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="text" name="product_name" class="form-control" value="{{this.product_name}}" id="product_id">
+                    <input type="text" name="product_name" class="form-control" value="{{this.product_name}}" readonly >
+                </div>
+            </div>
+
+             <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" name="code" class="form-control" value="{{this.code}}" readonly >
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="text" name="product_sku" class="form-control"  value="{{this.product_sku}}" placeholder="Enter Product SKU" id="sku">
+                    <input type="text" name="promotion_description" class="form-control" value="{{this.promotion_description}}" placeholder="Enter Promotion Description" >
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="number" name="promotion_discount" class="form-control"  value="{{this.promotion_discount}}" placeholder="Enter Promotion Discount" id="discount">
+                    <input type="number" name="promotion_discount" class="form-control" value="{{this.promotion_discount}}" placeholder="Enter Promotion Discount">
                 </div>
             </div>
-             
-            <div class="col-md-6">
+             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="text" name="expiredAt" class="form-control"  value="{{this.expireAt}}" placeholder="Enter Date Expire" id="expired">
+                    <input type="number" name="available" class="form-control" value="{{this.available}}" placeholder="Available">
                 </div>
             </div>
                           
@@ -78,23 +84,9 @@
 
 </style>
 <script>
-    function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $('#imageResult')
-                .attr('src', e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-$(function () {
-    $('#upload').on('change', function () {
-        readURL(input);
-    });
-});
     
+
+
+
 
 </script>

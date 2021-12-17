@@ -33,6 +33,7 @@ class ProductController {
         var body = req.body;
         var file = {product_image: req.file.filename}
         var data = Object.assign(body, file);
+        console.log(data);
         if(req.params.id != null){
             Product.updateOne({_id: req.params.id}, data)
             .then(() => res.redirect('/admin/product'))

@@ -4,24 +4,23 @@
               <thead class="thead-dark">
                 <tr>
                     <th>#</th>
-                    <th>Product Id</th>
+                    <th>Promotion Code</th>
                     <th>Product Name</th>
                     <th>Promotion Description</th>
                     <th>Promotion Discount</th>
                     <th>Available</th>
-                    <th>Expired At</th>
                     <th>Action</th>
             </thead>
             {{#each promotions}}
                 <tbody>
                     <tr>
                             <th>{{@index}}</th>
-                            <th>{{this.product_id}}</th>
+                            <th>{{this.code}}</th>
                             <th>{{this.product_name}}</th>
                             <th>{{this.promotion_description}}</th>
-                            <th>{{this.promotion_discount}}</th>
-                            <th>{{this.available}}</th>
-                            <th>{{this.expiredAt}}</th>
+                            <th>{{this.promotion_discount}} %</th>
+                            <th>{{this.available}} times</th>
+                            
                             <th>
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" 
@@ -43,4 +42,7 @@
             {{/each}}
         </table>
     </div>
+    <script>
+        console.log({{promotions}});
+    </script>
     
