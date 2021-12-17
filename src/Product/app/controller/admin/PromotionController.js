@@ -10,6 +10,7 @@ class PromotionController {
     promotion(req, res){
         Promotion.find({})
         .then(promotions => {
+            // console.log(promotions);
             res.render('templates/admin/promotion', { 
                 promotions: mutipleMongooseToObject(promotions),
                 layout: 'admin' 
@@ -21,7 +22,7 @@ class PromotionController {
     getProductCode(req, res) {
         
         if(req.params.code != null){
-            Promotions.findOne({code: req.params.code}).
+            Promotion.findOne({code: req.params.code}).
             then((promotion) =>{
                 var discount = promotion.promotion_discount;
                 var productId = promotion.product_id;
@@ -42,7 +43,7 @@ class PromotionController {
                 .then(() => res.json({available : 0}))
             }else{
                 //update
-                Promotions.updateOne({_id: req.params.Promotionid}, data)
+                Promotion.updateOne({_id: req.params.Promotionid}, data)
                 .then(() => res.json({available : promotion.available}))
             }
         })
@@ -50,9 +51,12 @@ class PromotionController {
 
     save(req, res){
         var body = req.body;
+        console.log(req);
         let stringcode = (Math.random() + 1).toString(36).substring(7);
         var codeP = {code : stringcode};
         var data = Object.assign(body,codeP);
+        
+        
             try{
                 var promotion = new Promotion(data);
                 promotion.save();
@@ -65,8 +69,10 @@ class PromotionController {
     update(req,res){
         var body = req.body;
         var data = Object.assign(body);
-        if(req.params.id != null){
-            Promotions.updateOne({_id: req.params.Promotionid}, data)
+        
+        if(req.params.Promotionid != null){
+            Promotion.updateOne({_id
+                : req.params.Promotionid}, data)
             .then(() => res.redirect('/admin/promotion'))
         }
     }
