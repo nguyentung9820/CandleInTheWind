@@ -21,7 +21,7 @@ class PromotionController {
     getProductCode(req, res) {
         
         if(req.params.code != null){
-            Promotions.findOne({code: req.params.code}).
+            Promotion.findOne({code: req.params.code}).
             then((promotion) =>{
                 var discount = promotion.promotion_discount;
                 var productId = promotion.product_id;
@@ -42,7 +42,7 @@ class PromotionController {
                 .then(() => res.json({available : 0}))
             }else{
                 //update
-                Promotions.updateOne({_id: req.params.Promotionid}, data)
+                Promotion.updateOne({_id: req.params.Promotionid}, data)
                 .then(() => res.json({available : promotion.available}))
             }
         })
@@ -66,7 +66,7 @@ class PromotionController {
         var body = req.body;
         var data = Object.assign(body);
         if(req.params.id != null){
-            Promotions.updateOne({_id: req.params.Promotionid}, data)
+            Promotion.updateOne({_id: req.params.Promotionid}, data)
             .then(() => res.redirect('/admin/promotion'))
         }
     }
