@@ -51,7 +51,6 @@ class PromotionController {
 
     save(req, res){
         var body = req.body;
-        console.log(req);
         let stringcode = (Math.random() + 1).toString(36).substring(7);
         var codeP = {code : stringcode};
         var data = Object.assign(body,codeP);
