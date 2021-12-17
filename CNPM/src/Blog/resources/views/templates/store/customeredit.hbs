@@ -1,10 +1,9 @@
+{{!-- Navbar --}}
 <thead>
   <div id="nav-background">
-
     <header id="nav-header">
-
     </header>
-    <nav style="    height: 72px;
+    <nav style="height: 72px;
     position: absolute;">
       <ul class="nav-ul hide-ul">
         <li>
@@ -22,114 +21,104 @@
             src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
             alt="" class="comment-img">
 
-
-          <p style="margin-top:15px">
+          <p style="margin-top:8px">
             <strong style="align-items: center;" id="save-name">{{customerName}}</strong>
-             <strong  id="save-id">ID:{{idCustomer}}</strong>
+            <strong id="save-id">ID:{{idCustomer}}</strong>
           </p>
-
-
-
         </li>
       </ul>
     </nav>
-
   </div>
 </thead>
 
+{{!-- Container --}}
 
-<div class="edit-comment">
-  <div class="edit-comment-modal">
-
-    <form method="POST"
-      action="/forum/customer/edit/store?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}"
-      enctype="multipart/form-data">
-      <div class="form-group">
-
-        <button id='dongbaiviet' class="btn btn-danger button-deletecomment ">
-          <i class="fas fa-times-circle font-deletecomment"></i></button>
-      </div>
-      <div class="form-group">
-        <label for="caption">Hãy nhập nội dung bài viết </label>
-        <textarea rows="4" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption"
-          name="caption" autocomplete="off">{{caption}}</textarea>
-      </div>
-      <div class="form-group">
-        <img src="{{this.image}}"></img>
-        {{#each this.arrCmt}}
-        <li>
-          {{this}}
-        </li>
-        {{/each}}
-
-      </div>
-
-      <div>
-        <label>Image</label>
-        <input type="file" name="profile-file" />
-      </div>
-      <div class="bottom-part">
-      </div>
-      <button type="submit" class="btn btn-primary btn-space">Save</button>
-
-    </form>
-    {{#if this.allowToCmT}}
-    <button name="lock" class="btn btn-primary btn-space btn-lockcomment" id="lockButton">
-      Lock Comment
-    </button>
-    {{else}}
-
-    <button name="open" class="btn btn-primary btn-space btn-right btn-opencomment">
-      Open Comment
-    </button>
-    {{/if}}
-
-    <button name="lock" id="quanlybaivietcomment" class="btn btn-primary btn-space">Xóa bài viết</button>
-
-    <div class="bottom-part">
-    </div>
-    {{#each cmts}}
-    <div style="display: flex;" class="comment-container">
-      <div class="comment">
-        <img
-          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
-          alt="" class="comment-img">
-
-
-        <div class="comment-text">
-          <div class="comment-header">
-            <p><strong>{{this.username}}</strong></p>
-          </div>
-          <p style="  hyphens: auto;">{{this.caption}}</p>
+<body style="background-color: #1B1531;">
+  <div class="edit-comment">
+    <div class="edit-comment-modal">
+      <form method="POST"
+        action="/forum/customer/edit/store?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}"
+        enctype="multipart/form-data">
+        <div class="form-group">
+          <button id='dongbaiviet' class="btn btn-danger button-deletecomment ">
+            <i class="fas fa-times-circle font-deletecomment"></i></button>
+        </div>
+        <div class="form-group">
+          <label for="caption">Hãy nhập nội dung bài viết </label>
+          <textarea rows="4" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption"
+            name="caption" autocomplete="off">{{caption}}</textarea>
+        </div>
+        <div class="form-group">
+          <img src="{{this.image}}"></img>
+          {{#each this.arrCmt}}
+          <li>
+            {{this}}
+          </li>
+          {{/each}}
         </div>
 
         <div>
-          <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
+          <label>Image</label>
+          <input type="file" name="profile-file" />
+        </div>
+        <div class="bottom-part">
+        </div>
+        <button type="submit" class="btn btn-primary btn-space">Save</button>
+      </form>
+      {{#if this.allowToCmT}}
+      <button name="lock" class="btn btn-primary btn-space btn-lockcomment" id="lockButton">
+        Lock Comment
+      </button>
+      {{else}}
+
+      <button name="open" class="btn btn-primary btn-space btn-right btn-opencomment">
+        Open Comment
+      </button>
+      {{/if}}
+
+      <button name="lock" id="quanlybaivietcomment" class="btn btn-primary btn-space">Xóa bài viết</button>
+
+      <div class="bottom-part">
+      </div>
+      {{#each cmts}}
+      <div style="display: flex;" class="comment-container">
+        <div class="comment">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+            alt="" class="comment-img">
+
+          <div class="comment-text">
+            <div class="comment-header">
+              <p><strong>{{this.username}}</strong></p>
+            </div>
+            <p style="hyphens: auto; margin-bottom: 0px; margin-top: -15px;">{{this.caption}}</p>
+          </div>
+
+          <div>
+            <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
+          </div>
+        </div>
+        <div class="three-dot">
+          <button style="margin: 20px;" class="btn btn-danger" onclick="onDeteleteComment('{{this._id}}')"> Xóa
+          </button>
         </div>
       </div>
-      <div class="three-dot">
 
-        <button style="margin: 20px;" class="btn btn-danger" onclick="onDeteleteComment('{{this._id}}')"> Xóa </button>
-      </div>
+      {{!-- Script onDeteleteComment --}}
+      <script>
+        function onDeteleteComment(id) {
+          let saveName = document.getElementById("save-name").textContent;
+          let saveId = document.getElementById("save-id").textContent;
+          saveId = saveId.slice(3);
+          console.log(saveName)
+          window.location.replace("/forum/customer/deletecomment?idCmt=" + id + "&idPost={{this.postID}}&username=" + saveName + "&customerId=" + saveId)
+        }
+      </script>
+
+      {{/each}}
     </div>
-
-
-
-    <script>
-      function onDeteleteComment(id) {
-        let saveName = document.getElementById("save-name").textContent;
-        let saveId = document.getElementById("save-id").textContent;
-        saveId= saveId.slice(3);
-        console.log(saveName)
-        window.location.replace("/forum/customer/deletecomment?idCmt=" + id + "&idPost={{this.postID}}&username=" + saveName + "&customerId=" + saveId)
-      }
-    </script>
-    {{/each}}
-
-
   </div>
-
-</div>
+</body>
 
 <div class="xoabaiviet" id="xoabaivietcomment">
   <div class="xoabaiviet-hienthi">
@@ -150,6 +139,7 @@
   </div>
 </div>
 
+{{!-- script --}}
 <script>
   var btn = document.querySelector('.btn-lockcomment')
   btn.addEventListener('click', function (e) {

@@ -1,10 +1,9 @@
+{{!-- Navbar --}}
 <thead>
   <div id="nav-background">
-
     <header id="nav-header">
-
     </header>
-    <nav style="    height: 72px;
+    <nav style="height: 72px;
     position: absolute;">
       <ul class="nav-ul hide-ul">
         <li>
@@ -22,30 +21,20 @@
             src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
             alt="" class="comment-img">
 
-
-          <p style="margin-top:15px"><strong style="align-items: center;" >{{customerName}}</strong>
-           <strong  id="save-id">ID:{{customerId}}</strong>
+          <p style="margin-top:8px"><strong style="align-items: center;">{{customerName}}</strong>
+            <strong id="save-id">ID:{{customerId}}</strong>
           </p>
-
-
-
         </li>
       </ul>
     </nav>
-
   </div>
 </thead>
 
+{{!-- Container --}}
 <div class="w3-content w3-display-container">
-  <img class="mySlides"
-    src="https://images7.alphacoders.com/361/thumb-1920-361622.jpg"
-    style="width:100%">
-  <img class="mySlides"
-    src="https://allhdwallpapers.com/wp-content/uploads/2015/05/Candle-6.jpg"
-    style="width:100%">
-  <img class="mySlides"
-    src="https://images3.alphacoders.com/107/1079373.jpg"
-    style="width:100%">
+  <img class="mySlides" src="https://images7.alphacoders.com/361/thumb-1920-361622.jpg" style="width:100%">
+  <img class="mySlides" src="https://allhdwallpapers.com/wp-content/uploads/2015/05/Candle-6.jpg" style="width:100%">
+  <img class="mySlides" src="https://images3.alphacoders.com/107/1079373.jpg" style="width:100%">
   <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
     <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
     <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
@@ -55,117 +44,112 @@
   </div>
 </div>
 {{#each Posts}}
-<div class="fb-post" id="fpost2">
 
-  <!-- Top Section -->
 
-  <div class="top-s">
-    <div class="top-info">
-      <div class="profile-picture">
-        <img
-          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg">
-      </div>
+<body style="background-color:#1B1531;">
+  <div class="fb-post" id="fpost2">
 
-      <div class="top-title">
-        <div class="profile-name">
-          <a href="#">{{this.username}}</a>
+    <!-- Top Section -->
+
+    <div class="top-s">
+      <div class="top-info">
+        <div class="profile-picture">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg">
         </div>
-        <div class="post-time">
-          <span>{{this.postDate}}</span>
-          <i class="fas fa-lock"></i>
-        </div>
-      </div>
-      <div class="top-options">
-       {{#if this.isAuthor}}
-        <button title="Quản lý bài viết" class="btn btn-quanly" id="forum-post-{{this.postID}}"
-          onclick="onManage('{{this.postID}}')">
-          <istyle="margin-left: -28px; font-size: 1.4rem;" class="fas fa-user-edit">
-            </istyle=>
-        </button>
 
-        <script>
-          function onManage(id) {
-            window.location.replace("/forum/customer/editpost?idPost=" + id + "&username={{this.customerName}}&customerId={{this.customerId}}")
-          }
-        </script>
-      {{/if}}
-      </div>
-
-    </div>
-    <div class="post-content">
-      {{this.caption}}<br><br>
-      <img src="{{this.image}}" alt="">
-    </div>
-  </div>
-  <div class="bottom-part">
-
-  </div>
-  <!-- Like section -->
-
-
-  <!-- Comment section-->
-
-  <div class="all-comments">
-    <h4>All comments <img src="svg/sort-down.svg" class="all-comments-h4-i" alt=""></h4>
-  </div>
-  <div id="user-comment-{{this.postID}}" class="comment-box">
-    {{#each this.arrCmt}}
-    <div class="comment-container">
-      <div class="comment">
-        <img
-          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
-          alt="" class="comment-img">
-
-
-        <div class="comment-text">
-          <div class="comment-header">
-            <p><strong> {{this.username}} </strong></p>
+        <div class="top-title">
+          <div class="profile-name">
+            <a href="#">{{this.username}}</a>
           </div>
-          <p style="  hyphens: auto;"> {{this.caption}}</p>
+          <div class="post-time">
+            <span>{{this.postDate}}</span>
+            <i class="fas fa-lock"></i>
+          </div>
+        </div>
+        <div class="top-options">
+          {{#if this.isAuthor}}
+          <button title="Quản lý bài viết" class="btn btn-quanly" id="forum-post-{{this.postID}}"
+            onclick="onManage('{{this.postID}}')">
+            <istyle="margin-left: -28px; font-size: 1.4rem;" class="fas fa-user-edit">
+              </istyle=>
+          </button>
+
+          <script>
+            function onManage(id) {
+              window.location.replace("/forum/customer/editpost?idPost=" + id + "&username={{this.customerName}}&customerId={{this.customerId}}")
+            }
+          </script>
+          {{/if}}
         </div>
 
-        <div class="three-dot">
-          <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
-        </div>
+      </div>
+      <div class="post-content">
+        {{this.caption}}<br><br>
+        <img src="{{this.image}}" alt="">
       </div>
     </div>
-    {{/each}}
-  </div>
-  <div class="comment-s">
-    <div class="comment-area">
-      <div class="comment-profile-pic">
-        <img
-          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
-          alt="user">
-      </div>
-      {{#if this.allowToCmT}}
-      <div class="comment-input-area">
-        <form id="cmtForm">
-          <input style="width:450px" name="comment-{{this.postID}}" id="cmtValue-{{this.postID}}"
-            placeholder="Nhập đánh giá">
-        </form>
-        <div class="comment-icon"> 
-          <button class="btn btn-primary cm "
-            onclick="postComment('{{this.postID}}')">Gửi</button>
+    <div class="bottom-part">
+    </div>
+    <!-- Like section -->
+
+
+    <!-- Comment section-->
+
+    <div class="all-comments">
+      <h4>All comments <img src="svg/sort-down.svg" class="all-comments-h4-i" alt=""></h4>
+    </div>
+    <div id="user-comment-{{this.postID}}" class="comment-box">
+      {{#each this.arrCmt}}
+      <div class="comment-container">
+        <div class="comment">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+            alt="" class="comment-img">
+
+          <div class="comment-text">
+            <div class="comment-header">
+              <p><strong>{{this.username}}</strong></p>
+            </div>
+            <p style="hyphens: auto; margin-bottom: 0px; margin-top: -15px;"> {{this.caption}}</p>
+          </div>
+
+          <div class="three-dot">
+            <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
+          </div>
         </div>
       </div>
-      {{/if}}
-
+      {{/each}}
     </div>
+    <div class="comment-s">
+      <div class="comment-area">
+        <div class="comment-profile-pic">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+            alt="user">
+        </div>
+        {{#if this.allowToCmT}}
+        <div class="comment-input-area">
+          <form id="cmtForm">
+            <input style="width:450px" name="comment-{{this.postID}}" id="cmtValue-{{this.postID}}"
+              placeholder="Nhập đánh giá">
+          </form>
+          <div class="comment-icon">
+            <button class="btn btn-primary cm " onclick="postComment('{{this.postID}}')">Gửi</button>
+          </div>
+        </div>
 
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  </div>
   </div>
 
-</div>
+  {{/each}}
+</body>
 
-</div>
-
-</div>
-
-
-{{/each}}
-
-
-
+{{!-- Footer --}}
 <footer class="footer">
   <div class="footer__addr">
     <h1 class="footer__logo"><img src="/image/logo.png" alt="logo" style="width: 175px;"></h1>
@@ -251,16 +235,10 @@
 
   <div class="legal">
     <p>&copy; 2019 Something. All rights reserved.</p>
-
-
   </div>
 </footer>
 
-
-
 {{!-- SCRIPT --}}
-
-
 <script>
   var slideIndex = 1;
   showDivs(slideIndex);
@@ -290,9 +268,7 @@
   }
 </script>
 
-
-
-
+{{!-- Script postComment --}}
 <script>
   function postComment(postID) {
 
@@ -302,7 +278,6 @@
     request.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
         const value = this.responseText;
-        // console.log(value);
       }
     };
     const name = '{{customerName}}';
@@ -328,7 +303,6 @@
       <div class="comment">
         <img src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg" alt="" class="comment-img">
 
-
         <div class="comment-text">
           <div class="comment-header">
             <p><strong> ${postData.Cmts[num].username} </strong></p>
@@ -341,15 +315,11 @@
         </div>
       </div>
     </div> `
-
-
         parentComment.appendChild(newLiElement);
 
         console.log("resData= " + cmt.caption);
       }
-
     }
     request.send(jsonData);
-
   }
 </script>
