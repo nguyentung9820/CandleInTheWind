@@ -2,7 +2,7 @@ const { mutipleMongooseToObject } = require('../../../util/mongoose')
 const { json } = require("express");
 const Customer = require("../../models/Customer")
 const Order = require("../../../../Checkout/app/models/Order")
-
+const Blog = require("../../../../Blog/app/models/Blog")
 class AccountController {
 
     // [GET] /
@@ -35,14 +35,22 @@ class AccountController {
         if(auth != ''){
             Customer.find({_id: auth})
             .then(customers => {
-                Order.find({customer_id: auth})
-                .then(orders =>{
-                    res.render('templates/store/viewcustomer', { 
-                        customers: mutipleMongooseToObject(customers),
-                        orders: mutipleMongooseToObject(orders),
-                        layout: 'main' 
-                    });
-                })  
+                customers.forEach(element=>{
+                    Blog.find({idAuthor: element._id})
+                    .then(
+                        blogs => {
+                            Order.find({customer_id: auth})
+                            .then(orders =>{
+                                res.render('templates/store/viewcustomer', { 
+                                    customers: mutipleMongooseToObject(customers),
+                                    orders: mutipleMongooseToObject(orders),
+                                    blogs: mutipleMongooseToObject(blogs),
+                                    layout: 'main' 
+                                });
+                            })  
+                        }
+                    )
+                })
             }) 
         }else{
             res.redirect('/')

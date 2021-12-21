@@ -65,6 +65,12 @@ class CustomerController {
             .then(() => res.redirect('/management/customer'))
         }
     }
+    deleteCustomer(req,res, next){
+        var param = req.params.id;
+        Customer.deleteOne({_id: param})
+        .then(() => res.redirect('/management/customer'))
+        .catch(next);
+    }
 }
 
 

@@ -1,4 +1,5 @@
    <a href="/management/customer/add"><button type="button" style="margin-bottom: 20px;" class="btn btn-success" action=>Add Customer</button></a>
+   <h1>Customers</h1>
    <div>
         <table class="table">
               <thead class="thead-dark">
@@ -30,7 +31,7 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="/management/customer/edit/{{this._id}}">Edit</a>
-                                        <a data-id="{{this.username}}" class="dropdown-item"  href="/admin/product/delete/{{this._id}}">Delete</a>
+                                        <a data-id="{{this.username}}" class="dropdown-item"  href="/management/customer/delete/{{this._id}}">Delete</a>
                                         <a class="dropdown-item"  href="/management/customer/view/{{this._id}}">View</a>
 
                                     </div>

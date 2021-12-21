@@ -23,6 +23,12 @@ class CheckoutController {
             });
         })    
     }
+    deleteOrder(req,res, next){
+        var param = req.params.id;
+        Order.deleteOne({_id: param})
+        .then(() => res.redirect('/payment/order'))
+        .catch(next);
+    }
 
 }
 
