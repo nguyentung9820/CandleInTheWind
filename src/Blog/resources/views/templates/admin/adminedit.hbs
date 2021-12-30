@@ -12,11 +12,11 @@
         </li>
         <li style="width: 100px;height:80%"></li>
         <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/homepage?id={{idAmin}}&username={{adminName}}">Home</a></li>
+            href="/forum/admin/homepage">Home</a></li>
         <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/newpost?id={{idAmin}}&username={{adminName}}">Thêm bài mới</a></li>
+            href="/forum/admin/newpost">Thêm bài mới</a></li>
         <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/pending?id={{idAmin}}&username={{adminName}}">Duyệt bài đăng</a></li>
+            href="/forum/admin/pending">Duyệt bài đăng</a></li>
 
         <li style="max-width: 200px;height:80%; margin-left: 160px;">
           <img style="align-items: center;"
@@ -44,7 +44,7 @@
   <div class="edit-comment-modal">
 
 
-    <form method="POST" action="/forum/admin/edit/store?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}"
+    <form method="POST" action="/forum/admin/edit/store?idPost={{postID}}"
       enctype="multipart/form-data">
       <div class="form-group">
 
@@ -55,6 +55,7 @@
         <label for="caption">Hãy nhập nội dung bài viết </label>
         <textarea rows="4" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption"
           name="caption" autocomplete="off">{{caption}}</textarea>
+        <input type="text" name="title" value="{{title}}">  </input> 
       </div>
       <div class="form-group">
         <img src="{{this.image}}"></img>
@@ -119,11 +120,7 @@
     </div>
     <script>
       function onDeteleteComment(id) {
-        let saveName = document.getElementById("save-name").textContent;
-        let saveId = document.getElementById("save-id").textContent;
-        saveId= saveId.slice(3);
-        console.log(saveId)
-        window.location.replace("/forum/admin/deletecomment?idCmt=" + id + "&idPost={{this.postID}}&username=" + saveName + "&adminId=" + saveId)
+        window.location.replace("/forum/admin/deletecomment?idCmt=" + id + "&idPost={{this.postID}}")
       }
     </script>
     {{/each}}
@@ -146,7 +143,7 @@
           <i class="fas fa-times-circle font-deletecomment"></i>
         </button>
       </header>
-      <form action="/forum/admin/deletepost?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}" method="POST">
+      <form action="/forum/admin/deletepost?idPost={{postID}}" method="POST">
         <button id="xoabaiviet-co" class="btn btn-accecptdelete">Có</button>
       </form>
       <button id="xoabaiviet-khong" class="btn btn-canceldelete" style="margin-top: -6rem;
@@ -159,7 +156,7 @@
   var btn = document.querySelector('.btn-lockcomment')
   if (btn != null) {
     btn.addEventListener('click', function (e) {
-      window.location.replace("/forum/admin/lockcomment?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}")
+      window.location.replace("/forum/admin/lockcomment?idPost={{postID}}")
     })
   }
 </script>
@@ -168,7 +165,7 @@
   var btn1 = document.querySelector('.btn-opencomment')
   if (btn1 != null) {
     btn1.addEventListener('click', function (e) {
-      window.location.replace("/forum/admin/opencomment?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}")
+      window.location.replace("/forum/admin/opencomment?idPost={{postID}}")
     })
   }
 </script>

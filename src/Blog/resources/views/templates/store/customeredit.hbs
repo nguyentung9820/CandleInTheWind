@@ -12,9 +12,9 @@
         </li>
         <li style="width: 100px;height:80%"></li>
         <li style="width: 300px;height:80%"><a class="nav-link"
-            href="/forum/customer/homepage?id={{idCustomer}}&username={{customerName}}">Home</a></li>
+            href="/forum/customer/homepage">Home</a></li>
         <li style="width: 300px;height:80%"><a class="nav-link"
-            href="/forum/customer/newpost?id={{idCustomer}}&username={{customerName}}">Thêm bài mới</a></li>
+            href="/forum/customer/newpost">Thêm bài mới</a></li>
         <li style="width: 200px;height:80%"></li>
 
         <li style="max-width: 200px;height:80%; margin-left: 110px;">
@@ -25,7 +25,7 @@
 
           <p style="margin-top:15px">
             <strong style="align-items: center;" id="save-name">{{customerName}}</strong>
-             <strong  id="save-id">ID:{{idCustomer}}</strong>
+             {{!-- <strong  id="save-id">ID:{{idCustomer}}</strong> --}}
           </p>
 
 
@@ -42,7 +42,7 @@
   <div class="edit-comment-modal">
 
     <form method="POST"
-      action="/forum/customer/edit/store?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}"
+      action="/forum/customer/edit/store?idPost={{postID}}"
       enctype="multipart/form-data">
       <div class="form-group">
 
@@ -52,7 +52,9 @@
       <div class="form-group">
         <label for="caption">Hãy nhập nội dung bài viết </label>
         <textarea rows="4" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption"
-          name="caption" autocomplete="off">{{caption}}</textarea>
+          name="caption" autocomplete="off">{{caption}}</textarea> 
+        <textarea rows="4" cols="50" type="text" class="form-control" id="caption" aria-describedby="title"
+          name="title" autocomplete="off">{{title}}</textarea>
       </div>
       <div class="form-group">
         <img src="{{this.image}}"></img>
@@ -117,11 +119,7 @@
 
     <script>
       function onDeteleteComment(id) {
-        let saveName = document.getElementById("save-name").textContent;
-        let saveId = document.getElementById("save-id").textContent;
-        saveId= saveId.slice(3);
-        console.log(saveName)
-        window.location.replace("/forum/customer/deletecomment?idCmt=" + id + "&idPost={{this.postID}}&username=" + saveName + "&customerId=" + saveId)
+        window.location.replace("/forum/customer/deletecomment?idCmt=" + id)
       }
     </script>
     {{/each}}
@@ -140,7 +138,7 @@
           <i class="fas fa-times-circle font-deletecomment"></i>
         </button>
       </header>
-      <form action="/forum/customer/deletepost?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}"
+      <form action="/forum/customer/deletepost?idPost={{postID}}"
         method="POST">
         <button id="xoabaiviet-co" class="btn ">Có</button>
       </form>
@@ -153,14 +151,14 @@
 <script>
   var btn = document.querySelector('.btn-lockcomment')
   btn.addEventListener('click', function (e) {
-    window.location.replace("/forum/customer/lockcomment?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}")
+    window.location.replace("/forum/customer/lockcomment?idPost={{postID}}")
   })
 </script>
 
 <script>
   var btn1 = document.querySelector('.btn-opencomment')
   btn1.addEventListener('click', function (e) {
-    window.location.replace("/forum/customer/opencomment?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}")
+    window.location.replace("/forum/customer/opencomment?idPost={{postID}}")
   })  
 </script>
 

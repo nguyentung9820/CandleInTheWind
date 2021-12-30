@@ -4,7 +4,7 @@ const blog = require("../../models/Blog");
 const postPending = require("../../models/PostPending");
 const Customer = require("../../../../Customer/app/models/Customer");
 const { mongoToObj } = require("../../../util/mongoose");
-function r(request, response, callback, Id) {
+function ajaxcmt(request, response, callback, Id) {
   if (request.method == "POST") {
     let savePost = {};
     let newPostData = {};
@@ -47,11 +47,12 @@ function r(request, response, callback, Id) {
 }
 class CustomerBlogController {
   homepage(req, res, next) {
-    let query = require("url").parse(req.url, true).query;
+    //let query = require("url").parse(req.url, true).query;
+    let userId = req.cookies.customer;
 
     let savePosts = [];
     let arrPosts = [];
-    Customer.findOne({_id: req.cookies['customer']})
+    Customer.findOne({_id: userId})
     .then(customers =>{
       let customer_name = customers.username;
       let customer_Id = customers._id;
@@ -70,7 +71,7 @@ class CustomerBlogController {
               let createdDate = element.createdAt;
               let date = new Date(createdDate.toString());
               let getDay = date.getDate().toString()+ "-" + (date.getMonth()+1).toString() +"-" +  date.getFullYear().toString()
-              if(element.idAuthor==query.id)
+              if(element.idAuthor==userId)
               author=true;
               cmt.forEach((id) => {
                 if (id.postID == element.postID) cmts.push(id);
@@ -78,13 +79,14 @@ class CustomerBlogController {
               arrPosts.push({
                 username: element.username,
                 caption: element.caption,
+                title: element.title,
                 image: element.image,
                 arrCmt: cmts,
                 postID: element.postID,
                 allowToCmT: element.availableToCmt,
                 isAuthor: author,
-                customerName: customer_name,
-                customerId: customer_Id,
+                // customerName: customer_name,
+                // customerId: customer_Id,
                 postDate: getDay
               });
             });
@@ -116,21 +118,13 @@ class CustomerBlogController {
           .then(
             res.redirect(
               "/forum/customer/editpost?idPost=" +
-                query.idPost +
-                "&username=" +
-                query.username +
-                "&customerId=" +
-                query.customerId
+                query.idPost
             )
           );
       } else {
         res.redirect(
           "/forum/customer/editpost?idPost=" +
-            query.idPost +
-            "&username=" +
-            query.username +
-            "&customerId=" +
-            query.customerId
+            query.idPost
         );
       }
     });
@@ -138,6 +132,8 @@ class CustomerBlogController {
 
   ShowEditForm(req, res, next) {
     let query = require("url").parse(req.url, true).query;
+    let cookies=req.cookies; 
+
     blog.findOne({ postID: query.idPost }).then((posts) => {
       posts = mongoToObj(posts);
       if (posts != null) {
@@ -149,8 +145,8 @@ class CustomerBlogController {
             cmts: multipleMongoObj(arrCmt),
             postID: posts.postID,
             allowToCmT: posts.availableToCmt,
-            customerName: query.username,
-            idCustomer: query.customerId,
+            customerName: cookies.usernameName,
+            idCustomer: cookies.customer,
           });
         });
       } else {
@@ -160,14 +156,14 @@ class CustomerBlogController {
   }
 
   Comment(req, res, next) {
-    r(
+    ajaxcmt(
       req,
       res,
       function (cap) {
         if (cap.caption.length > 0) {
           const cmt = new CommentModel();
           cmt.postID = req.params.slug;
-          cmt.commentID = req.params.slug;
+         // cmt.commentID = req.params.slug;
           cmt.caption = cap.caption;
           cmt.username = cap.username;
           cmt.save();
@@ -181,24 +177,22 @@ class CustomerBlogController {
     console.log(req.file)
     let query = require('url').parse(req.url, true).query;
     if (req.body.caption.length <= 0) {
-        res.redirect('/forum/customer/deletepost?id=' + query.customerId + "&username=" + query.username);
+        res.redirect('/forum/customer/deletepost');
     }
     else {
         if (req.file) {
             blog.updateOne({ postID: query.idPost }, { $set: { caption: req.body.caption, image: '/uploads/' + req.file.originalname } },)
-                .then(tmp => res.redirect('/forum/customer/homepage?id=' + query.customerId + "&username=" + query.username))
+                .then(tmp => res.redirect('/forum/customer/homepage'))
         }
         else {
             blog.updateOne({ postID: query.idPost }, { $set: { caption: req.body.caption } },)
-                .then(tmp => res.redirect('/forum/customer/homepage?id=' + query.customerId + "&username=" + query.username))
+                .then(tmp => res.redirect('/forum/customer/homepage'))
         }
     }
   }
 
   DeletePost(req, res, next) {
     let query = require('url').parse(req.url, true).query;
-    console.log("this query");
-    console.log(query);
         blog.findOne({ postID: query.idPost })
             .then(value => {
                 value = mongoToObj(value);
@@ -206,21 +200,27 @@ class CustomerBlogController {
                     CommentModel.deleteMany({ postID: query.idPost })
                         .then(cmt => {
                             blog.deleteOne({ postID: query.idPost })
-                                .then(tmp => res.redirect('/forum/customer/homepage?id=' + query.adminId + "&username=" + query.username))
+                                .then(tmp => res.redirect('/forum/customer/homepage'))
                         })
                 }
-                else { res.redirect('/forum/customer/homepage?id=' + query.adminId + "&username=" + query.username) }
+                else { res.redirect('/forum/customer/homepage') }
             })
   }
 
   WriteNewPost(req, res, next) {
     const isAdmin = false;
-    let query = require("url").parse(req.url, true).query;
-    res.render("templates/store/writenewpost", {
-      isAdmin,
-      customerName: query.username,
-      customerId: query.id,
-    });
+   // let query = require("url").parse(req.url, true).query;
+   let cookies= req.cookies;
+   Customer.findOne({_id: cookies.customer})
+   .then(customers =>{
+     let customer_name = customers.username;
+     let customer_Id = customers._id;
+     res.render("templates/store/writenewpost", {
+       isAdmin,
+       customerName: customer_name,
+       customerId: customer_Id,
+     });
+   })
   }
 
   DeleteComment(req, res, next) {
@@ -233,21 +233,13 @@ class CustomerBlogController {
         CommentModel.deleteOne({ _id: query.idCmt }).then((tmp) =>
           res.redirect(
             "/forum/customer/editpost?idPost=" +
-              value.postID +
-              "&username=" +
-              query.username +
-              "&customerId=" +
-              query.customerId
+              value.postID
           )
         );
       } else {
         res.redirect(
           "/forum/customer/editpost?idPost=" +
-            value.postID +
-            "&username=" +
-            query.username +
-            "&customerId=" +
-            query.customerId
+            value.postID
         );
       }
     });
@@ -266,21 +258,13 @@ class CustomerBlogController {
           .then(
             res.redirect(
               "/forum/customer/editpost?idPost=" +
-                query.idPost +
-                "&username=" +
-                query.username +
-                "&customerId=" +
-                query.customerId
+                query.idPost
             )
           );
       } else {
         res.redirect(
           "/forum/customer/editpost?idPost=" +
-            query.idPost +
-            "&username=" +
-            query.username +
-            "&customerId=" +
-            query.customerId
+            query.idPost
         );
       }
     });
@@ -288,21 +272,25 @@ class CustomerBlogController {
 
   StorePost(req, res, next) {
     let query = require("url").parse(req.url, true).query;
+    let cookies= req.cookies;
+    Customer.findOne({_id: cookies.customer})
+    .then(customers =>{
+    let customer_name = customers.username;
+    let customer_Id = customers._id;
 
-    console.log("query +    ----------------");
-    console.log(query);
     const postData = req.body;
-    const postID = query.username.toString() + Math.random().toString();
+    const postID = customer_name.toString() + Math.random().toString();
     postData.postID = postID;
     const savePost = new postPending(postData);
-    savePost.idAuthor=query.id;
-    savePost.username=query.username;
+    savePost.idAuthor=customer_Id;
+    savePost.username=customer_name;
     if(req.file)       
     savePost.image = '/uploads/' + req.file.originalname;
     savePost.save();
     res.redirect(
-      "/forum/customer/homepage?id=" + query.id + "&username=" + query.username
+      "/forum/customer/homepage"
     );
+  })
   }
 }
 

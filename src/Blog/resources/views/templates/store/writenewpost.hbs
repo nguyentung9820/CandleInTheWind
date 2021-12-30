@@ -12,9 +12,9 @@
         </li>
         <li style="width: 100px;height:80%"></li>
         <li style="width: 300px;height:80%"><a class="nav-link"
-            href="/forum/customer/homepage?id={{customerId}}&username={{customerName}}">Home</a></li>
+            href="/forum/customer/homepage">Home</a></li>
         <li style="width: 300px;height:80%"><a class="nav-link active-link"
-            href="/forum/customer/newpost?id={{customerId}}&username={{customerName}}">Thêm bài mới</a></li>
+            href="/forum/customer/newpost">Thêm bài mới</a></li>
         <li style="width: 200px;height:80%"></li>
 
         <li style="max-width: 200px;height:80%; margin-left: 110px;">
@@ -24,7 +24,7 @@
 
 
           <p style="margin-top:15px"><strong style="align-items: center;">{{customerName}}</strong>
-          <strong  id="save-id">ID:{{customerId}}</strong>
+          {{!-- <strong  id="save-id">ID:{{customerId}}</strong> --}}
           </p>
 
 
@@ -46,13 +46,15 @@
 
   <div class="edit-comment-modal edit-comment-modal-store edit-background">
 
-    <form method="POST" action="/forum/customer/store?id={{customerId}}&username={{customerName}}" enctype="multipart/form-data">
+    <form method="POST" action="/forum/customer/store" enctype="multipart/form-data">
       <div class="form-group">
         
         <div class="form-group">
           <label for="caption">Hãy nhập nội dung bài viết </label>
           <textarea rows="10" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption"
-            name="caption" autocomplete="off"></textarea>
+            name="caption" autocomplete="off"></textarea>   
+          <textarea type="text" class="form-control" id="title" aria-describedby="caption"
+            name="title" autocomplete="off"></textarea>
         </div>
         
         <div>

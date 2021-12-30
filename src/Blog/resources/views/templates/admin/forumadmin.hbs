@@ -12,11 +12,11 @@
         </li>
         <li style="width: 100px;height:80%"></li>
         <li style="width: 250px;height:80%"><a class="nav-link active-link"
-            href="/forum/admin/homepage?id={{adminId}}&username={{adminName}}">Home</a></li>
+            href="/forum/admin/homepage">Home</a></li>
         <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/newpost?id={{adminId}}&username={{adminName}}">Thêm bài mới</a></li>
+            href="/forum/admin/newpost">Thêm bài mới</a></li>
         <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/pending?id={{adminId}}&username={{adminName}}">Duyệt bài đăng</a></li>
+            href="/forum/admin/pending">Duyệt bài đăng</a></li>
 
         <li style="max-width: 200px;height:80%; margin-left: 160px;">
           <img style="align-items: center;"
@@ -70,6 +70,7 @@
         </div>
         <div class="post-time">
           <span>{{this.postDate}} </span>
+          <span>{{this.title}} </span>
           <i class="fas fa-lock"></i>
         </div>
       </div>
@@ -81,7 +82,7 @@
         </button>
         <script>
           function onManage(id) {
-            window.location.replace("/forum/admin/editpost?idPost=" + id + "&username={{this.adminName}}&adminId={{this.adminId}}")
+            window.location.replace("/forum/admin/editpost?idPost=" + id)
           }
         </script>
 
