@@ -10,25 +10,22 @@
         <li>
           <a href="/admin/product"><img style="height:80%;" src="/image/logo.png" alt="logo" class="img-fluidd"></a>
         </li>
-        <li style="width: 100px;height:80%"></li>
-        <li style="width: 250px;height:80%"><a class="nav-link active-link"
-            href="/forum/admin/homepage?id={{adminId}}&username={{adminName}}">Home</a></li>
-        <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/newpost?id={{adminId}}&username={{adminName}}">Thêm bài mới</a></li>
-        <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/pending?id={{adminId}}&username={{adminName}}">Duyệt bài đăng</a></li>
+        <li style="width: 134px;height:80%"></li>
+        <li style="width: 250px;height:80%"><a class="nav-link active-link" href="/forum/admin/homepage">Home</a></li>
+        <li style="width: 250px;height:80%"><a class="nav-link" href="/forum/admin/newpost">Thêm bài mới</a></li>
+        <li style="width: 250px;height:80%"><a class="nav-link" href="/forum/admin/pending">Duyệt bài đăng</a></li>
 
-        <li style="max-width: 200px;height:80%; margin-left: 160px;">
+        <li style="max-width: 200px;height:80%; margin-left: 160px; margin-top: 7px;">
           <img style="align-items: center;"
             src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
             alt="" class="comment-img">
 
 
           <p style="margin-top:15px"><strong style="align-items: center;" id="save-name">{{adminName}}</strong>
-          {{!-- <strong  id="save-id">ID:{{adminId}}</strong> --}}
+            {{!-- <strong id="save-id">ID:{{adminId}}</strong> --}}
           </p>
 
-          
+
 
 
 
@@ -52,113 +49,116 @@
   </div>
 </div>
 {{#each Posts}}
+
 <body style="background-color:#1B1531;">
-<div class="fb-post" id="fpost2">
+  <div class="fb-post" id="fpost2">
 
-  <!-- Top Section -->
+    <!-- Top Section -->
 
-  <div class="top-s">
-    <div class="top-info">
-      <div class="profile-picture">
-        <img
-          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg">
-      </div>
-
-      <div class="top-title">
-        <div class="profile-name">
-          <a href="#">{{this.username}}</a>
+    <div class="top-s">
+      <div class="top-info">
+        <div class="profile-picture">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg">
         </div>
-        <div class="post-time">
-          <span>{{this.postDate}} </span>
-          <i class="fas fa-lock"></i>
-        </div>
-      </div>
-      <div class="top-options">
-        <button title="Quản lý bài viết" class="btn btn-quanly" id="forum-post-{{this.postID}}"
-          onclick="onManage('{{this.postID}}')">
-          <istyle="margin-left: -28px; font-size: 1.4rem;" class="fas fa-user-edit">
-            </istyle>
-        </button>
-        <script>
-          function onManage(id) {
-            window.location.replace("/forum/admin/editpost?idPost=" + id + "&username={{this.adminName}}&adminId={{this.adminId}}")
-          }
-        </script>
 
-      </div>
-
-    </div>
-    <div class="post-content">
-      {{this.caption}}<br><br>
-      <img src="{{this.image}}" alt="">
-    </div>
-  </div>
-  <div class="bottom-part">
-
-  </div>
-  <!-- Like section -->
-
-
-  <!-- Comment section-->
-
-  <div class="all-comments">
-    <h4>All comments <img src="svg/sort-down.svg" class="all-comments-h4-i" alt=""></h4>
-  </div>
-  <div id="user-comment-{{this.postID}}" class="comment-box">
-    {{#each this.arrCmt}}
-    <div class="comment-container">
-      <div class="comment">
-        <img
-          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
-          alt="" class="comment-img">
-
-
-        <div class="comment-text">
-          <div class="comment-header">
-            <p><strong> {{this.username}} </strong></p>
+        <div class="top-title">
+          <div class="profile-name">
+            <a href="#">{{this.username}}</a>
           </div>
-          <p style="  hyphens: auto;"> {{this.caption}}</p>
+          <div class="post-time">
+            <span>{{this.postDate}} </span>
+
+            <i class="fas fa-lock"></i>
+
+          </div>
+        </div>
+        <div class="top-options">
+          <button title="Quản lý bài viết" class="btn btn-quanly" id="forum-post-{{this.postID}}"
+            onclick="onManage('{{this.postID}}')">
+            <istyle="margin-left: -28px; font-size: 1.4rem;" class="fas fa-user-edit">
+              </istyle>
+          </button>
+          <script>
+            function onManage(id) {
+              window.location.replace("/forum/admin/editpost?idPost=" + id)
+            }
+          </script>
+
         </div>
 
-        <div class="three-dot">
-          <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
+      </div>
+      <div class="post-content">
+        <h2>{{this.title}}</h2>
+        {{this.caption}}<br><br>
+        <img src="{{this.image}}" alt="">
+      </div>
+    </div>
+    <div class="bottom-part">
+
+    </div>
+    <!-- Like section -->
+
+
+    <!-- Comment section-->
+
+    <div class="all-comments">
+      <h4>All comments <img src="svg/sort-down.svg" class="all-comments-h4-i" alt=""></h4>
+    </div>
+    <div id="user-comment-{{this.postID}}" class="comment-box">
+      {{#each this.arrCmt}}
+      <div class="comment-container">
+        <div class="comment">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+            alt="" class="comment-img">
+
+          <div class="comment-text">
+            <div class="comment-header">
+              <p><strong> {{this.username}} </strong></p>
+            </div>
+            <p style="hyphens: auto; margin-bottom: 0px; margin-top: -15px;"> {{this.caption}}</p>
+          </div>
+
+          <div class="three-dot">
+            <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
+          </div>
         </div>
       </div>
+      {{/each}}
     </div>
-    {{/each}}
-  </div>
-  <div class="comment-s">
-    <div class="comment-area">
-      <div class="comment-profile-pic">
-        <img
-          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
-          alt="user">
-      </div>
-      {{#if this.allowToCmT}}
-      <div class="comment-input-area">
+    <div class="comment-s">
+      <div class="comment-area">
+        <div class="comment-profile-pic">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+            alt="user">
+        </div>
+        {{#if this.allowToCmT}}
+        <div class="comment-input-area">
 
-        <form id="cmtForm">
-          <input style="width:450px" name="comment-{{this.postID}}" id="cmtValue-{{this.postID}}"
-            placeholder="Nhập đánh giá">
-        </form>
-        <div class="comment-icon"> <button class="btn btn-primary cm "
-            onclick="postComment('{{this.postID}}')">Gửi</button></div>
+          <form id="cmtForm">
+            <input style="width:450px" name="comment-{{this.postID}}" id="cmtValue-{{this.postID}}"
+              placeholder="Nhập đánh giá">
+          </form>
+          <div class="comment-icon"> <button class="btn btn-primary cm "
+              onclick="postComment('{{this.postID}}')">Gửi</button></div>
+
+        </div>
+        {{/if}}
 
       </div>
-      {{/if}}
 
     </div>
 
   </div>
 
-</div>
+  </div>
 
-</div>
-
-</div>
+  </div>
 
 
-{{/each}}
+  {{/each}}
 
 </body>
 

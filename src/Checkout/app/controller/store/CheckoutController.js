@@ -42,6 +42,8 @@ class CheckoutController {
         try{
             var order = new Order(data);
             order.save();
+            res.clearCookie("checkout");
+
             res.redirect('/')       
         } catch (error) {
             res.send('fail')

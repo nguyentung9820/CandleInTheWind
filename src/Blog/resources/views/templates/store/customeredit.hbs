@@ -8,16 +8,15 @@
     position: absolute;">
       <ul class="nav-ul hide-ul">
         <li>
-          <a href="/"><img style="height:80%; margin-left: 75px;" src="/image/logo.png" alt="logo" class="img-fluidd"></a>
+          <a href="/"><img style="height:80%; margin-left: 75px;" src="/image/logo.png" alt="logo"
+              class="img-fluidd"></a>
         </li>
         <li style="width: 100px;height:80%"></li>
-        <li style="width: 300px;height:80%"><a class="nav-link"
-            href="/forum/customer/homepage?id={{idCustomer}}&username={{customerName}}">Home</a></li>
-        <li style="width: 300px;height:80%"><a class="nav-link"
-            href="/forum/customer/newpost?id={{idCustomer}}&username={{customerName}}">Thêm bài mới</a></li>
+        <li style="width: 300px;height:80%"><a class="nav-link" href="/forum/customer/homepage">Home</a></li>
+        <li style="width: 300px;height:80%"><a class="nav-link" href="/forum/customer/newpost">Thêm bài mới</a></li>
         <li style="width: 200px;height:80%"></li>
 
-        <li style="max-width: 200px;height:80%; margin-left: 110px;">
+        <li style="max-width: 200px;height:80%; margin-left: 110px; margin-top: 7px;">
           <img style="align-items: center;"
             src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
             alt="" class="comment-img">
@@ -25,7 +24,7 @@
 
           <p style="margin-top:15px">
             <strong style="align-items: center;" id="save-name">{{customerName}}</strong>
-             <strong  id="save-id">ID:{{idCustomer}}</strong>
+            {{!-- <strong id="save-id">ID:{{idCustomer}}</strong> --}}
           </p>
 
 
@@ -37,20 +36,21 @@
   </div>
 </thead>
 
-
+<body style="background-color: #1B1531;">
 <div class="edit-comment">
   <div class="edit-comment-modal">
 
-    <form method="POST"
-      action="/forum/customer/edit/store?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}"
-      enctype="multipart/form-data">
+    <form method="POST" action="/forum/customer/edit/store?idPost={{postID}}" enctype="multipart/form-data">
       <div class="form-group">
 
         <button id='dongbaiviet' class="btn btn-danger button-deletecomment ">
           <i class="fas fa-times-circle font-deletecomment"></i></button>
       </div>
       <div class="form-group">
-        <label for="caption">Hãy nhập nội dung bài viết </label>
+        <label for="caption">Hãy nhập tiêu đề bài viết</label>
+        <textarea rows="2" cols="50" class="form-control" type="text" name="title">{{title}}</textarea>
+        <br>
+        <label for="caption">Hãy nhập nội dung bài viết</label>
         <textarea rows="4" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption"
           name="caption" autocomplete="off">{{caption}}</textarea>
       </div>
@@ -100,7 +100,7 @@
           <div class="comment-header">
             <p><strong>{{this.username}}</strong></p>
           </div>
-          <p style="  hyphens: auto;">{{this.caption}}</p>
+          <p style="hyphens: auto; margin-bottom: 0px; margin-top: -15px;"> {{this.caption}}</p>
         </div>
 
         <div>
@@ -117,11 +117,7 @@
 
     <script>
       function onDeteleteComment(id) {
-        let saveName = document.getElementById("save-name").textContent;
-        let saveId = document.getElementById("save-id").textContent;
-        saveId= saveId.slice(3);
-        console.log(saveName)
-        window.location.replace("/forum/customer/deletecomment?idCmt=" + id + "&idPost={{this.postID}}&username=" + saveName + "&customerId=" + saveId)
+        window.location.replace("/forum/customer/deletecomment?idCmt=" + id)
       }
     </script>
     {{/each}}
@@ -130,6 +126,7 @@
   </div>
 
 </div>
+</body>
 
 <div class="xoabaiviet" id="xoabaivietcomment">
   <div class="xoabaiviet-hienthi">
@@ -140,8 +137,7 @@
           <i class="fas fa-times-circle font-deletecomment"></i>
         </button>
       </header>
-      <form action="/forum/customer/deletepost?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}"
-        method="POST">
+      <form action="/forum/customer/deletepost?idPost={{postID}}" method="POST">
         <button id="xoabaiviet-co" class="btn ">Có</button>
       </form>
       <button id="xoabaiviet-khong" class="btn btn-canceldelete" style="margin-top: -6rem;
@@ -153,14 +149,14 @@
 <script>
   var btn = document.querySelector('.btn-lockcomment')
   btn.addEventListener('click', function (e) {
-    window.location.replace("/forum/customer/lockcomment?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}")
+    window.location.replace("/forum/customer/lockcomment?idPost={{postID}}")
   })
 </script>
 
 <script>
   var btn1 = document.querySelector('.btn-opencomment')
   btn1.addEventListener('click', function (e) {
-    window.location.replace("/forum/customer/opencomment?idPost={{postID}}&username={{customerName}}&customerId={{idCustomer}}")
+    window.location.replace("/forum/customer/opencomment?idPost={{postID}}")
   })  
 </script>
 

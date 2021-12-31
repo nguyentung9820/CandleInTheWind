@@ -5,6 +5,29 @@
                     <input type="text" name="attribute_name" class="form-control" placeholder="Enter Attribute Name" id="name">
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label><strong>Type</strong></label>
+                    <select class="form-control" name="type">
+                        <option value="select">select</option>
+                        <option value="checkbox">checkbox</option>
+                        <option value="radio">radio</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for='name'><strong>Options</strong></label>
+                    <input type="text" name="option1" class="form-control" placeholder="Option 1" id="Option 1">
+                    <br/>
+                    <input type="text" name="option2" class="form-control" placeholder="Option 2" id="Option 2">
+                    <br/>
+                    <input type="text" name="option3" class="form-control" placeholder="Option 3" id="Option 3">
+                    <br/>
+                    <input type="text" name="option4" class="form-control" placeholder="Option 4" id="Option 4">
+
+                </div>
+            </div>
             <input type="hidden" value="{{this.attributeset}}" name="attributeset"/>
             <div class="col-md-2">
                 <div class="form-group" style="display: flex;">

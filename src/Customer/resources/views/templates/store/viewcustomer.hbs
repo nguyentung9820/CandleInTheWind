@@ -10,6 +10,8 @@
                     <div class="mt-3">
                       <h4>{{this.username}}</h4>
                       <p class="text-secondary mb-1">{{this.customer_group}}</p>
+                      <a class="btn btn-secondary " href="#">Edit</a>
+
                     </div>
                   </div>
                 </div>
@@ -79,7 +81,16 @@
                   <div class="row">
                     <div style="display: flex;">
                       <div class="col-sm-8">
-                        <a class="btn btn-secondary " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                        {{#if_eq this.customer_group 'Normal (pending)'}}
+                        <span>Processing Your Request
+                          <div class="spinner-border spinner-border-sm text-dark" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </span>
+                        {{/if_eq}}
+                        {{#if_eq this.customer_group 'Normal'}}
+                        <a class="btn btn-secondary "  href="/customer/upgrade/{{this._id}}">Ask For Becomming Favourite</a>
+                        {{/if_eq}}
                       </div>
                     </div>
                   </div>

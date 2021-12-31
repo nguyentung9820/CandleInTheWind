@@ -29,6 +29,11 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <input type="number" name="qty" value="{{this.qty}}" class="form-control" placeholder="Enter Product Qty" id="qty"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
                     <textarea rows="1" name="product_description" class="form-control" placeholder="Enter Product Description"
                               id="description">{{this.product_description}}</textarea>
                 </div>
@@ -44,6 +49,31 @@
                     </select>                
                 </div>
             </div>
+             <div class="col-md-6">
+                <div class="form-group">
+                    <label>Attribute Set</label>
+                    <select class="form-control" name="attribute_set">
+                        {{#each attributesets}}
+                        <option value="{{this._id}}">{{this.attribute_set_name}}</option>
+                        {{/each}}
+                    </select>                
+                </div>
+            </div>
+            {{#each attributes}}
+            <div class="col-md-6">
+                <div>{{this.attribute_name}}</div>
+                <input type="hidden" name="option_attribute" value="{{this.attribute_name}}"/>
+                {{#each this.options}}
+                    <div class="form-check form-check-inline">
+                    <br/>
+                    <input class="form-check-input" value={{this}} id="{{this}}" type="checkbox" name="attributes"/>
+                    <label class="form-check-label" for="{{this}}">{{this}}</label>                       
+                    </div>
+                {{/each}}          
+            </div>
+            <br/>
+            {{/each}}
+
             <div class="col-md-2">
                 <div class="form-group" style="display: flex;">
                     <input type="submit" name="Submit" id="insert" 

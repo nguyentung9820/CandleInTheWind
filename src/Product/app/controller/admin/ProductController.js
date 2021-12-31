@@ -2,6 +2,9 @@ const { mutipleMongooseToObject } = require('../../../util/mongoose')
 const { json } = require("express");
 const Product = require("../../models/Product")
 const Category = require("../../models/ChildCategory")
+const AttributeSet = require("../../models/AttributeSet")
+const Attribute = require("../../models/Attribute")
+
 const { mongooseToObject } = require('../../../util/mongoose')
 
 class ProductController {
@@ -31,6 +34,8 @@ class ProductController {
     }
     update(req,res){
         var body = req.body;
+        console.log(req.body);
+
         if(req.file != null){
             var file = {product_image: req.file.filename}
         }else {
@@ -50,12 +55,22 @@ class ProductController {
     }
 
     add(req, res){
+        
         Category.find({})
         .then(categories => {
-            res.render('templates/admin/addproduct', { 
-                categories: mutipleMongooseToObject(categories),
-                layout: 'admin' 
-            });
+            AttributeSet.find({})
+            .then(attributeSets =>{
+                Attribute.find({})
+                .then(attributes => {
+                    res.render('templates/admin/addproduct', { 
+                        categories: mutipleMongooseToObject(categories),
+                        attributeSets: mutipleMongooseToObject(attributeSets),
+                        attributes: mutipleMongooseToObject(attributes),
+                        layout: 'admin' 
+                    });  
+                })              
+            })
+            
         })   
     }
 
@@ -63,7 +78,6 @@ class ProductController {
     async editProduct(req, res, next){
         var param = req.params.id;
         var category = [];
-    
         await Category.find({})
             .then(categories => {
                     categories = mutipleMongooseToObject(categories)
@@ -72,11 +86,19 @@ class ProductController {
             ).catch(next)
         await Product.find({_id: param})
         .then(products => {
-            res.render('templates/admin/editproduct', { 
-                products: mutipleMongooseToObject(products),
-                categories: category,
-                layout: 'admin' 
-            });
+            AttributeSet.find({_id: products[0].attribute_set})
+            .then(attributeSets => {
+                Attribute.find({attributeset: products[0].attribute_set})
+                .then(attributes => {
+                    res.render('templates/admin/editproduct', { 
+                        products: mutipleMongooseToObject(products),
+                        categories: category,
+                        attributesets: mutipleMongooseToObject(attributeSets),
+                        attributes: mutipleMongooseToObject(attributes),
+                        layout: 'admin' 
+                    });
+                }) 
+            })
         })
     }
 }

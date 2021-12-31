@@ -5,7 +5,9 @@ const customerController = require('../../app/controller/admin/CustomerControlle
 const authMiddleware = require('../../middlewares/middleware');
 const upload = require('../../multer')
 
-
+router.get('/customer/pending/cancel/:id',authMiddleware.checkAdmin, customerController.cancelRequest);
+router.get('/customer/pending/approve/:id',authMiddleware.checkAdmin, customerController.approveRequest);
+router.get('/customer/pending',authMiddleware.checkAdmin, customerController.pendingRequest);
 router.get('/customer/delete/:id',authMiddleware.checkAdmin, customerController.deleteCustomer);
 router.post('/customer/update/:id',authMiddleware.checkAdmin,upload.single('avatar'), customerController.updateCustomer);
 router.get('/customer/edit/:id',authMiddleware.checkAdmin, customerController.editCustomer);

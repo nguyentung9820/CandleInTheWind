@@ -8,23 +8,23 @@
     position: absolute;">
       <ul class="nav-ul hide-ul">
         <li>
-          <a href="/"><img style="height:80%; margin-left: 75px;" src="/image/logo.png" alt="logo" class="img-fluidd"></a>
+          <a href="/"><img style="height:80%; margin-left: 75px;" src="/image/logo.png" alt="logo"
+              class="img-fluidd"></a>
         </li>
-        <li style="width: 100px;height:80%"></li>
-        <li style="width: 300px;height:80%"><a class="nav-link"
-            href="/forum/customer/homepage?id={{customerId}}&username={{customerName}}">Home</a></li>
-        <li style="width: 300px;height:80%"><a class="nav-link active-link"
-            href="/forum/customer/newpost?id={{customerId}}&username={{customerName}}">Thêm bài mới</a></li>
-        <li style="width: 200px;height:80%"></li>
+        <li style="width: 180px;height:80%"></li>
+        <li style="width: 300px;height:80%"><a class="nav-link" href="/forum/customer/homepage">Home</a></li>
+        <li style="width: 300px;height:80%"><a class="nav-link active-link" href="/forum/customer/newpost">Thêm bài
+            mới</a></li>
+        <li style="width: 120px;height:80%"></li>
 
-        <li style="max-width: 200px;height:80%; margin-left: 110px;">
+        <li style="max-width: 200px;height:80%; margin-left: 110px; margin-top: 7px;">
           <img style="align-items: center;"
             src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
             alt="" class="comment-img">
 
 
           <p style="margin-top:15px"><strong style="align-items: center;">{{customerName}}</strong>
-          <strong  id="save-id">ID:{{customerId}}</strong>
+            {{!-- <strong id="save-id">ID:{{customerId}}</strong> --}}
           </p>
 
 
@@ -35,6 +35,8 @@
 
   </div>
 </thead>
+
+<body style="background-color: #cfd67e;">
 <div class="edit-comment">
 
   <div class="newpost">
@@ -46,15 +48,18 @@
 
   <div class="edit-comment-modal edit-comment-modal-store edit-background">
 
-    <form method="POST" action="/forum/customer/store?id={{customerId}}&username={{customerName}}" enctype="multipart/form-data">
+    <form method="POST" action="/forum/customer/store" enctype="multipart/form-data">
       <div class="form-group">
-        
+
         <div class="form-group">
+          <label for="caption">Hãy nhập tiêu đề bài viết </label>
+          <textarea rows="2" cols="50" class="form-control" type="text" name="title"> </textarea>
+          <br>
           <label for="caption">Hãy nhập nội dung bài viết </label>
           <textarea rows="10" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption"
             name="caption" autocomplete="off"></textarea>
         </div>
-        
+
         <div>
           <label>Image</label>
           <input type="file" name="profile-file" />
@@ -63,3 +68,4 @@
     </form>
   </div>
 </div>
+</body>

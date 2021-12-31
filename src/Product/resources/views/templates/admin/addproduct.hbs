@@ -11,12 +11,7 @@
                     <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
                 </div>
             </div>
-            {{!-- <div class="col-md-6">
-                <div class="form-group">
-                    <label>Additional Images</label>
-                    <input type="file" name="img" multiple />
-                </div>
-            </div> --}}
+        
             <div class="col-md-6">
                 <div class="form-group">
                     <input type="text" name="product_sku" class="form-control" placeholder="Enter Product SKU" id="sku">
@@ -34,6 +29,12 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <input type="number" name="qty"  class="form-control" placeholder="Enter Product Qty" id="qty">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Category</label>
                     <select class="form-control" name="product_type">
                         {{#each categories}}
                         <option>{{this.child_category}}</option>
@@ -47,7 +48,28 @@
                               id="description"></textarea>
                 </div>
             </div>
-            
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Attribute Set</label>
+                    <select class="form-control" name="attribute_set">
+                        {{#each attributeSets}}
+                        <option value="{{this._id}}">{{this.attribute_set_name}}</option>
+                        {{/each}}
+                    </select>                
+                </div>
+            </div>{{!--  --}}
+             {{!-- <div class="col-md-6">
+                <div class="form-group">
+                        {{#each attributes}}
+                        <label>{{this.attribute_name}}</label>
+                        <br/>
+                            {{#each this.options}}
+                                <label>{{this}}</label>                       
+                                <input type="checkbox" name="{{0}}"/>
+                            {{/each}}
+                        {{/each}}
+                </div>
+            </div> --}}
             <div class="col-md-2">
                 <div class="form-group" style="display: flex;">
                     <input type="submit" name="Submit" id="insert" 

@@ -1,6 +1,8 @@
 const { mutipleMongooseToObject } = require('../../../util/mongoose')
 const { json } = require("express");
 const Customer = require("../../models/Customer")
+const PendingRequest = require("../../models/PendingRequest")
+
 class CustomerController {
 
     // [GET] /
@@ -70,6 +72,52 @@ class CustomerController {
         Customer.deleteOne({_id: param})
         .then(() => res.redirect('/management/customer'))
         .catch(next);
+    }
+
+    pendingRequest(req,res,next){
+        PendingRequest.find({})
+        .then(pendings => {
+            res.render('templates/admin/pending', { 
+                pendings: mutipleMongooseToObject(pendings),
+                layout: 'customer' 
+            })
+        })
+    }
+    approveRequest(req, res, next){
+        var param = req.params.id
+        PendingRequest.findOne({_id: param})
+        .then(pendings => {
+            Customer.findOne({_id: pendings.userid})
+            .then(customers => {
+                customers.customer_group = "Favourite"
+                Customer.updateOne({_id: customers._id}, customers)
+                .then(() => {
+                    PendingRequest.deleteOne({_id: param})
+                    .then(() => res.redirect('/management/customer/pending'))
+                    .catch(next);
+                })
+            })
+            
+        })
+        
+    }
+    cancelRequest(req, res, next){
+        var param = req.params.id
+        PendingRequest.findOne({_id: param})
+        .then(pendings => {
+            Customer.findOne({_id: pendings.userid})
+            .then(customers => {
+                customers.customer_group = "Normal"
+                Customer.updateOne({_id: customers._id}, customers)
+                .then(() => {
+                    PendingRequest.deleteOne({_id: param})
+                    .then(() => res.redirect('/management/customer/pending'))
+                    .catch(next);
+                })
+            })
+            
+        })
+        
     }
 }
 

@@ -10,9 +10,6 @@ class BlogController {
   homepage(req, res, next) {
     console.log(req.url);
     var query = require("url").parse(req.url, true).query;
-    console.log(query.userpermission);
-    console.log(query.userid);
-
     //queryUserData
 
     userPermission = new UserPermission(
@@ -24,17 +21,11 @@ class BlogController {
 
     if (userPermission.permission == "admin")
       res.redirect(
-        "/forum/admin/homepage?id=" +
-          userPermission.userId +
-          "&username=" +
-          userPermission.userName
+        "/forum/admin/homepage"
       );
     else if (userPermission.permission == "customer")
       res.redirect(
-        "/forum/customer/homepage?id=" +
-          userPermission.userId +
-          "&username=" +
-          userPermission.userName
+        "/forum/customer/homepage"
       );
   }
 }
