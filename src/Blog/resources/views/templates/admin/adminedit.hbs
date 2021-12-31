@@ -10,15 +10,12 @@
         <li>
           <a href="/admin/product"><img style="height:80%;" src="/image/logo.png" alt="logo" class="img-fluidd"></a>
         </li>
-        <li style="width: 100px;height:80%"></li>
-        <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/homepage">Home</a></li>
-        <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/newpost">Thêm bài mới</a></li>
-        <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/pending">Duyệt bài đăng</a></li>
+        <li style="width: 134px;height:80%"></li>
+        <li style="width: 250px;height:80%"><a class="nav-link" href="/forum/admin/homepage">Home</a></li>
+        <li style="width: 250px;height:80%"><a class="nav-link" href="/forum/admin/newpost">Thêm bài mới</a></li>
+        <li style="width: 250px;height:80%"><a class="nav-link" href="/forum/admin/pending">Duyệt bài đăng</a></li>
 
-        <li style="max-width: 200px;height:80%; margin-left: 160px;">
+        <li style="max-width: 200px;height:80%; margin-left: 160px; margin-top: 7px;">
           <img style="align-items: center;"
             src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
             alt="" class="comment-img">
@@ -26,8 +23,8 @@
 
           <p style="margin-top:15px">
             <strong style="align-items: center;" id="save-name">{{adminName}}</strong>
-              {{!-- <strong  id="save-id">ID:{{idAmin}}</strong> --}}
-            </p>
+            {{!-- <strong id="save-id">ID:{{idAmin}}</strong> --}}
+          </p>
 
 
 
@@ -39,100 +36,104 @@
 </thead>
 
 
+<body style="background-color: #1B1531;">
+  <div class="edit-comment">
+    <div class="edit-comment-modal">
 
-<div class="edit-comment">
-  <div class="edit-comment-modal">
 
+      <form method="POST" action="/forum/admin/edit/store?idPost={{postID}}" enctype="multipart/form-data">
+        <div class="form-group">
 
-    <form method="POST" action="/forum/admin/edit/store?idPost={{postID}}"
-      enctype="multipart/form-data">
-      <div class="form-group">
+          <button id='dongbaiviet' class="btn btn-danger button-deletecomment "><i
+              class="fas fa-times-circle font-deletecomment"></i></button>
+        </div>
+        <div class="form-group">
+          <label for="caption">Hãy nhập tiêu đề bài viết </label>
+          <textarea rows="2" cols="50" class="form-control" type="text" name="title">{{title}}</textarea>
+          <br>
+          <label for="caption">Hãy nhập nội dung bài viết </label>
+          <textarea rows="4" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption"
+            name="caption" autocomplete="off">{{caption}}</textarea>
 
-        <button id='dongbaiviet' class="btn btn-danger button-deletecomment "><i
-            class="fas fa-times-circle font-deletecomment"></i></button>
-      </div>
-      <div class="form-group">
-        <label for="caption">Hãy nhập nội dung bài viết </label>
-        <textarea rows="4" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption"
-          name="caption" autocomplete="off">{{caption}}</textarea>
-        <input type="text" name="title" value="{{title}}">  </input> 
-      </div>
-      <div class="form-group">
-        <img src="{{this.image}}"></img>
-        {{#each this.arrCmt}}
-        <li>
-          {{this}}
-        </li>
-        {{/each}}
+        </div>
+        <div class="form-group">
+          <img src="{{this.image}}"></img>
+          {{#each this.arrCmt}}
+          <li>
+            {{this}}
+          </li>
+          {{/each}}
 
-      </div>
+        </div>
 
-      {{!-- //POST IMAGE --}}
-      <div>
-        <label>Image</label>
-        <input type="file" name="profile-file" />
-      </div>
+        {{!-- //POST IMAGE --}}
+        <div>
+          <label>Image</label>
+          <input type="file" name="profile-file" />
+        </div>
+        <div class="bottom-part">
+        </div>
+        {{!-- // --}}
+        <button type="submit" class="btn btn-primary btn-space">Save</button>
+
+      </form>
+      {{#if this.allowToCmT}}
+      <button name="lock" class="btn btn-primary btn-space btn-lockcomment" id="lockButton">
+        Lock Comment
+      </button>
+      {{else}}
+
+      <button name="open" class="btn btn-primary btn-space btn-right btn-opencomment">
+        Open Comment
+      </button>
+      {{/if}}
+
+      <button name="lock" id="quanlybaivietcomment" class="btn btn-primary btn-space">Xóa bài viết</button>
       <div class="bottom-part">
       </div>
-      {{!-- // --}}
-      <button type="submit" class="btn btn-primary btn-space">Save</button>
-
-    </form>
-    {{#if this.allowToCmT}}
-    <button name="lock" class="btn btn-primary btn-space btn-lockcomment" id="lockButton">
-      Lock Comment
-    </button>
-    {{else}}
-
-    <button name="open" class="btn btn-primary btn-space btn-right btn-opencomment">
-      Open Comment
-    </button>
-    {{/if}}
-
-    <button name="lock" id="quanlybaivietcomment" class="btn btn-primary btn-space">Xóa bài viết</button>
-    <div class="bottom-part">
-    </div>
-    {{#each cmts}}
+      {{#each cmts}}
 
 
-    <div style="display: flex;" class="comment-container">
-      <div class="comment">
-        <img
-          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
-          alt="" class="comment-img">
+      <div style="display: flex;" class="comment-container">
+        <div class="comment">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+            alt="" class="comment-img">
 
 
-        <div class="comment-text">
-          <div class="comment-header">
-            <p><strong> {{this.username}} </strong></p>
+          <div class="comment-text">
+            <div class="comment-header">
+              <p><strong> {{this.username}} </strong></p>
+            </div>
+            <p style="hyphens: auto; margin-bottom: 0px; margin-top: -15px;"> {{this.caption}}</p>
           </div>
-          <p style="  hyphens: auto;">{{this.caption}}</p>
-        </div>
 
-        <div>
-          <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
+          <div>
+            <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
+          </div>
+        </div>
+        <div class="three-dot">
+
+          <button style="margin: 20px;" class="btn btn-danger" onclick="onDeteleteComment('{{this._id}}')"> Xóa
+          </button>
         </div>
       </div>
-      <div class="three-dot">
+      <script>
+        function onDeteleteComment(id) {
+          window.location.replace("/forum/admin/deletecomment?idCmt=" + id + "&idPost={{this.postID}}")
+        }
+      </script>
+      {{/each}}
 
-        <button style="margin: 20px;" class="btn btn-danger" onclick="onDeteleteComment('{{this._id}}')"> Xóa </button>
-      </div>
+
+      <form method="POST" action="/forum/profile-upload-single" enctype="multipart/form-data">
+
+      </form>
+
     </div>
-    <script>
-      function onDeteleteComment(id) {
-        window.location.replace("/forum/admin/deletecomment?idCmt=" + id + "&idPost={{this.postID}}")
-      }
-    </script>
-    {{/each}}
-
-
-    <form method="POST" action="/forum/profile-upload-single" enctype="multipart/form-data">
-
-    </form>
 
   </div>
-
-</div>
+</body>
 
 <div class="xoabaiviet" id="xoabaivietcomment">
   <div class="xoabaiviet-hienthi">
