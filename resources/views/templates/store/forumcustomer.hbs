@@ -1,0 +1,386 @@
+<header style="position: fixed; top: 0;z-index: 1000; width: 100%;">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-10 col-md-10">
+        <nav class="navbar navbar-expand-xl navbar-light">
+          <div class="container-fluid">
+            <a href="/" class="navbar-brand"><img src="/image/logo.png" alt="logo" class="img-fluid"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse show" id="navbarNavDropdown" style="">
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page"
+                    href="/forum/customer/homepage"><strong>Home</strong></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/forum/customer/newpost"><strong>New Post</strong></a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+
+      <div class="col-lg-2 col-md-3 cart-login" style="padding-top: 15px;">
+        <div id="cart-checkout" class="float-end cart mt-2"><a href="/checkout/payment"><span id="number-in-cart1"
+              class="number"></span><img class="img-fluid" style="width: 50px; height:50px" src="/image/cart2.png"
+              alt="cart"></a></div>
+        <div id="icon-customer" style="margin-right: 20px;" class="float-end cart mt-2 ">
+          <a id="navbarDropdownMenuCustomer" style="padding-bottom: 30px;" class="dropdown-toggle"
+            data-bs-toggle="dropdown" aria-expanded="false"><img class="img-fluid" style="width: 50px; height:50px"
+              src="/image/customer.png" alt="customer"></a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuCustomer">
+            <li><a class="dropdown-item" style="color: black;" href="/profile">Account</a></li>
+            <li><a class="dropdown-item" style="color: black;" href="/order">Order</a></li>
+            <li><a class="dropdown-item" style="color: black;" href="/logout">Log Out</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="w3-content w3-display-container margin-top-MySlide" style="
+    background-color: black;>
+  <img class=" mySlides"
+  src="https://scontent.xx.fbcdn.net/v/t1.15752-9/p403x403/271657560_2938974253080285_1498897107565523975_n.png?_nc_cat=105&ccb=1-5&_nc_sid=aee45a&_nc_ohc=liLkwzAZHWEAX9V1I0V&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AVIp3lA8Cq7QgEKMVHj10jy8OjLGmGs4gtCkPWknxm2coA&oe=620257DC">
+  <img class="mySlides"
+    src="https://scontent.xx.fbcdn.net/v/t1.15752-9/p403x403/270017560_276347494485125_7111754109449177328_n.png?_nc_cat=101&ccb=1-5&_nc_sid=aee45a&_nc_ohc=2Umdk7U8e-0AX_Vvwm6&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AVLd0dXcyILpSCKeZezSrXrHNybRQveadOsGOx-vZR_F_g&oe=6203D28D">
+  <img class="mySlides"
+    src="https://scontent.xx.fbcdn.net/v/t1.15752-9/p403x403/268954868_4737125323038855_5205554047255155761_n.png?_nc_cat=107&ccb=1-5&_nc_sid=aee45a&_nc_ohc=An7dr9hNHDsAX-JWDGg&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AVIOeWoWJ0p686VwEBDDEBjBUd4XSQbqoea_7oNcHhyrAg&oe=6204A0EA">
+  <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:50%">
+    <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+    <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
+    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
+    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+  </div>
+</div>
+
+<script>
+  var myIndex = 0;
+  carousel();
+
+  function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    myIndex++;
+    if (myIndex > x.length) { myIndex = 1 }
+    x[myIndex - 1].style.display = "block";
+    setTimeout(carousel, 3000);
+  }
+</script>
+
+
+{{#each Posts}}
+
+<body style="background-color: rgb(250 243 243);">
+  <div class="fb-post" id="fpost2">
+
+    <!-- Top Section -->
+
+    <div class="top-s">
+      <div class="top-info">
+        <div class="profile-picture">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg">
+        </div>
+
+        <div class="top-title">
+          <div class="profile-name">
+            <a href="#">{{this.username}}</a>
+          </div>
+          <div class="post-time">
+            <span>{{this.postDate}}</span>
+
+            <i class="fas fa-lock"></i>
+
+          </div>
+        </div>
+        <div class="top-options">
+          {{#if this.isAuthor}}
+          <button title="Quản lý bài viết" class="btn btn-quanly" id="forum-post-{{this.postID}}"
+            onclick="onManage('{{this.postID}}')">
+            <istyle="margin-left: -28px; font-size: 1.4rem;" class="fas fa-user-edit">
+              </istyle=>
+          </button>
+
+          <script>
+            function onManage(id) {
+              window.location.replace("/forum/customer/editpost?idPost=" + id)
+            }
+          </script>
+          {{/if}}
+        </div>
+
+      </div>
+      <div class="post-content">
+        <h2>{{this.title}}</h2>
+        {{this.caption}}<br><br>
+        <img src="{{this.image}}" alt="">
+      </div>
+    </div>
+    <div class="bottom-part">
+
+    </div>
+    <!-- Like section -->
+
+
+    <!-- Comment section-->
+
+    <div class="all-comments">
+      <h4>All comments <img src="svg/sort-down.svg" class="all-comments-h4-i" alt=""></h4>
+    </div>
+    <div id="user-comment-{{this.postID}}" class="comment-box">
+      {{#each this.arrCmt}}
+      <div class="comment-container">
+        <div class="comment">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+            alt="" class="comment-img">
+
+
+          <div class="comment-text">
+            <div class="comment-header">
+              <p><strong> {{this.username}} </strong></p>
+            </div>
+            <p style="hyphens: auto; margin-bottom: 0px; margin-top: -15px;"> {{this.caption}}</p>
+          </div>
+
+          <div class="three-dot">
+            <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    <div class="comment-s">
+      <div class="comment-area">
+        <div class="comment-profile-pic">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+            alt="user">
+        </div>
+        {{#if this.allowToCmT}}
+        <div class="comment-input-area">
+          <form id="cmtForm">
+            <input style="width:450px" name="comment-{{this.postID}}" id="cmtValue-{{this.postID}}"
+              placeholder="Nhập đánh giá">
+          </form>
+          <div class="comment-icon">
+            <button class="btn btn-primary cm " onclick="postComment('{{this.postID}}')">Gửi</button>
+          </div>
+        </div>
+        {{/if}}
+
+      </div>
+
+    </div>
+
+  </div>
+
+  </div>
+
+  </div>
+
+
+  {{/each}}
+</body>
+
+
+<footer class="footer">
+  <div class="footer__addr">
+    <h1 class="footer__logo"><img src="/image/logo.png" alt="logo" style="width: 175px;"></h1>
+
+    <h2>Contact us</h2>
+
+    <address>
+      <i style="font-size:2rem" class="fab fa-facebook"></i>
+      <i style="font-size:2rem" class="fab fa-instagram"></i>
+      <i style="font-size:2rem" class="fab fa-twitter"></i>
+
+      <a class="footer__btn" href="mailto:example@gmail.com">Email Us</a>
+    </address>
+  </div>
+
+  <ul class="footer__nav">
+    <li class="nav__item">
+      <h2 class="nav__title">Media</h2>
+
+      <ul class="nav__ul">
+        <li>
+          <a href="#">Online</a>
+        </li>
+
+        <li>
+          <a href="#">Print</a>
+        </li>
+
+        <li>
+          <a href="#">Alternative Ads</a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav__item nav__item--extra">
+      <h2 class="nav__title">Technology</h2>
+
+      <ul class="nav__ul nav__ul--extra">
+        <li>
+          <a href="#">Hardware Design</a>
+        </li>
+
+        <li>
+          <a href="#">Software Design</a>
+        </li>
+
+        <li>
+          <a href="#">Digital Signage</a>
+        </li>
+
+        <li>
+          <a href="#">Automation</a>
+        </li>
+
+        <li>
+          <a href="#">Artificial Intelligence</a>
+        </li>
+
+        <li>
+          <a href="#">IoT</a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav__item">
+      <h2 class="nav__title">Legal</h2>
+
+      <ul class="nav__ul">
+        <li>
+          <a href="#">Privacy Policy</a>
+        </li>
+
+        <li>
+          <a href="#">Terms of Use</a>
+        </li>
+
+        <li>
+          <a href="#">Sitemap</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="legal">
+    <p>&copy; 2019 Something. All rights reserved.</p>
+
+
+  </div>
+</footer>
+
+
+
+{{!-- SCRIPT --}}
+
+
+<script>
+  var slideIndex = 1;
+  showDivs(slideIndex);
+
+  function plusDivs(n) {
+    showDivs(slideIndex += n);
+  }
+
+  function currentDiv(n) {
+    showDivs(slideIndex = n);
+  }
+
+  function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("demo");
+    if (n > x.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = x.length }
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" w3-white", "");
+    }
+    x[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " w3-white";
+  }
+</script>
+
+
+
+
+<script>
+  function postComment(postID) {
+
+    const request = new XMLHttpRequest();
+
+    request.open("POST", "comment/" + postID);
+    request.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        const value = this.responseText;
+        // console.log(value);
+      }
+    };
+    const name = '{{customerName}}';
+    const myCmt = document.getElementById("cmtValue-" + postID);
+    const formData = new FormData();
+    formData.append('caption', myCmt.value);
+    const jsonData = JSON.stringify({ caption: myCmt.value, username: name })
+    console.log(name);
+
+    request.onload = function (resData) {
+      const postData = JSON.parse(this.responseText);
+      const parentComment = document.getElementById("user-comment-" + postID);
+      console.log("parentComment.childElementCount " + parentComment.childElementCount)
+      console.log("postData.Cmts.length " + postData.Cmts.length)
+      const inputElement = document.getElementById("cmtValue-" + postID);
+      inputElement.value = '';
+
+      for (let num = parentComment.childElementCount; num < postData.Cmts.length; num++) {
+        const textNode = document.createTextNode(postData.Cmts[num].caption);
+        const newLiElement = document.createElement('div');
+
+        newLiElement.innerHTML = `<div class="comment-container">
+      <div class="comment">
+        <img src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg" alt="" class="comment-img">
+
+
+        <div class="comment-text">
+          <div class="comment-header">
+            <p style="hyphens: auto; margin-bottom: 0px; margin-top: -15px;"><strong> ${postData.Cmts[num].username} </strong></p>
+          </div>
+          <p> ${postData.Cmts[num].caption} </p>
+        </div>
+
+        <div class="three-dot">
+          <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="" wfd-invisible="true">
+        </div>
+      </div>
+    </div> `
+
+
+        parentComment.appendChild(newLiElement);
+
+        console.log("resData= " + cmt.caption);
+      }
+
+    }
+    request.send(jsonData);
+
+  }
+</script>
