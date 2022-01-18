@@ -4,6 +4,7 @@ const postPending = new Schema({
   username: { type: String },
   postID: { type: String },
   caption: { type: String },
+  title: { type: String},
   image: { type: String },
   idAuthor: {type: String},
   createdAt: { type: Date, default: Date.now },

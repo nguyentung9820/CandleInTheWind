@@ -19,19 +19,19 @@ const customerBlogController = require("../../app/controller/customer/CustomerBl
 const blogController = require("../../app/controller/blog/BlogController");
 const authMiddleware = require("../../middlewares/middleware");
 
-router.post(
-  "/profile-upload-single",
-  upload.single("profile-file"),
-  function (req, res, next) {
-    // req.file is the `profile-file` file
-    // req.body will hold the text fields, if there were any
-    console.log(JSON.stringify(req.file));
-    var response = '<a href="/">Home</a><br>';
-    response += "Files uploaded successfully.<br>";
-    response += `<img src="/uploads/${req.file.originalname}" /><br>`;
-    return res.send(response);
-  }
-);
+// router.post(
+//   "/profile-upload-single",
+//   upload.single("profile-file"),
+//   function (req, res, next) {
+//     // req.file is the `profile-file` file
+//     // req.body will hold the text fields, if there were any
+//     console.log(JSON.stringify(req.file));
+//     var response = '<a href="/">Home</a><br>';
+//     response += "Files uploaded successfully.<br>";
+//     response += `<img src="/uploads/${req.file.originalname}" /><br>`;
+//     return res.send(response);
+//   }
+// );
 //Admin - Pending Post
 router.post("/admin/pending/delete",authMiddleware.checkAdmin, adminBlogController.DeletePendingPost);
 router.post("/admin/pending/store",authMiddleware.checkAdmin, adminBlogController.ConfirmPost);

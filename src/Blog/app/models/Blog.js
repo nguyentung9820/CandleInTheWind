@@ -4,6 +4,7 @@ const Blog = new Schema({
   username: { type: String },
   postID: { type: String },
   caption: { type: String },
+  title: { type: String},
   image: { type: String },
   idAuthor: {type: String},
   availableToCmt: { type: Boolean },

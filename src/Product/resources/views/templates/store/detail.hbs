@@ -24,11 +24,16 @@
                         <h3>{{this.product_name}}</h3> <span class="heart"><i class='bx bx-heart'></i></span>
                     </div>
                     <div class="mt-2 pr-3 content">
-                        <p>{{this.product_description}}</p>
+                        <div>{{this.product_description}}</div>
                     </div>
+                    <br/>
                     <h3>${{this.product_price}}</h3>
+                    <br/>
                     <div class="ratings d-flex flex-row align-items-center">
                         <div class="d-flex flex-row"> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bx-star'></i> </div> <span>441 reviews</span>
+                    </div>
+                    <div class="mt-2 pr-3 content">
+                        <div>Qty: {{this.qty}}</div>
                     </div>
                     {{!-- <div class="mt-5"> <span class="fw-bold">Color</span>
                         <div class="colors">

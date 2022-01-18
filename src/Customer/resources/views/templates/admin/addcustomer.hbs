@@ -31,6 +31,7 @@
                     <select class="form-control" name="customer_group">
                         <option>Normal</option>
                         <option>Favourite</option>
+                        {{!-- <option>Normal (pending)</option> --}}
                     </select>                
                 </div>
             </div>{{!--  --}}
@@ -39,7 +40,11 @@
                     <input type="text" name="address" class="form-control" placeholder="Enter Address" id="address">
                 </div>
             </div>
-            
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" name="point" class="form-control" placeholder="Enter Point" id="point">
+                </div>
+            </div>
             <div class="col-md-2">
                 <div class="form-group" style="display: flex;">
                     <input type="submit" name="Submit" id="insert" 

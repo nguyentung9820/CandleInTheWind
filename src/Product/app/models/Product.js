@@ -7,6 +7,10 @@ const Product = new Schema({
     product_sku: { type: String},
     product_price: { type: Number},
     product_type: { type: String },
+    attribute_set: {type: String},
+    attributes: {type: Array},
+    qty: {type: Number},
+    point: {type: Number},
     createdAt: { type: Date, default: Date.now},
     updateAt: { type: Date, default: Date.now }
 });

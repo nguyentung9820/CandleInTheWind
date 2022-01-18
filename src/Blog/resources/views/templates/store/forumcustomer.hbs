@@ -1,52 +1,63 @@
-<thead>
-  <div id="nav-background">
+<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-chevron-up"></i>
 
-    <header id="nav-header">
+</button>
+<header style="position: fixed; top: 0;z-index: 1000; width: 100%;">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-10 col-md-10">
+        <nav class="navbar navbar-expand-xl navbar-light">
+          <div class="container-fluid">
+            <a href="/" class="navbar-brand"><img src="/image/logo.png" alt="logo" class="img-fluid"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse show" id="navbarNavDropdown" style="">
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page"
+                    href="/forum/customer/homepage"><strong>Home</strong></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/forum/customer/newpost"><strong>New Post</strong></a>
+                </li>
 
-    </header>
-    <nav style="    height: 72px;
-    position: absolute;">
-      <ul class="nav-ul hide-ul">
-        <li>
-          <a href="/"><img style="height:80%; margin-left: 75px;" src="/image/logo.png" alt="logo" class="img-fluidd"></a>
-        </li>
-        <li style="width: 100px;height:80%"></li>
-        <li style="width: 300px;height:80%"><a class="nav-link active-link"
-            href="/forum/customer/homepage?id={{customerId}}&username={{customerName}}">Home</a></li>
-        <li style="width: 300px;height:80%"><a class="nav-link"
-            href="/forum/customer/newpost?id={{customerId}}&username={{customerName}}">Thêm bài mới</a></li>
-        <li style="width: 200px;height:80%"></li>
-
-        <li style="max-width: 200px;height:80%; margin-left: 110px;">
-          <img style="align-items: center;"
-            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
-            alt="" class="comment-img">
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
 
 
-          <p style="margin-top:15px"><strong style="align-items: center;" >{{customerName}}</strong>
-           <strong  id="save-id">ID:{{customerId}}</strong>
-          </p>
+      <div class="col-lg-2 col-md-3 cart-login" style="padding-top: 15px;">
+        <div id="cart-checkout" class="float-end cart mt-2"><a href="/checkout/payment"><span id="number-in-cart1"
+              class="number"></span><img class="img-fluid" style="width: 50px; height:50px" src="/image/cart2.png"
+              alt="cart"></a></div>
+        <div id="icon-customer" style="margin-right: 20px;" class="float-end cart mt-2 ">
+          <a id="navbarDropdownMenuCustomer" style="padding-bottom: 30px;" class="dropdown-toggle"
+            data-bs-toggle="dropdown" aria-expanded="false"><img class="img-fluid" style="width: 50px; height:50px"
+              src="/image/customer.png" alt="customer"></a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuCustomer">
+            <li><a class="dropdown-item" style="color: black;" href="/profile">Account</a></li>
+            <li><a class="dropdown-item" style="color: black;" href="/order">Order</a></li>
+            <li><a class="dropdown-item" style="color: black;" href="/logout">Log Out</a></li>
 
-
-
-        </li>
-      </ul>
-    </nav>
-
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-</thead>
+</header>
 
-<div class="w3-content w3-display-container">
+<div class="w3-content w3-display-container margin-top-MySlide" style="
+      background-color: #ebdbc4">
+  <img class=" mySlides"
+    src="https://scontent.fhph1-1.fna.fbcdn.net/v/t1.15752-9/269491027_416225163527226_4775959723989237640_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=ae9488&_nc_ohc=VUKhv56Ii0sAX_uSlbf&_nc_ht=scontent.fhph1-1.fna&oh=03_AVJnNCsXYqvCIUl4O_OXu6wDezQPHodynLQ7s5A9-s_20g&oe=620ABB5B">
   <img class="mySlides"
-    src="https://images7.alphacoders.com/361/thumb-1920-361622.jpg"
-    style="width:100%">
+    src="https://scontent.fhph1-1.fna.fbcdn.net/v/t1.15752-9/270395044_983895555890348_2795756668838847036_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=ae9488&_nc_ohc=3kb6NOi7nr4AX_sX8iE&_nc_oc=AQmXgHPk7vtIwBgPBUB_WQEWrcM2JMVMTT3hlD5uqEj8m8BN-uuAAVydMcN7NzzSUfpTYnwOixu_1x-MsUpEpks-&tn=_VmbgRf6WDSGLdv4&_nc_ht=scontent.fhph1-1.fna&oh=03_AVLL3k-ahRjIxG9GDWBObXyfDFu2LQ8YLGTa65FXPa_Tqw&oe=620A5113">
   <img class="mySlides"
-    src="https://allhdwallpapers.com/wp-content/uploads/2015/05/Candle-6.jpg"
-    style="width:100%">
-  <img class="mySlides"
-    src="https://images3.alphacoders.com/107/1079373.jpg"
-    style="width:100%">
-  <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+    src="https://scontent.fhph2-1.fna.fbcdn.net/v/t1.15752-9/271837974_351814326757984_4016433019717634466_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=ae9488&_nc_ohc=R4w5MMQAMt0AX9i-3tW&_nc_ht=scontent.fhph2-1.fna&oh=03_AVJJ2EValxfucQmODpeuiOnPry3ZcdJKa-IuEaj1VC9mIw&oe=620CB462">
+  <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:50%">
     <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
     <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
     <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
@@ -54,207 +65,142 @@
     <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
   </div>
 </div>
+
+<script>
+  var myIndex = 0;
+  carousel();
+
+  function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    myIndex++;
+    if (myIndex > x.length) { myIndex = 1 }
+    x[myIndex - 1].style.display = "block";
+    setTimeout(carousel, 3000);
+  }
+</script>
+
+
 {{#each Posts}}
-<div class="fb-post" id="fpost2">
 
-  <!-- Top Section -->
+<body style="background-color: rgb(250 243 243);">
+  <div class="fb-post" id="fpost2">
 
-  <div class="top-s">
-    <div class="top-info">
-      <div class="profile-picture">
-        <img
-          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg">
-      </div>
+    <!-- Top Section -->
 
-      <div class="top-title">
-        <div class="profile-name">
-          <a href="#">{{this.username}}</a>
+    <div class="top-s">
+      <div class="top-info">
+        <div class="profile-picture">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg">
         </div>
-        <div class="post-time">
-          <span>{{this.postDate}}</span>
-          <i class="fas fa-lock"></i>
-        </div>
-      </div>
-      <div class="top-options">
-       {{#if this.isAuthor}}
-        <button title="Quản lý bài viết" class="btn btn-quanly" id="forum-post-{{this.postID}}"
-          onclick="onManage('{{this.postID}}')">
-          <istyle="margin-left: -28px; font-size: 1.4rem;" class="fas fa-user-edit">
-            </istyle=>
-        </button>
 
-        <script>
-          function onManage(id) {
-            window.location.replace("/forum/customer/editpost?idPost=" + id + "&username={{this.customerName}}&customerId={{this.customerId}}")
-          }
-        </script>
-      {{/if}}
-      </div>
-
-    </div>
-    <div class="post-content">
-      {{this.caption}}<br><br>
-      <img src="{{this.image}}" alt="">
-    </div>
-  </div>
-  <div class="bottom-part">
-
-  </div>
-  <!-- Like section -->
-
-
-  <!-- Comment section-->
-
-  <div class="all-comments">
-    <h4>All comments <img src="svg/sort-down.svg" class="all-comments-h4-i" alt=""></h4>
-  </div>
-  <div id="user-comment-{{this.postID}}" class="comment-box">
-    {{#each this.arrCmt}}
-    <div class="comment-container">
-      <div class="comment">
-        <img
-          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
-          alt="" class="comment-img">
-
-
-        <div class="comment-text">
-          <div class="comment-header">
-            <p><strong> {{this.username}} </strong></p>
+        <div class="top-title">
+          <div class="profile-name">
+            <a href="#"><strong>{{this.username}}</strong></a>
           </div>
-          <p style="  hyphens: auto;"> {{this.caption}}</p>
+          <div class="post-time">
+            <span>{{this.postDate}}</span>
+
+          </div>
+        </div>
+        <div class="top-options">
+          {{#if this.isAuthor}}
+          <button title="Quản lý bài viết" class="btn btn-quanly" id="forum-post-{{this.postID}}"
+            onclick="onManage('{{this.postID}}')">
+            <istyle="margin-left: -28px; font-size: 1.4rem;" class="fas fa-user-edit">
+              </istyle=>
+          </button>
+
+          <script>
+            function onManage(id) {
+              window.location.replace("/forum/customer/editpost?idPost=" + id)
+            }
+          </script>
+          {{/if}}
         </div>
 
-        <div class="three-dot">
-          <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
-        </div>
+      </div>
+      <div class="post-content">
+        <h2>{{this.title}}</h2>
+        {{this.caption}}<br><br>
+        <img src="{{this.image}}" alt="">
       </div>
     </div>
-    {{/each}}
-  </div>
-  <div class="comment-s">
-    <div class="comment-area">
-      <div class="comment-profile-pic">
-        <img
-          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
-          alt="user">
-      </div>
-      {{#if this.allowToCmT}}
-      <div class="comment-input-area">
-        <form id="cmtForm">
-          <input style="width:450px" name="comment-{{this.postID}}" id="cmtValue-{{this.postID}}"
-            placeholder="Nhập đánh giá">
-        </form>
-        <div class="comment-icon"> 
-          <button class="btn btn-primary cm "
-            onclick="postComment('{{this.postID}}')">Gửi</button>
+    <div class="bottom-part">
+
+    </div>
+    <!-- Like section -->
+
+
+    <!-- Comment section-->
+
+
+    <div class="all-comments">
+      <h4>All comments <img src="svg/sort-down.svg" class="all-comments-h4-i" alt=""></h4>
+    </div>
+    <div id="user-comment-{{this.postID}}" class="comment-box">
+      {{#each this.arrCmt}}
+      <div class="comment-container">
+        <div class="comment">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+            alt="" class="comment-img">
+
+          <div class="comment-text">
+            <div class="comment-header">
+              <p><strong> {{this.username}} </strong></p>
+            </div>
+            <p style="hyphens: auto; margin-bottom: 0px; margin-top: -15px;"> {{this.caption}}</p>
+          </div>
+
+          <div class="three-dot">
+            <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
+          </div>
         </div>
       </div>
-      {{/if}}
+      {{/each}}
+    </div>
+    <div class="comment-s">
+      <div class="comment-area">
+        <div class="comment-profile-pic">
+          <img
+            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
+            alt="user">
+        </div>
+        {{#if this.allowToCmT}}
+        <div class="comment-input-area">
+          <form id="cmtForm">
+            <input onkeydown="return (event.keyCode!=13);" style="width:450px;  background-color: #E7E9EB;"
+              name="comment-{{this.postID}}" id="cmtValue-{{this.postID}}" placeholder="Write a comment...">
+          </form>
+          <div class="comment-icon">
+            <button class="btn btn-primary cm " onclick="postComment('{{this.postID}}')">Send</button>
+          </div>
+        </div>
+        {{/if}}
+
+      </div>
 
     </div>
 
   </div>
 
-</div>
-
-</div>
-
-</div>
-
-
-{{/each}}
-
-
-
-<footer class="footer">
-  <div class="footer__addr">
-    <h1 class="footer__logo"><img src="/image/logo.png" alt="logo" style="width: 175px;"></h1>
-
-    <h2>Contact us</h2>
-
-    <address>
-      <i style="font-size:2rem" class="fab fa-facebook"></i>
-      <i style="font-size:2rem" class="fab fa-instagram"></i>
-      <i style="font-size:2rem" class="fab fa-twitter"></i>
-
-      <a class="footer__btn" href="mailto:example@gmail.com">Email Us</a>
-    </address>
   </div>
 
-  <ul class="footer__nav">
-    <li class="nav__item">
-      <h2 class="nav__title">Media</h2>
-
-      <ul class="nav__ul">
-        <li>
-          <a href="#">Online</a>
-        </li>
-
-        <li>
-          <a href="#">Print</a>
-        </li>
-
-        <li>
-          <a href="#">Alternative Ads</a>
-        </li>
-      </ul>
-    </li>
-
-    <li class="nav__item nav__item--extra">
-      <h2 class="nav__title">Technology</h2>
-
-      <ul class="nav__ul nav__ul--extra">
-        <li>
-          <a href="#">Hardware Design</a>
-        </li>
-
-        <li>
-          <a href="#">Software Design</a>
-        </li>
-
-        <li>
-          <a href="#">Digital Signage</a>
-        </li>
-
-        <li>
-          <a href="#">Automation</a>
-        </li>
-
-        <li>
-          <a href="#">Artificial Intelligence</a>
-        </li>
-
-        <li>
-          <a href="#">IoT</a>
-        </li>
-      </ul>
-    </li>
-
-    <li class="nav__item">
-      <h2 class="nav__title">Legal</h2>
-
-      <ul class="nav__ul">
-        <li>
-          <a href="#">Privacy Policy</a>
-        </li>
-
-        <li>
-          <a href="#">Terms of Use</a>
-        </li>
-
-        <li>
-          <a href="#">Sitemap</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-
-  <div class="legal">
-    <p>&copy; 2019 Something. All rights reserved.</p>
-
-
   </div>
-</footer>
+
+
+  {{/each}}
+</body>
+
+
+<!-- footer -->
+
+<!-- end footer -->
 
 
 
@@ -333,7 +279,7 @@
           <div class="comment-header">
             <p><strong> ${postData.Cmts[num].username} </strong></p>
           </div>
-          <p> ${postData.Cmts[num].caption} </p>
+          <p style="hyphens: auto; margin-bottom: 0px; margin-top: -15px;"> ${postData.Cmts[num].caption} </p>
         </div>
 
         <div class="three-dot">
@@ -353,3 +299,58 @@
 
   }
 </script>
+
+
+
+<script>
+  //Get the button
+  var mybutton = document.getElementById("myBtn");
+
+  // When the user scrolls down 20px from the top of the document, show the button
+  window.onscroll = function () { scrollFunction() };
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  // When the user clicks on the button, scroll to the top of the document
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+</script>
+
+
+
+<script>
+
+  function getCookie(input) {
+    var cookies = document.cookie.replace(/\s/g, '').split(';');
+    for (var i = 0; i < cookies.length; i++) {
+      var name = cookies[i].split('=')[0];
+      console.log(name)
+      var value = cookies[i].split('=')[1];
+      if (name === input) {
+        return value;
+      } else if (value === input) {
+        return name;
+      }
+    }
+    return "";
+  };
+  if (getCookie('customer') !== '') {
+    document.getElementById("login").innerHTML = '';
+    document.getElementById("cart-checkout").innerHTML = '<a href="/checkout/payment"><span id="number-in-cart1" class="number"></span><img class="img-fluid" style="width: 50px; height:50px" src="/image/cart2.png" alt="cart" /></a>';
+
+  } else {
+    document.getElementById("icon-customer").innerHTML = '';
+
+  }
+
+</script>
+<!-- Bootstrap JS -->
+<script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>

@@ -1,141 +1,156 @@
-<thead>
-  <div id="nav-background">
+<header style="position: fixed; top: 0;z-index: 1000; width: 100%;">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-10 col-md-10">
+        <nav class="navbar navbar-expand-xl navbar-light">
+          <div class="container-fluid">
+            <a href="/" class="navbar-brand"><img src="/image/logo.png" alt="logo" class="img-fluid"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse show" id="navbarNavDropdown" style="">
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/forum/admin/homepage"><strong>Home</strong></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/forum/admin/newpost"><strong>New Post</strong></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/forum/admin/pending"><strong>Pending</strong></a>
+                </li>
 
-    <header id="nav-header">
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
 
-    </header>
-    <nav style="    height: 72px;
-    position: absolute;">
-      <ul class="nav-ul hide-ul">
-        <li>
-          <a href="/admin/product"><img style="height:80%;" src="/image/logo.png" alt="logo" class="img-fluidd"></a>
-        </li>
-        <li style="width: 100px;height:80%"></li>
-        <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/homepage?id={{idAmin}}&username={{adminName}}">Home</a></li>
-        <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/newpost?id={{idAmin}}&username={{adminName}}">Thêm bài mới</a></li>
-        <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/pending?id={{idAmin}}&username={{adminName}}">Duyệt bài đăng</a></li>
 
-        <li style="max-width: 200px;height:80%; margin-left: 160px;">
-          <img style="align-items: center;"
+      <div class="col-lg-2 col-md-3 cart-login" style="padding-top: 15px;">
+        <div id="cart-checkout" class="float-end cart mt-2"><a href="/checkout/payment"><span id="number-in-cart1"
+              class="number"></span><img class="img-fluid" style="width: 50px; height:50px" src="/image/cart2.png"
+              alt="cart"></a></div>
+        <div id="icon-customer" style="margin-right: 20px;" class="float-end cart mt-2 ">
+          <a id="navbarDropdownMenuCustomer" style="padding-bottom: 30px;" class="dropdown-toggle"
+            data-bs-toggle="dropdown" aria-expanded="false"><img class="img-fluid" style="width: 50px; height:50px"
+              src="/image/customer.png" alt="customer"></a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuCustomer">
+            <li><a class="dropdown-item" style="color: black;" href="/profile">Account</a></li>
+            <li><a class="dropdown-item" style="color: black;" href="/order">Order</a></li>
+            <li><a class="dropdown-item" style="color: black;" href="/logout">Log Out</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<body style="background-color: rgb(250 243 243) ">
+  <div class="edit-comment">
+    <div class="edit-comment-modal">
+
+
+      <form method="POST" action="/forum/admin/edit/store?idPost={{postID}}" enctype="multipart/form-data">
+        <div class="form-group">
+
+          <button id='dongbaiviet' class="btn btn-danger button-deletecomment "><i
+              class="fas fa-times-circle font-deletecomment"></i></button>
+        </div>
+        <div class="form-group">
+          <label for="caption">
+            <h4><strong>Write your title</strong></h4>
+          </label>
+          <textarea rows="2" cols="50" class="form-control" type="text" name="title">{{title}}</textarea>
+          <br>
+          <label for="caption">
+            <h4><strong>Write your content</strong></h4>
+          </label>
+          <textarea rows="4" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption"
+            name="caption" autocomplete="off">{{caption}}</textarea>
+
+        </div>
+        <div class="form-group">
+          <img src="{{this.image}}"></img>
+          {{#each this.arrCmt}}
+          <li>
+            {{this}}
+          </li>
+          {{/each}}
+
+        </div>
+
+        {{!-- //POST IMAGE --}}
+        <div>
+          <label>Image</label>
+          <input type="file" name="profile-file" />
+        </div>
+        <div class="bottom-part">
+        </div>
+        {{!-- // --}}
+        <button type="submit" class="btn btn-primary btn-space">Save</button>
+
+      </form>
+      {{#if this.allowToCmT}}
+      <button name="lock" class="btn btn-primary btn-space btn-lockcomment" id="lockButton">
+        Lock Comment
+      </button>
+      {{else}}
+
+      <button name="open" class="btn btn-primary btn-space btn-right btn-opencomment">
+        Open Comment
+      </button>
+      {{/if}}
+
+      <button name="lock" id="quanlybaivietcomment" class="btn btn-primary btn-space">Xóa bài viết</button>
+      <div class="bottom-part">
+      </div>
+      {{#each cmts}}
+
+
+      <div style="display: flex;" class="comment-container">
+        <div class="comment">
+          <img
             src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
             alt="" class="comment-img">
 
 
-          <p style="margin-top:15px">
-            <strong style="align-items: center;" id="save-name">{{adminName}}</strong>
-              {{!-- <strong  id="save-id">ID:{{idAmin}}</strong> --}}
-            </p>
-
-
-
-        </li>
-      </ul>
-    </nav>
-
-  </div>
-</thead>
-
-
-
-<div class="edit-comment">
-  <div class="edit-comment-modal">
-
-
-    <form method="POST" action="/forum/admin/edit/store?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}"
-      enctype="multipart/form-data">
-      <div class="form-group">
-
-        <button id='dongbaiviet' class="btn btn-danger button-deletecomment "><i
-            class="fas fa-times-circle font-deletecomment"></i></button>
-      </div>
-      <div class="form-group">
-        <label for="caption">Hãy nhập nội dung bài viết </label>
-        <textarea rows="4" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption"
-          name="caption" autocomplete="off">{{caption}}</textarea>
-      </div>
-      <div class="form-group">
-        <img src="{{this.image}}"></img>
-        {{#each this.arrCmt}}
-        <li>
-          {{this}}
-        </li>
-        {{/each}}
-
-      </div>
-
-      {{!-- //POST IMAGE --}}
-      <div>
-        <label>Image</label>
-        <input type="file" name="profile-file" />
-      </div>
-      <div class="bottom-part">
-      </div>
-      {{!-- // --}}
-      <button type="submit" class="btn btn-primary btn-space">Save</button>
-
-    </form>
-    {{#if this.allowToCmT}}
-    <button name="lock" class="btn btn-primary btn-space btn-lockcomment" id="lockButton">
-      Lock Comment
-    </button>
-    {{else}}
-
-    <button name="open" class="btn btn-primary btn-space btn-right btn-opencomment">
-      Open Comment
-    </button>
-    {{/if}}
-
-    <button name="lock" id="quanlybaivietcomment" class="btn btn-primary btn-space">Xóa bài viết</button>
-    <div class="bottom-part">
-    </div>
-    {{#each cmts}}
-
-
-    <div style="display: flex;" class="comment-container">
-      <div class="comment">
-        <img
-          src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
-          alt="" class="comment-img">
-
-
-        <div class="comment-text">
-          <div class="comment-header">
-            <p><strong> {{this.username}} </strong></p>
+          <div class="comment-text">
+            <div class="comment-header">
+              <p><strong> {{this.username}} </strong></p>
+            </div>
+            <p style="hyphens: auto; margin-bottom: 0px; margin-top: -15px;"> {{this.caption}}</p>
           </div>
-          <p style="  hyphens: auto;">{{this.caption}}</p>
-        </div>
 
-        <div>
-          <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
+          <div>
+            <img src="svg/three_dot_gray.svg" class="three-dot-img" alt="">
+          </div>
+        </div>
+        <div class="three-dot">
+
+          <button style="margin: 20px;" class="btn btn-danger" onclick="onDeteleteComment('{{this._id}}')"> Xóa
+          </button>
         </div>
       </div>
-      <div class="three-dot">
+      <script>
+        function onDeteleteComment(id) {
+          window.location.replace("/forum/admin/deletecomment?idCmt=" + id + "&idPost={{this.postID}}")
+        }
+      </script>
+      {{/each}}
 
-        <button style="margin: 20px;" class="btn btn-danger" onclick="onDeteleteComment('{{this._id}}')"> Xóa </button>
-      </div>
+
+      <form method="POST" action="/forum/profile-upload-single" enctype="multipart/form-data">
+
+      </form>
+
     </div>
-    <script>
-      function onDeteleteComment(id) {
-        let saveName = document.getElementById("save-name").textContent;
-        let saveId = document.getElementById("save-id").textContent;
-        saveId= saveId.slice(3);
-        console.log(saveId)
-        window.location.replace("/forum/admin/deletecomment?idCmt=" + id + "&idPost={{this.postID}}&username=" + saveName + "&adminId=" + saveId)
-      }
-    </script>
-    {{/each}}
-
-
-    <form method="POST" action="/forum/profile-upload-single" enctype="multipart/form-data">
-
-    </form>
 
   </div>
-
-</div>
+</body>
 
 <div class="xoabaiviet" id="xoabaivietcomment">
   <div class="xoabaiviet-hienthi">
@@ -146,7 +161,7 @@
           <i class="fas fa-times-circle font-deletecomment"></i>
         </button>
       </header>
-      <form action="/forum/admin/deletepost?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}" method="POST">
+      <form action="/forum/admin/deletepost?idPost={{postID}}" method="POST">
         <button id="xoabaiviet-co" class="btn btn-accecptdelete">Có</button>
       </form>
       <button id="xoabaiviet-khong" class="btn btn-canceldelete" style="margin-top: -6rem;
@@ -159,7 +174,7 @@
   var btn = document.querySelector('.btn-lockcomment')
   if (btn != null) {
     btn.addEventListener('click', function (e) {
-      window.location.replace("/forum/admin/lockcomment?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}")
+      window.location.replace("/forum/admin/lockcomment?idPost={{postID}}")
     })
   }
 </script>
@@ -168,7 +183,7 @@
   var btn1 = document.querySelector('.btn-opencomment')
   if (btn1 != null) {
     btn1.addEventListener('click', function (e) {
-      window.location.replace("/forum/admin/opencomment?idPost={{postID}}&username={{adminName}}&adminId={{idAmin}}")
+      window.location.replace("/forum/admin/opencomment?idPost={{postID}}")
     })
   }
 </script>
@@ -219,3 +234,33 @@
     document.getElementById('xoabaivietcomment').style.display = 'none';
   };
 </script>
+
+
+<script>
+
+  function getCookie(input) {
+    var cookies = document.cookie.replace(/\s/g, '').split(';');
+    for (var i = 0; i < cookies.length; i++) {
+      var name = cookies[i].split('=')[0];
+      console.log(name)
+      var value = cookies[i].split('=')[1];
+      if (name === input) {
+        return value;
+      } else if (value === input) {
+        return name;
+      }
+    }
+    return "";
+  };
+  if (getCookie('customer') !== '') {
+    document.getElementById("login").innerHTML = '';
+    document.getElementById("cart-checkout").innerHTML = '<a href="/checkout/payment"><span id="number-in-cart1" class="number"></span><img class="img-fluid" style="width: 50px; height:50px" src="/image/cart2.png" alt="cart" /></a>';
+
+  } else {
+    document.getElementById("icon-customer").innerHTML = '';
+
+  }
+
+</script>
+<!-- Bootstrap JS -->
+<script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>

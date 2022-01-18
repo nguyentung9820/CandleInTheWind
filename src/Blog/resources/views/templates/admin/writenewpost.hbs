@@ -1,66 +1,117 @@
-<thead>
-  <div id="nav-background">
+<header style="position: fixed; top: 0;z-index: 1000; width: 100%;">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-10 col-md-10">
+        <nav class="navbar navbar-expand-xl navbar-light">
+          <div class="container-fluid">
+            <a href="/" class="navbar-brand"><img src="/image/logo.png" alt="logo" class="img-fluid"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse show" id="navbarNavDropdown" style="">
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/forum/admin/homepage"><strong>Home</strong></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/forum/admin/newpost"><strong>New Post</strong></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/forum/admin/pending"><strong>Pending</strong></a>
+                </li>
 
-    <header id="nav-header">
-
-    </header>
-    <nav style="    height: 72px;
-    position: absolute;">
-      <ul class="nav-ul hide-ul">
-        <li>
-          <a href="/admin/product"><img style="height:80%;" src="/image/logo.png" alt="logo" class="img-fluidd"></a>
-        </li>
-        <li style="width: 100px;height:80%"></li>
-        <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/homepage?id={{adminId}}&username={{adminName}}">Home</a></li>
-        <li style="width: 250px;height:80%"><a class="nav-link active-link"
-            href="/forum/admin/newpost?id={{adminId}}&username={{adminName}}">Thêm bài mới</a></li>
-        <li style="width: 250px;height:80%"><a class="nav-link"
-            href="/forum/admin/pending?id={{adminId}}&username={{adminName}}">Duyệt bài đăng</a></li>
-
-        <li style="max-width: 200px;height:80%; margin-left: 160px;">
-          <img style="align-items: center;"
-            src="https://scr.vn/wp-content/uploads/2020/07/Avatar-m%E1%BA%B7c-%C4%91%E1%BB%8Bnh-n%E1%BB%AF-c%C3%B3-m%C3%A0u-768x768.jpg"
-            alt="" class="comment-img">
-
-
-          <p style="margin-top:15px"><strong style="align-items: center;">{{adminName}}
-            {{!-- <strong  id="save-id">ID:{{adminId}}</strong> --}}
-          </strong></p>
-
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
 
 
-        </li>
-      </ul>
-    </nav>
+      <div class="col-lg-2 col-md-3 cart-login" style="padding-top: 15px;">
+        <div id="cart-checkout" class="float-end cart mt-2"><a href="/checkout/payment"><span id="number-in-cart1"
+              class="number"></span><img class="img-fluid" style="width: 50px; height:50px" src="/image/cart2.png"
+              alt="cart"></a></div>
+        <div id="icon-customer" style="margin-right: 20px;" class="float-end cart mt-2 ">
+          <a id="navbarDropdownMenuCustomer" style="padding-bottom: 30px;" class="dropdown-toggle"
+            data-bs-toggle="dropdown" aria-expanded="false"><img class="img-fluid" style="width: 50px; height:50px"
+              src="/image/customer.png" alt="customer"></a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuCustomer">
+            <li><a class="dropdown-item" style="color: black;" href="/profile">Account</a></li>
+            <li><a class="dropdown-item" style="color: black;" href="/order">Order</a></li>
+            <li><a class="dropdown-item" style="color: black;" href="/logout">Log Out</a></li>
 
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-</thead>
-<div class="edit-comment">
+</header>
 
-  <div class="newpost">
+<body style="background-color: rgb(250 243 243);">
+  <div class="edit-comment">
 
-
-<h1>NEWPOST</h1>
-
-</div>
-
-<div class="edit-comment-modal edit-comment-modal-store edit-background">
+    <div class="newpost">
 
 
-<form method="POST" action="/forum/admin/store?id={{adminId}}&username={{adminName}}" enctype="multipart/form-data">
-  <div class="form-group">
-      
-    <div class="form-group">
-      <label for="caption">Hãy nhập nội dung bài viết </label>
-      <textarea rows="10" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption" name="caption" autocomplete="off"></textarea>
+      <h1><strong>NEWPOST</strong></h1>
+
     </div>
-    
-     <div>
-        <label>Image</label>
-        <input type="file" name="profile-file" />
+
+    <div class="edit-comment-modal edit-comment-modal-store edit-background">
+
+
+      <form method="POST" action="/forum/admin/store" enctype="multipart/form-data">
+        <div class="form-group">
+
+          <div class="form-group">
+
+            <strong> <label for="caption"><strong>Write your title</strong></label></strong>
+            <textarea rows="2" cols="50" class="form-control" type="text" name="title"> </textarea>
+            <br>
+            <strong> <label for="caption"><strong>Write your content</strong></label> </strong>
+            <textarea rows="10" cols="50" type="text" class="form-control" id="caption" aria-describedby="caption"
+              name="caption" autocomplete="off"></textarea>
+          </div>
+
+          <div>
+            <label>Image</label>
+            <input type="file" name="profile-file" />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
-    <button type="submit" class="btn btn-primary" >Submit</button>
-</form>
-</div>
-</div>
+  </div>
+</body>
+
+
+
+
+<script>
+
+  function getCookie(input) {
+    var cookies = document.cookie.replace(/\s/g, '').split(';');
+    for (var i = 0; i < cookies.length; i++) {
+      var name = cookies[i].split('=')[0];
+      console.log(name)
+      var value = cookies[i].split('=')[1];
+      if (name === input) {
+        return value;
+      } else if (value === input) {
+        return name;
+      }
+    }
+    return "";
+  };
+  if (getCookie('customer') !== '') {
+    document.getElementById("login").innerHTML = '';
+    document.getElementById("cart-checkout").innerHTML = '<a href="/checkout/payment"><span id="number-in-cart1" class="number"></span><img class="img-fluid" style="width: 50px; height:50px" src="/image/cart2.png" alt="cart" /></a>';
+
+  } else {
+    document.getElementById("icon-customer").innerHTML = '';
+
+  }
+
+</script>
+<!-- Bootstrap JS -->
+<script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>

@@ -3,10 +3,12 @@ const postPending = require("../../models/PostPending");
 const { multipleMongoObj } = require("../../../util/mongoose");
 const { mongoToObj } = require("../../../util/mongoose");
 const CommentModel = require("../../models/Comment");
-let dataCmt = {};
+var cookieParser = require("cookie-parser");
+const { debug } = require("console");
 
 function ajaxcmt(request, response, callback, Id) {
   if (request.method == "POST") {
+    let dataCmt = {};
     let savePost = {};
     let newPostData = {};
     let body = "";
@@ -73,7 +75,8 @@ class AdminBlogController {
     this.username = username;
   }
   homepage(req, res, next) {
-    let query = require("url").parse(req.url, true).query;
+    //let query = require("url").parse(req.url, true).query;
+    let cookieName = req.cookies;
 
     let savePosts = [];
     let arrPosts = [];
@@ -89,28 +92,32 @@ class AdminBlogController {
               const cmts = [];
               let createdDate = element.createdAt;
               let date = new Date(createdDate.toString());
-              let getDay = date.getDate().toString()+ "-" + (date.getMonth()+1).toString() +"-" +  date.getFullYear().toString()
+              let getDay =
+                date.getDate().toString() +
+                "-" +
+                (date.getMonth() + 1).toString() +
+                "-" +
+                date.getFullYear().toString();
               cmt.forEach((id) => {
                 if (id.postID == element.postID) cmts.push(id);
               });
               arrPosts.push({
                 username: element.username,
                 caption: element.caption,
+                title: element.title,
                 image: element.image,
                 arrCmt: cmts,
                 postID: element.postID,
                 allowToCmT: element.availableToCmt,
-                adminName: 'admin',
-                adminId: 'admin',
-                postDate: getDay
+                postDate: getDay,
               });
             });
           })
           .then((tmp) => {
             res.render("templates/admin/forumadmin", {
               Posts: arrPosts,
-              adminName: 'admin',
-              adminId: 'admin',
+              adminName: cookieName.oreo,
+              adminId: cookieName.oreo,
             });
           })
       )
@@ -125,7 +132,7 @@ class AdminBlogController {
         if (cap.caption.length > 0) {
           const cmt = new CommentModel();
           cmt.postID = req.params.slug;
-          cmt.commentID = req.params.slug;
+          // cmt.commentID = req.params.slug;
           cmt.caption = cap.caption;
           cmt.username = cap.username;
           cmt.save();
@@ -143,38 +150,21 @@ class AdminBlogController {
         Post.updateOne(
           { postID: query.idPost },
           { $set: { availableToCmt: false } }
-        ).then(
-          res.redirect(
-            "/forum/admin/editpost?idPost=" +
-              query.idPost +
-              "&username=" +
-              query.username +
-              "&adminId=" +
-              query.adminId
-          )
-        );
+        ).then(res.redirect("/forum/admin/editpost?idPost=" + query.idPost));
       } else {
-        res.redirect(
-          "/forum/admin/editpost?idPost=" +
-            query.idPost +
-            "&username=" +
-            query.username +
-            "&adminId=" +
-            query.adminId
-        );
+        res.redirect("/forum/admin/editpost?idPost=" + query.idPost);
       }
     });
   }
 
   ShowPending(req, res, next) {
-    let query = require("url").parse(req.url, true).query;
     postPending
       .find({})
       .then((pending) => {
         res.render("templates/admin/admin", {
           pending: multipleMongoObj(pending),
-          adminName: query.username,
-          adminId: query.id,
+          adminName: req.cookies.oreo,
+          adminId: req.cookies.oreo,
         });
       })
       .catch(next);
@@ -184,9 +174,7 @@ class AdminBlogController {
     console.log(req.body);
     let query = require("url").parse(req.url, true).query;
     if (req.body.caption.length <= 0 && req.body.image.length <= 0) {
-      res.redirect(
-        "/forum/deletepost?id=" + query.adminId + "&username=" + query.username
-      );
+      res.redirect("/forum/deletepost");
     } else {
       if (req.file) {
         Post.updateOne(
@@ -194,30 +182,17 @@ class AdminBlogController {
           {
             $set: {
               caption: req.body.caption,
+              title: req.body.title,
               image: "/uploads/" + req.file.originalname,
             },
           }
-        ).then((tmp) =>
-          res.redirect(
-            "/forum/admin/homepage?id=" +
-              query.adminId +
-              "&username=" +
-              query.username
-          )
-        );
+        ).then((tmp) => res.redirect("/forum/admin/homepage"));
       } else {
         {
           Post.updateOne(
             { postID: query.idPost },
-            { $set: {caption: req.body.caption } }
-          ).then((tmp) =>
-            res.redirect(
-              "/forum/admin/homepage?id=" +
-                query.adminId +
-                "&username=" +
-                query.username
-            )
-          );
+            { $set: { caption: req.body.caption, title: req.body.title } }
+          ).then((tmp) => res.redirect("/forum/admin/homepage"));
         }
       }
     }
@@ -231,31 +206,17 @@ class AdminBlogController {
       console.log(value);
       if (value != null) {
         CommentModel.deleteOne({ _id: query.idCmt }).then((tmp) =>
-          res.redirect(
-            "/forum/admin/editpost?idPost=" +
-              value.postID +
-              "&username=" +
-              query.username +
-              "&adminId=" +
-              query.adminId
-          )
+          res.redirect("/forum/admin/editpost?idPost=" + value.postID)
         );
       } else {
-        res.redirect(
-          "/forum/admin/editpost?idPost=" +
-            value.postID +
-            "&username=" +
-            query.username +
-            "&adminId=" +
-            query.adminId
-        );
+        res.redirect("/forum/admin/editpost?idPost=" + value.postID);
       }
     });
   }
 
   ShowEditForm(req, res, next) {
     let query = require("url").parse(req.url, true).query;
-    console.log(query.idPost);
+    // console.log(query.idPost);
     Post.findOne({ postID: query.idPost })
       .then((posts) => {
         posts = mongoToObj(posts);
@@ -264,13 +225,12 @@ class AdminBlogController {
             res.render("templates/admin/adminedit", {
               username: posts.username,
               caption: posts.caption,
+              title: posts.title,
               image: posts.image,
               cmts: multipleMongoObj(arrCmt),
               postID: posts.postID,
               isAdmin: true,
               allowToCmT: posts.availableToCmt,
-              adminName: query.username,
-              idAmin: query.adminId,
             });
           });
         } else {
@@ -311,48 +271,31 @@ class AdminBlogController {
       if (value != null) {
         CommentModel.deleteMany({ postID: query.idPost }).then((cmt) => {
           Post.deleteOne({ postID: query.idPost }).then((tmp) =>
-            res.redirect(
-              "/forum/admin/homepage?id=" +
-                query.adminId +
-                "&username=" +
-                query.username
-            )
+            res.redirect("/forum/admin/homepage")
           );
         });
       } else {
-        res.redirect(
-          "/forum/admin/homepage?id=" +
-            query.adminId +
-            "&username=" +
-            query.username
-        );
+        res.redirect("/forum/admin/homepage");
       }
     });
   }
 
   StorePost(req, res, next) {
-    let query = require("url").parse(req.url, true).query;
-    console.log("--------------------------------");
+    //let query = require("url").parse(req.url, true).query;
 
     if (req.body.caption.length > 0) {
       const savePost = new Post();
-      const postID =  query.username.toString() + Math.random().toString();
-      savePost.username = query.username;
+      const postID = req.cookies.oreo.toString() + Math.random().toString();
+      savePost.username = req.cookies.oreo;
       savePost.caption = req.body.caption;
       savePost.postID = postID;
-
+      savePost.title = req.body.title;
 
       if (req.file) savePost.image = "/uploads/" + req.file.originalname;
 
       savePost.availableToCmt = true;
-      savePost.save();
-    }
-    res.redirect(
-      "/forum/admin/homepage?id=" +
-        query.id +
-        "&username=" +
-        query.username
-    );
+      savePost.save().then(res.redirect("/forum/admin/homepage"));     
+    } else res.redirect("/forum/admin/homepage");
   }
 
   OpenComment(req, res, next) {
@@ -363,25 +306,9 @@ class AdminBlogController {
         Post.updateOne(
           { postID: query.idPost },
           { $set: { availableToCmt: true } }
-        ).then(
-          res.redirect(
-            "/forum/admin/editpost?idPost=" +
-              query.idPost +
-              "&username=" +
-              query.username +
-              "&adminId=" +
-              query.adminId
-          )
-        );
+        ).then(res.redirect("/forum/admin/editpost?idPost=" + query.idPost));
       } else {
-        res.redirect(
-          "/forum/admin/editpost?idPost=" +
-            query.idPost +
-            "&username=" +
-            query.username +
-            "&adminId=" +
-            query.adminId
-        );
+        res.redirect("/forum/admin/editpost?idPost=" + query.idPost);
       }
     });
   }
@@ -389,12 +316,10 @@ class AdminBlogController {
   WriteNewPost(req, res, next) {
     const isAdmin = true;
     // let query = require("url").parse(req.url, true).query;
-    let auth = req.cookies['oreo'];
-    // res.send(auth)
     res.render("templates/admin/writenewpost", {
       isAdmin,
-      adminName: 'admin',
-      adminId: 'admin',
+      adminName: req.cookies.oreo,
+      adminId: req.cookies.oreo,
     });
   }
 
@@ -413,6 +338,7 @@ class AdminBlogController {
               savePost.username = value.username;
               savePost.caption = value.caption;
               savePost.postID = value.postID;
+              savePost.title = value.title;
               savePost.image = value.image;
               savePost.idAuthor = value.idAuthor;
               savePost.availableToCmt = true;
