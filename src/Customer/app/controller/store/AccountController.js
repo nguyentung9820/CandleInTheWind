@@ -3,6 +3,8 @@ const { json } = require("express");
 const Customer = require("../../models/Customer")
 const Order = require("../../../../Checkout/app/models/Order")
 const Blog = require("../../../../Blog/app/models/Blog")
+const Rank = require("../../../../Promotion/app/models/Rank")
+
 class AccountController {
 
     // [GET] /
@@ -41,12 +43,23 @@ class AccountController {
                         blogs => {
                             Order.find({customer_id: auth})
                             .then(orders =>{
-                                res.render('templates/store/viewcustomer', { 
-                                    customers: mutipleMongooseToObject(customers),
-                                    orders: mutipleMongooseToObject(orders),
-                                    blogs: mutipleMongooseToObject(blogs),
-                                    layout: 'main' 
-                                });
+                                Rank.find({})
+                                .then(ranks =>{
+                                    var arr = [];
+                                    ranks.forEach(data2 => {
+                                        if(element.point > data2.rank_point){
+                                            arr.push({name: data2.rank_name, img: data2.rank_image, point: data2.rank_point})
+                                        }
+                                    })
+                                    var maxObj = arr.reduce((max, obj) => (max.point > obj.point) ? max : obj);
+                                    res.render('templates/store/viewcustomer', { 
+                                        customers: mutipleMongooseToObject(customers),
+                                        orders: mutipleMongooseToObject(orders.slice(Math.max(orders.length - 5, 0))),
+                                        blogs: mutipleMongooseToObject(blogs),
+                                        rank: maxObj,
+                                        layout: 'main' 
+                                    });
+                                })
                             })  
                         }
                     )
@@ -59,6 +72,33 @@ class AccountController {
     logout(req, res){    
         res.clearCookie('customer')
         res.redirect('/')
+    }
+
+    editProfile(req, res) {
+        var param = req.params.id
+        Customer.find({_id: param})
+            .then(customers => {
+                res.render('templates/store/editprofile',{
+                    customer: mutipleMongooseToObject(customers),
+                    layout: 'main'
+                })
+
+            }) 
+
+    }
+    updateProfile(req,res){
+        var body = req.body;
+        if(req.file != null){
+            var file = {avatar: req.file.filename}
+        }else{
+            var file = {avatar: req.body.last_image}
+        }
+        console.log(file)
+        var data = Object.assign(body, file);
+        if(req.params.id != null){
+            Customer.updateOne({_id: req.params.id}, data)
+            .then(() => res.redirect('/profile'))
+        }
     }
 }
 

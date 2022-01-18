@@ -2,11 +2,13 @@ const { mutipleMongooseToObject } = require('../../../util/mongoose')
 const { json } = require("express");
 const Customer = require("../../models/Customer")
 const PendingRequest = require("../../models/PendingRequest")
+const Rank = require("../../../../Promotion/app/models/Rank")
 
 class CustomerController {
 
     // [GET] /
     customer(req, res){
+
         Customer.find({})
         .then(customers => {
             res.render('templates/admin/customer', { 
@@ -39,10 +41,24 @@ class CustomerController {
     viewCustomer(req, res){
         Customer.find({_id: req.params.id})
         .then(customers => {
-            res.render('templates/admin/viewcustomer', { 
-                customers: mutipleMongooseToObject(customers),
-                layout: 'customer' 
-            });
+            customers.forEach(data =>{
+                Rank.find({})
+                .then(ranks =>{
+                    var arr = [];
+                    ranks.forEach(data2 => {
+                        if(data.point > data2.rank_point){
+                            arr.push({name: data2.rank_name, img: data2.rank_image, point: data2.rank_point})
+                        }
+                    })
+                    var maxObj = arr.reduce((max, obj) => (max.point > obj.point) ? max : obj);
+                    res.render('templates/admin/viewcustomer', { 
+                        customers: mutipleMongooseToObject(customers),
+                        rank: maxObj,
+                        layout: 'customer' 
+                    });
+                })
+            })
+            
         })    
     }
     editCustomer(req, res){

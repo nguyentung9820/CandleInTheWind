@@ -1,4 +1,5 @@
- <form class="form-group" id="product-form" method="POST" enctype="multipart/form-data" action="/management/customer/save" >
+ {{#each customer}}
+ <form class="form-group" id="product-form" method="POST" enctype="multipart/form-data" action="/profile/update/{{this._id}}" >
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group px-2 py-2 rounded-pill bg-white shadow-sm">
@@ -8,53 +9,47 @@
                             <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
                         </div>
                     </div>
-                    <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                    <div class="image-area mt-4"><img id="imageResult" src="/image/{{this.avatar}}" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="text" name="username" class="form-control" placeholder="Enter User Name" id="username">
+                    <input type="text" name="username" value="{{this.username}}" class="form-control" placeholder="Enter User Name" id="username">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="email" name="email" class="form-control" placeholder="Enter Email" id="email">
+                    <input type="email" name="email" value="{{this.email}}" class="form-control" placeholder="Enter Email" id="email">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="number" name="phone" class="form-control" placeholder="Enter phone number" id="phone">
+                    <input type="number" name="phone" value="{{this.phone}}" class="form-control" placeholder="Enter phone number" id="phone">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <select class="form-control" name="customer_group">
-                        <option>Normal</option>
-                        <option>Favourite</option>
-                        {{!-- <option>Normal (pending)</option> --}}
-                    </select>                
+                    <input type="text" name="customer_group" value="{{this.customer_group}}" class="form-control" disabled>
                 </div>
             </div>{{!--  --}}
             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="text" name="address" class="form-control" placeholder="Enter Address" id="address">
+                    <input type="text" name="address" value="{{this.address}}" class="form-control" placeholder="Enter Address" id="address">
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input type="text" name="point" class="form-control" placeholder="Enter Point" id="point">
-                </div>
-            </div>
+            <input type="hidden" name="last_image" value="{{this.avatar}}" class="form-control" placeholder="Enter Address" id="address">
+
             <div class="col-md-2">
                 <div class="form-group" style="display: flex;">
                     <input type="submit" name="Submit" id="insert" 
                            class="btn btn-primary btn-sm"
                            value="Save Customer">
-                    <a href="/management/customer"><button style="margin-left: 10px;" type="button" class="btn btn-secondary" action=>Cancel</button></a>
+                    <a href="/profile"><button style="margin-left: 10px;" type="button" class="btn btn-secondary" action=>Cancel</button></a>
                 </div>
             </div>
         
 </form>
+{{/each}}
 <style>
     #upload {
     opacity: 0;

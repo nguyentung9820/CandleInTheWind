@@ -8,6 +8,8 @@ const Customer = new Schema({
     phone: { type: Number},
     address: { type: String},
     customer_group: { type: String },
+    point: {type: Number},
+    sale: {type: Number},
     createdAt: { type: Date, default: Date.now},
     updateAt: { type: Date, default: Date.now }
 });
