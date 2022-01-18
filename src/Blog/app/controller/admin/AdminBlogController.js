@@ -294,9 +294,8 @@ class AdminBlogController {
       if (req.file) savePost.image = "/uploads/" + req.file.originalname;
 
       savePost.availableToCmt = true;
-      savePost.save();
-    }
-    res.redirect("/forum/admin/homepage");
+      savePost.save().then(res.redirect("/forum/admin/homepage"));     
+    } else res.redirect("/forum/admin/homepage");
   }
 
   OpenComment(req, res, next) {
