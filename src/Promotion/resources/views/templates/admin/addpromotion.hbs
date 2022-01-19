@@ -1,0 +1,53 @@
+ <form class="form-group" id="product-form" method="POST" action="/rule/promotion/save" >
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for='name'><strong>Promotion name</strong></label>
+                    <input type="text" name="promotion_name" class="form-control" placeholder="Enter Promotion Name" >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for='name'><strong>Promotion description</strong></label>
+                    <input type="text" name="promotion_description" class="form-control" placeholder="Enter Description" >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for='name'><strong>Product SKU</strong></label>
+                    <input type="text" name="product_sku" class="form-control" placeholder="Enter Sku" >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for='name'><strong>Discount</strong></label>
+                    <input type="number" name="promotion_discount" class="form-control" placeholder="Enter Discount">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for='name'><strong>Code</strong></label>
+                    <input type="text" name="code" class="form-control" placeholder="Enter Code" >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for='name'><strong>Expire</strong></label>
+                    <input type="date" name="expiredAt" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for='name'><strong>Quantity</strong></label>
+                    <input type="number" name="qty" class="form-control" placeholder="Enter Number">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group" style="display: flex;">
+                    <input type="submit" name="Submit" id="insert" 
+                           class="btn btn-primary btn-sm"
+                           value="Save Promotion">
+                    <a href="/rule/promotion"><button style="margin-left: 10px;" type="button" class="btn btn-secondary" action=>Cancel</button></a>
+                </div>
+            </div>
+        
+</form>

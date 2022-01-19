@@ -1,0 +1,45 @@
+   {{!-- <a href="/management/customer/add"><button type="button" style="margin-bottom: 20px;" class="btn btn-success" action=>Add Order</button></a> --}}
+   <h1>Orders</h1>
+   <div>
+        <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Bill Name</th>
+                    <th>Email</th>
+                    <th>Create At</th>
+                    <th>Action</th>
+            </thead>
+            {{#each orders}}
+                <tbody>
+                    <tr>
+                            <th>{{@index}}</th>
+                            <th>{{this._id}}</th>
+                            <th>{{this.billing_firstname}} {{this.billing_lastname}}</th>
+                            <th>{{this.billing_email}}</th>
+                            <th>{{this.createdAt}}</th>
+                            <th>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" 
+                                            type="button" 
+                                            id="dropdownMenuButton" 
+                                            data-toggle="dropdown" 
+                                            aria-haspopup="true" 
+                                            aria-expanded="false">
+                                            Action
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a data-id="{{this._id}}" class="dropdown-item"  href="/payment/order/delete/{{this._id}}">Delete</a>
+                                        <a class="dropdown-item"  href="/payment/order/view/{{this._id}}">View</a>
+                                        <a class="dropdown-item"  href="/payment/order/ship/{{this._id}}">Ship</a>
+
+                                    </div>
+                                </div>
+                            </th>
+                    </tr>
+                </tbody>
+            {{/each}}
+        </table>
+    </div>
+    

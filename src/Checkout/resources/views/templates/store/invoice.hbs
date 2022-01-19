@@ -1,0 +1,37 @@
+    <a href="/order"><button type="button" class="btn btn-secondary">Orders</button></a>
+
+   <h1>Your Invoices</h1>
+   <div>
+        <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Bill Name</th>
+                    <th>Email</th>
+                    <th>Create At</th>
+                    <th>Status</th>
+                    <th>Action</th>
+            </thead>
+            {{#each orders}}
+                <tbody>
+                    <tr>
+                            <th>{{@index}}</th>
+                            <th>{{this._id}}</th>
+                            <th>{{this.billing_firstname}} {{this.billing_lastname}}</th>
+                            <th>{{this.billing_email}}</th>
+                            <th>{{this.createdAt}}</th>
+                            <th>{{this.status}}</th>
+                            <th>
+                                <div class="dropdown">
+                                    <div>
+                                        <a href="/order/view/{{this._id}}"><button type="button" class="btn btn-secondary">View</button></a>
+                                    </div>
+                                </div>
+                            </th>
+                    </tr>
+                </tbody>
+            {{/each}}
+        </table>
+    </div>
+    

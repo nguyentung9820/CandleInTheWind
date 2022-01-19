@@ -1,0 +1,18 @@
+ <form class="form-group" id="product-form" method="POST" action="/admin/childcategory/save" >
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for='name'><strong>Category name</strong></label>
+                    <input type="text" name="child_category" class="form-control" placeholder="Enter Category Name" id="name">
+                </div>
+            </div>
+            <input type="hidden" value="{{this.parent}}" name="parent"/>
+            <div class="col-md-2">
+                <div class="form-group" style="display: flex;">
+                    <input type="submit" name="Submit" id="insert" 
+                           class="btn btn-primary btn-sm"
+                           value="Save Category">
+                    <a href="/admin/category"><button style="margin-left: 10px;" type="button" class="btn btn-secondary" action=>Cancel</button></a>
+                </div>
+            </div>
+        
+</form>

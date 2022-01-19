@@ -1,0 +1,108 @@
+<a href="/rule/rank/add"><button type="button" style="margin-bottom: 20px;" class="btn btn-success" action=>Add Rank</button></a>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-center row">
+        <div class="align-content-center col-md-6">
+            {{#each ranks}}
+            <div style="margin-bottom: 30px;" class="review-card p-2 bg-white rounded">
+                <div class="text-right"><img src="https://i.imgur.com/rL9jvBE.png" width="20"></div>
+                <div class="d-flex mt-0 p-2"><img width="200px" height="200px" src="/image/{{this.rank_image}}">
+                    <div class="ml-1 mt-2">
+                        <div class="mt-0"><span class="cmpny-name">{{this.rank_name}}</span><span class="dots"></span><span class="text-black-50 num-reviews"></span></div>
+                        <h6 class="crop-text mb-0">{{this.rank_description}}&nbsp;</h6>
+                        <div style="padding-top: 20px;" class="d-flex flex-row align-items-center">
+                            <span style="padding-right: 15px" class="font-weight-bold text-black-50 excellent">Level</span>
+                            <div id="{{this.rank_name}}" class="square-ratings mr-2"><i class="fa fa-square rating-none"></i></div>
+                            <script>
+                                var level = "{{this.level}}"
+                                for(i = 0; i < level; i++){
+                                    document.getElementById("{{this.rank_name}}").insertAdjacentHTML('afterbegin', '<i class="fa fa-square ratings"></i>')
+
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-4 rating-box mb-3">
+                    <div class="border rounded">
+                        <div class="text-center score py-2">
+                            <div class="rating-out"><span class="get-rating">{{this.rank_point}}</span></div>
+                            <div><span>Rank Points</span></div>
+                        </div>
+                        {{!-- <div class="d-flex justify-content-around align-items-center align-content-center border-top">
+                            <div class="border-right px-2 text-center py-2"><span class="d-block font-weight-bold">4.2</span><span>Reviews</span></div>
+                            <div class="text-center border-right px-2 py-2"><span class="d-block font-weight-bold">4.9</span><span>Marketing</span></div>
+                            <div class="text-center border-right px-2 py-2"><span class="d-block font-weight-bold">4.2</span><span>Social</span></div>
+                            <div class="text-center px-2 py-2"><span class="d-block font-weight-bold">4.0</span><span>Technical</span></div>
+                        </div> --}}
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <a class="pl-2" href="/rule/rank/delete/{{this._id}}"><button type="button" style="margin-bottom: 20px;" class="btn btn-danger" action=><i class="fa fa-trash" aria-hidden="true"></i></button></a>
+                    <a class="pl-2" href="/rule/rank/edit/{{this._id}}"><button type="button" style="margin-bottom: 20px;" class="btn btn-success" action=><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200&family=Roboto:wght@300&display=swap');
+
+body {
+    background: rgb(240, 236, 185);
+    font-family: 'Roboto', sans-serif
+}
+
+.crop-text {
+    -webkit-line-clamp: 2 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical
+}
+
+.cmpny-name {
+    color: blue;
+    font-weight: 600
+}
+
+.dots {
+    height: 6px;
+    width: 6px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 1px;
+    background-color: rgb(180, 181, 180);
+    border-radius: 50%;
+    display: inline-block
+}
+
+.num-reviews {
+    font-weight: 600;
+    font-size: 13px
+}
+
+.ratings {
+    color: blue;
+    margin-right: 3px
+}
+
+.rating-none {
+    color: #dad6d6
+}
+
+.excellent {
+    font-size: 13px;
+    margin-bottom: 2px
+}
+
+.get-rating {
+    font-size: 35px;
+    font-weight: 700
+}
+
+.rating-out {
+    margin-bottom: -8px
+}
+</style>

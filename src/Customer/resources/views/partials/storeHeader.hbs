@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/storehead.css">
+
+</head>
+
+<body>
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-10 col-md-10">
+                    <nav class="navbar navbar-expand-xl navbar-light">
+                        <div class="container-fluid">
+                            <a href="/" class="navbar-brand"><img src="/image/logo.png" alt="logo"
+                                    class="img-fluid"></a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse nav-mt-36" id="navbarNavDropdown nav-mt-36">
+                                <ul class="navbar-nav mx-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page"
+                                            href="/category/Candle"><strong>Candle</strong></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/category/Wax"><strong>Wax</strong></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/category/Oil"><strong>Oil</strong></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                            href="/category/Accessories"><strong>Accessories</strong></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"><strong>Sale</strong></a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/forum/customer/homepage"><strong>Forum</strong></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="login" class="nav-link" href="/customer"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+
+
+                <div class="col-lg-2 col-md-3 cart-login" style="padding-top: 20px;">
+                    <div id="cart-checkout" class="float-end cart mt-2"><a href="/checkout/payment"><span
+                                id="number-in-cart1" class="number"></span><img class="img-fluid"
+                                style="width: 50px; height:50px" src="/image/cart2.png" alt="cart"></a></div>
+                    <div id="icon-customer" style="margin-right: 20px;" class="float-end cart mt-2 ">
+                        <a id="" style="padding-bottom: 30px;" class="dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false"><img class="img-fluid" style="width: 50px; height:50px"
+                                src="/image/customer.png" alt="customer"></a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuCustomer">
+                            <li><a class="dropdown-item" style="color: black;" href="/profile">Account</a></li>
+                            <li><a class="dropdown-item" style="color: black;" href="/order">Order</a></li>
+                            <li><a class="dropdown-item" style="color: black;" href="/logout">Log Out</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <script>
+
+        function getCookie(input) {
+            var cookies = document.cookie.replace(/\s/g, '').split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var name = cookies[i].split('=')[0];
+                console.log(name)
+                var value = cookies[i].split('=')[1];
+                if (name === input) {
+                    return value;
+                } else if (value === input) {
+                    return name;
+                }
+            }
+            return "";
+        };
+        if (getCookie('customer') !== '') {
+            document.getElementById("login").innerHTML = '';
+            document.getElementById("cart-checkout").innerHTML = '<a href="/checkout/payment"><span id="number-in-cart1" class="number"></span><img class="img-fluid" style="width: 50px; height:50px" src="/image/cart2.png" alt="cart" /></a>';
+
+        } else {
+            document.getElementById("icon-customer").innerHTML = '';
+
+        }
+
+    </script>
+    <!-- Bootstrap JS -->
+    <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
