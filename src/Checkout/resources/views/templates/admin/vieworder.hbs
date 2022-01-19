@@ -9,10 +9,10 @@
         <p>Order #{{this._id}} is currently<b class="text-dark"> {{this.status}}</b></p>
     </div>
     {{#if_eq this.status 'pending'}}
-    <a href="#"><button type="button" style="margin-bottom: 20px;" class="btn btn-outline-dark" action=>Shipment</button></a>
+    <a href="/payment/order/ship/{{this._id}}"><button type="button" style="margin-bottom: 20px;" class="btn btn-outline-dark" action=>Ship Now</button></a>
     {{/if_eq}}
-    {{#if_eq this.status 'shipping'}}
-    <a href="#"><button type="button" style="margin-bottom: 20px;" class="btn btn-outline-dark" action=>Invoice</button></a>
+    {{#if_eq this.status 'Shipping'}}
+    <a href="/payment/order/invoice/{{this._id}}"><button type="button" style="margin-bottom: 20px;" class="btn btn-outline-dark" action=>Invoice</button></a>
     {{/if_eq}}
     <a href="/payment/order"><div class="btn close text-white"> &times; </div></a>
 </div>
@@ -55,6 +55,10 @@
     <div class="d-flex justify-content-start align-items-center pb-4 pl-3">
         <div class="text-muted"> <button class="text-white btn">{{this.discount}}% Discount</button> ({{this.coupon_code}}) </div>
         <div class="ml-auto price"> -$<span>{{this.money_discount}}</span> </div>
+    </div>
+    <div class="d-flex justify-content-start align-items-center pl-3 border-bottom">
+        <div class="text-muted">Point Used</div>
+        <div class="ml-auto price"> - <span>{{this.point_used}}</span> </div>
     </div>
     <div class="d-flex justify-content-start align-items-center pl-3 border-bottom">
         <div class="text-muted">Created At</div>

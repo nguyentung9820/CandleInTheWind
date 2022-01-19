@@ -6,7 +6,7 @@ class OrderController {
 
     // [GET] /
     order(req, res){
-        Order.find({customer_id: req.cookies['customer']})
+        Order.find({customer_id: req.cookies['customer'], invoice: "false"})
         .then(orders => {
             res.render('templates/store/order', { 
                 orders: mutipleMongooseToObject(orders),
@@ -23,7 +23,25 @@ class OrderController {
             });
         })    
     }
-
+    cancelOrder(req, res){
+        Order.find({_id: req.params.id})
+        .then(orders => {
+            orders.forEach(data => {
+                data.status = 'Canceled'
+                Order.updateOne({_id: req.params.id}, data)
+                .then(() => res.redirect('/order'))
+            })
+        }) 
+    }
+    invoice(req, res){
+        Order.find({status: "Done"})
+        .then(orders => {
+            res.render('templates/store/invoice', { 
+                orders: mutipleMongooseToObject(orders),
+                layout: 'store' 
+            });
+        })  
+    }
 }
 
 
