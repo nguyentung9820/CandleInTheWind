@@ -6,7 +6,7 @@ class CheckoutController {
 
     // [GET] /
     order(req, res){
-        Order.find({})
+        Order.find({invoice: "false"})
         .then(orders => {
             res.render('templates/admin/order', { 
                 orders: mutipleMongooseToObject(orders),
@@ -29,7 +29,46 @@ class CheckoutController {
         .then(() => res.redirect('/payment/order'))
         .catch(next);
     }
-
+    cancelOrder(req, res){
+        Order.find({_id: req.params.id})
+        .then(orders => {
+            orders.forEach(data => {
+                data.status = 'Canceled'
+                Order.updateOne({_id: req.params.id}, data)
+                .then(() => res.redirect('/payment/order'))
+            })
+        }) 
+    }
+    shipOrder(req, res){
+        Order.find({_id: req.params.id})
+        .then(orders => {
+            orders.forEach(data => {
+                data.status = 'Shipping'
+                Order.updateOne({_id: req.params.id}, data)
+                .then(() => res.redirect('/payment/order'))
+            })
+        }) 
+    }
+    invoice(req, res){
+        Order.find({_id: req.params.id})
+        .then(orders => {
+            orders.forEach(data => {
+                data.status = 'Done'
+                data.invoice = "true"
+                Order.updateOne({_id: req.params.id}, data)
+                .then(() => res.redirect('/payment/order'))
+            })
+        }) 
+    }
+    viewInvoices(req, res){
+        Order.find({status: "Done"})
+        .then(orders => {
+            res.render('templates/admin/invoice', { 
+                orders: mutipleMongooseToObject(orders),
+                layout: 'admin' 
+            });
+        })  
+    }
 }
 
 

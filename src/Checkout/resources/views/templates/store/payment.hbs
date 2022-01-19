@@ -205,6 +205,9 @@
             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+              <button onclick="window.location.reload()" id="update-cart" style="display: none;" type="button" class="btn btn-outline-success">Update cart</button>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
               Shipping
               <span>30</span>
             </li>
@@ -219,6 +222,7 @@
             </li>
           </ul>
           <input type="hidden" name="status" value="pending"/>
+          <input type="hidden" name="invoice" value="false"/>
           <button type="submit" class="btn btn-primary btn-block waves-effect waves-light">Make purchase</button>
 
         </div>
@@ -246,7 +250,25 @@
         </div>
       </div>
       <!-- Card -->
+      <div class="card mb-4">
+        <div class="card-body">
 
+          <a class="dark-grey-text d-flex justify-content-between" data-toggle="collapse" href="#collapseExample"
+            aria-expanded="false" aria-controls="collapseExample">
+            Use your point 
+            <span><i class="fas fa-chevron-down pt-1"></i></span>
+          </a>
+
+          <div class="collapse" id="collapseExample">
+            <div class="mt-3">
+              <div class="md-form md-outline mb-0">
+                <input type="number" id="point_used" class="form-control font-weight-light"
+                  placeholder="You cant get reward point after using this" name="point_used">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!--Grid column-->
 
@@ -286,12 +308,13 @@
             total_cart = 0;
             data.forEach(
                 element => {
-                  document.getElementById('cart').insertAdjacentHTML('afterbegin', '<li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"><span id="image_in_cart"><img width="100px" height="100px" src="/image/'
+                  document.getElementById('cart').insertAdjacentHTML('afterbegin', '<li id="li_'+ element[0] +'" class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"><span id="image_in_cart"><img width="100px" height="100px" src="/image/'
                     + element[4] +'"/> </span><span><div><strong id="product_in_cart">' 
-                    + element[2] + '</strong></div><div>Qty: <span id="qty_in_cart">'
-                    + element[1] +'</span></div></span><span><div><strong>Price:</strong> $'
-                    + element[3]*element[1]+'</div></span></li>');
+                    + element[2] + '</strong></div><div>Qty: <span id="qty_in_cart"><input onchange="changeQty(this.value, this.id)" style="width: 30px" id="qty_'+element[0]+'" value="'
+                    + element[1] +'" /></span></div></span><span><div><strong>Price:</strong> $'
+                    + element[3]*element[1]+'</div><div><i id="delete_'+element[0]+'" onclick="deleteProduct(this.id)" class="fa fa-trash" aria-hidden="true"></i></div></span></li>');
                   total_cart +=  element[3]*element[1];
+                  console.log(total_cart)
                   qty_per_product.push(element[0] + '.' + element[1])
                 }
             )
@@ -303,4 +326,57 @@
             document.getElementById("total-cart").innerHTML = total_cart;                  
             document.getElementById('hidden').insertAdjacentHTML('afterbegin', '<input type="hidden" name="qty_per_product" value="'
                     + qty_per_product +'"/>')  
+</script>
+<script>
+  function changeQty(qty, id){
+    console.log(qty)
+    arr = [];
+    checkout = getCookie('checkout');
+    checkout_split = checkout.split(",")
+    for(i = 0; i < checkout_split.length; i++){
+      if(checkout_split[i] == id.split("_")[1]){
+        checkout_split[i+1] = qty
+        checkout_split[i+5] = qty*checkout_split[i+3]
+        data = [checkout_split[i],checkout_split[i+1],checkout_split[i+2],checkout_split[i+3],checkout_split[i+4],checkout_split[i+5]]
+        console.log(data)
+        arr.push(data) 
+      }
+
+      i += 5
+    }
+    console.log(JSON.stringify(array))
+    checkout_string = checkout_split.toString()
+		document.cookie = 'checkout='+ checkout_string + ';path=/checkout/payment';
+    {{!-- document.cookie = 'detail='+ JSON.stringify(checkout_split); --}}
+
+    document.getElementById("update-cart").style.display = "block"
+  }
+</script>
+<style>
+  i:hover{
+      
+      font-size: 130%;
+      transition-duration: 0.7s;
+  }
+</style>
+<script>
+  function deleteProduct(id){
+    console.log('delete'+ id)
+    product_id = id.split("_")[1]
+    checkout = getCookie('checkout');
+    checkout_split = checkout.split(",")
+    for(i = 0; i < checkout_split.length; i++){
+      if(checkout_split[i] == product_id){
+        checkout_split.splice(i, i+6)
+      }
+      i += 5
+    }
+    checkout_string = checkout_split.toString()
+    li = "li_" + product_id
+    console.log(li)
+		document.cookie = 'checkout='+ checkout_string + ';path=/checkout/payment';
+    document.getElementById(li).remove();
+    document.getElementById("update-cart").style.display = "block"
+
+  }
 </script>

@@ -35,45 +35,65 @@ class CheckoutController {
             
         } catch (error) {
             discount_number = 0;
-        }  
-        try{
-            product_array.forEach(id => {
-                Product.findOne({_id: id[0]})
-                .then(products => {
-                    console.log(qty_per_product)
-                    qty_per_product.split(',').forEach(datas => {
-                        if(products.point != null){
-                            array = datas.split(".")
-                            if(array[0] == id[0]){
-                                reward_points += array[1]*products.point
-                                console.log(reward_points)
+        }
+        if(body.point_used == null || body.point_used == 0){
+            try{
+                product_array.forEach(id => {
+                    Product.findOne({_id: id[0]})
+                    .then(products => {
+                        console.log(qty_per_product)
+                        qty_per_product.split(',').forEach(datas => {
+                            if(products.point != null){
+                                array = datas.split(".")
+                                if(array[0] == id[0]){
+                                    reward_points += array[1]*products.point
+                                    console.log(reward_points)
+                                }
                             }
-                        }
+                        })
                     })
                 })
-            })
+                Customer.findOne({_id: req.cookies['customer']})
+                .then(result => {
+                    if(result.point == null){
+                        result.point = 0
+                    }
+                    var point_result = {point: (result.point + reward_points)};
+                    var data = Object.assign(result, point_result); 
+                    Customer.updateOne({_id: req.cookies['customer']}, data)
+                    .then(() => console.log('updated'))
+                })
+    
+            } catch (error) {
+                console.log('fail to save')
+                reward_points = 0;
+            }  
+        }
+        if(body.point_used == null){
+            var point_used  = 0
+        } else{
+            var point_used = body.point_used
             Customer.findOne({_id: req.cookies['customer']})
-            .then(result => {
-                if(result.point == null){
-                    result.point = 0
-                }
-                var point_result = {point: (result.point + reward_points)};
-                var data = Object.assign(result, point_result); 
-                Customer.updateOne({_id: req.cookies['customer']}, data)
-                .then(() => console.log('updated'))
-            })
-
-        } catch (error) {
-            console.log('fail to save')
-            reward_points = 0;
-        }  
+                .then(result => {
+                    if(result.point != null && result.point > point_used){
+                        var point_result = {remain_point: (result.point - point_used)};
+                        var data = Object.assign(result, point_result); 
+                        Customer.updateOne({_id: req.cookies['customer']}, data)
+                        .then(() => console.log('updated'))
+                    }else{
+                        console.log('not enough point')
+                    }
+                })
+        }
+        
         var product = {product_list: product_array};
         var discount_amount = {discount: discount_number};
-        var real_total = req.body.bill_total*(1-(discount_number/100))
+        var real_total = req.body.bill_total*(1-(discount_number/100)) - point_used
         var last_total = {last_total: real_total.toFixed(2)}
         var money = req.body.bill_total - real_total.toFixed(2);
         var discount_money = {money_discount: money.toFixed(2)};
-        var data = Object.assign(body, product, discount_amount, last_total, discount_money, customer); 
+        var point_discount = {point_used: point_used}
+        var data = Object.assign(body, product, discount_amount, last_total, discount_money, customer, point_discount); 
         try{
             var order = new Order(data);
             order.save();

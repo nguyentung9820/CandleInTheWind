@@ -24,6 +24,8 @@ const Order = new Schema({
     money_discount: { type: String },
     status: { type: String },
     customer_id: { type: String },
+    invoice: {type: String},
+    point_used: {type: Number},
     createdAt: { type: Date, default: Date.now},
     updateAt: { type: Date, default: Date.now }
 });
