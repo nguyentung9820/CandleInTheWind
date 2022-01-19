@@ -7,6 +7,7 @@ const authMiddleware = require('../../middlewares/middleware');
 
 router.post('/admin',adminController.login);
 
+router.get('/upgrade/:customer', customerController.upgrade);
 router.get('/admin/logout',authMiddleware.checkAdmin, adminController.logout);
 router.get('/admin',authMiddleware.checkLogin, adminController.admin);
 router.get('/', customerController.customer);

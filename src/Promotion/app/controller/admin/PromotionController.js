@@ -91,6 +91,12 @@ class PromotionController {
         })   
     }
 
+    rank(req, res){
+        res.render('templates/admin/rank',{
+            layout: 'admin' 
+        })
+    }
+
 }
 
 module.exports = new PromotionController;

@@ -1,100 +1,105 @@
- {{#each attributeSets}}
- <form class="form-group" id="product-form" method="POST" enctype="multipart/form-data" action="/admin/attributeset/update/{{this._id}}" >
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for='image'><strong>Category Image</strong></label>
-                    <div id='image' class="input-group px-2 py-2 rounded-pill bg-white shadow-sm">
-                        <input id="upload" type="file" name="category_image" onchange="readURL(this);" class="form-control border-0">
-                        <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
-                        <div class="input-group-append">
-                            <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
-                        </div>
-                    </div>
-                    <div class="image-area mt-4"><img id="imageResult" src="/image/{{this.attributeset_image}}" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+{{#each attributeSets}}
+<form class="form-group" id="product-form" method="POST" enctype="multipart/form-data"
+    action="/admin/attributeset/update/{{this._id}}">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for='image'><strong>Attribute Set Image</strong></label>
+            <div id='image' class="input-group px-2 py-2 rounded-pill bg-white shadow-sm">
+                <input id="upload" type="file" name="attributeset_image" onchange="readURL(this);"
+                    class="form-control border-0">
+                <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
+                <div class="input-group-append">
+                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i
+                            class="fa fa-cloud-upload mr-2 text-muted"></i><small
+                            class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for='name'><strong>Attribute Set Name</strong></label>
-                    <input type="text" name="attribute_set_name" value="{{this.attribute_set_name}}" class="form-control" placeholder="Enter Attribute Set Name" id="name">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for='active'><strong>Enable attribute set</strong></label>
-                    <select id='active' class="form-control" name="active">
-                        <option value="1">True</option>
-                        <option value=''>False</option>
-                    </select>                
-                </div>
-            </div>
-            <input type="hidden" name="last_image" value="{{this.attributeset_image}}" class="form-control" placeholder="Enter Attribute Set Name" id="name">
-            <div class="col-md-2">
-                <div class="form-group" style="display: flex;">
-                    <input type="submit" name="Submit" id="insert" 
-                           class="btn btn-primary btn-sm"
-                           value="Save Attribute Set">
-                    <a href="/admin/attributeset"><button style="margin-left: 10px;" type="button" class="btn btn-secondary" action=>Cancel</button></a>
-                </div>
-            </div>
+            <div class="image-area mt-4"><img id="imageResult" src="/image/{{this.attributeset_image}}" alt=""
+                    class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for='name'><strong>Attribute Set Name</strong></label>
+            <input type="text" name="attribute_set_name" value="{{this.attribute_set_name}}" class="form-control"
+                placeholder="Enter Attribute Set Name" id="name">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for='active'><strong>Enable attribute set</strong></label>
+            <select id='active' class="form-control" name="active">
+                <option value="1">True</option>
+                <option value=''>False</option>
+            </select>
+        </div>
+    </div>
+    <input type="hidden" name="last_image" value="{{this.attributeset_image}}" class="form-control"
+        placeholder="Enter Attribute Set Name" id="name">
+    <div class="col-md-2">
+        <div class="form-group" style="display: flex;">
+            <input type="submit" name="Submit" id="insert" class="btn btn-primary btn-sm" value="Save Attribute Set">
+            <a href="/admin/attributeset"><button style="margin-left: 10px;" type="button" class="btn btn-secondary"
+                    action=>Cancel</button></a>
+        </div>
+    </div>
 
 </form>
 {{/each}}
 <style>
     #upload {
-    opacity: 0;
-}
+        opacity: 0;
+    }
 
-#upload-label {
-    position: absolute;
-    top: 50%;
-    left: 1rem;
-    transform: translateY(-50%);
-}
+    #upload-label {
+        position: absolute;
+        top: 50%;
+        left: 1rem;
+        transform: translateY(-50%);
+    }
 
-.image-area {
-    border: 2px dashed black;
-    padding: 1rem;
-    position: relative;
-}
+    .image-area {
+        border: 2px dashed black;
+        padding: 1rem;
+        position: relative;
+    }
 
-.image-area::before {
-    content: 'Uploaded image result';
-    color: black;
-    font-weight: bold;
-    text-transform: uppercase;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 0.8rem;
-    z-index: 1;
-}
+    .image-area::before {
+        content: 'Uploaded image result';
+        color: black;
+        font-weight: bold;
+        text-transform: uppercase;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 0.8rem;
+        z-index: 1;
+    }
 
-.image-area img {
-    z-index: 2;
-    position: relative;
-}
-
+    .image-area img {
+        z-index: 2;
+        position: relative;
+    }
 </style>
 <script>
     function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-        reader.onload = function (e) {
-            $('#imageResult')
-                .attr('src', e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
+            reader.onload = function (e) {
+                $('#imageResult')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
     }
-}
 
-$(function () {
-    $('#upload').on('change', function () {
-        readURL(input);
+    $(function () {
+        $('#upload').on('change', function () {
+            readURL(input);
+        });
     });
-});
 
 
 </script>

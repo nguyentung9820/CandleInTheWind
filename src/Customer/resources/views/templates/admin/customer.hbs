@@ -1,45 +1,45 @@
-   <a href="/management/customer/add"><button type="button" style="margin-bottom: 20px;" class="btn btn-success" action=>Add Customer</button></a>
-   <h1>Customers</h1>
-   <div>
-        <table class="table">
-              <thead class="thead-dark">
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Group</th>
-                    <th>Create At</th>
-                    <th>Action</th>
-            </thead>
-            {{#each customers}}
-                <tbody>
-                    <tr>
-                            <th>{{@index}}</th>
-                            <th>{{this.username}}</th>
-                            <th>{{this.email}}</th>
-                            <th>{{this.customer_group}}</th>
-                            <th>{{this.createdAt}}</th>
-                            <th>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" 
-                                            type="button" 
-                                            id="dropdownMenuButton" 
-                                            data-toggle="dropdown" 
-                                            aria-haspopup="true" 
-                                            aria-expanded="false">
-                                            Action
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="/management/customer/edit/{{this._id}}">Edit</a>
-                                        <a data-id="{{this.username}}" class="dropdown-item"  href="/management/customer/delete/{{this._id}}">Delete</a>
-                                        <a class="dropdown-item"  href="/management/customer/view/{{this._id}}">View</a>
+<a href="/management/customer/add"><button type="button" style="margin-bottom: 20px;" class="btn btn-success"
+        action=>Add Customer</button></a>
+<a href="/management/customer/pending"><button type="button" style="margin-bottom: 20px;" class="btn btn-primary"
+        action=>Pending Request</button></a>
 
-                                    </div>
-                                </div>
-                            </th>
-                    </tr>
-                </tbody>
-            {{/each}}
-        </table>
-    </div>
-    
+<h1>Customers</h1>
+<div>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Group</th>
+                <th>Create At</th>
+                <th>Action</th>
+        </thead>
+        {{#each customers}}
+        <tbody>
+            <tr>
+                <th>{{@index}}</th>
+                <th>{{this.username}}</th>
+                <th>{{this.email}}</th>
+                <th>{{this.customer_group}}</th>
+                <th>{{this.createdAt}}</th>
+                <th>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/management/customer/edit/{{this._id}}">Edit</a>
+                            <a data-id="{{this.username}}" class="dropdown-item"
+                                href="/management/customer/delete/{{this._id}}">Delete</a>
+                            <a class="dropdown-item" href="/management/customer/view/{{this._id}}">View</a>
+
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </tbody>
+        {{/each}}
+    </table>
+</div>

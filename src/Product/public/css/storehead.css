@@ -1,33 +1,55 @@
 header {
   background-color: rgb(233, 229, 229);
-  padding: 10px 15px; }
+  padding: 10px 15px;
+}
 
 header nav .navbar-nav .nav-link {
   color: #ef2d2c !important;
   font-size: 18px;
   font-weight: 500;
-  padding: 0px 18px !important; }
+  padding: 0px 18px !important;
+}
 
 header .navbar-brand {
-  max-width: 200px; }
+  max-width: 227px;
+}
 
+
+div#navbarNavDropdown {
+  margin-left: 40px;
+}
+
+.nav-mt-36{
+  margin-top: 36px;
+}
+
+div#navbarNavDropdown\ nav-mt-36 {
+  margin-left: 133px;
+}
+
+header {
+  height: 120px;
+}
 /* Header Search Bar */
 .header-search input[type="text"] {
-  border: none; }
+  border: none;
+}
 
 .header-search .input-group-addon button {
   color: #fff;
   background: #ef2d2c;
   padding: 10px 15px;
   border: none;
-  font-size: 12px; }
+  font-size: 12px;
+}
 
 .select-style {
   width: auto;
   padding: 0;
   margin: 0;
   display: inline-block;
-  vertical-align: middle; }
+  vertical-align: middle;
+}
 
 .select-style select {
   width: 100%;
@@ -36,38 +58,45 @@ header .navbar-brand {
   height: 38px;
   padding: 0px 9px;
   border: none;
-  outline: none; }
+  outline: none;
+}
 
 .select-style select option.topshow {
   padding: 10px 0;
   position: relative;
-  top: 15px; }
+  top: 15px;
+}
 
 /* End Header Search Bar */
 /* Header cart CSS */
 header .cart a {
   color: #ef2d2c;
-  text-decoration: none; }
+  text-decoration: none;
+}
 
 header .cart {
   position: relative;
-  left: -15px; }
+  left: -15px;
+}
 
 header .cart a span.number {
   position: relative;
   left: 38px;
   top: -4px;
-  color: #ef2d2c; }
+  color: #ef2d2c;
+}
 
 header .cart a span.number {
   position: relative;
   left: 35px;
   top: -20px;
-  color: #ef2d2c; }
+  color: #ef2d2c;
+}
 
 header .cart a {
   color: #ef2d2c;
-  text-decoration: none; }
+  text-decoration: none;
+}
 
 /* End Header cart CSS */
 /* choose store checkbox CSS */
@@ -80,21 +109,28 @@ header [type="radio"]:not(:checked) + label {
   display: inline-block;
   color: #ef2d2c;
   font-family: "Conv_VisueltPro-Regular";
-  font-size: 14px; }
+  font-size: 14px;
+}
 
 /* Responsive CSS */
 @media (max-width: 991px) {
   header .cart a img {
     width: 30px;
-    margin-left: 10px; }
+    margin-left: 10px;
+  }
   header .cart a span.number {
     left: 40px;
     top: -7px;
-    font-size: 14px; }
+    font-size: 14px;
+  }
   header {
-    padding: 10px 0px; }
+    padding: 10px 0px;
+  }
   .cart-login {
     position: absolute;
-    right: 70px; }
+    right: 70px;
+  }
   header .navbar-brand {
-    max-width: 150px; } }
+    max-width: 150px;
+  }
+}

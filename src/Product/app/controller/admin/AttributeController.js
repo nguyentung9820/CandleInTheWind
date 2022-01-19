@@ -88,8 +88,16 @@ class AttributeController {
     }
     saveAttribute(req, res){
         var body = req.body;
+        var option = {options: [
+            body.option1,
+            body.option2,
+            body.option3,
+            body.option4,
+
+        ]}
+        var data = Object.assign(body, option);
         try{
-            var attribute = new Attribute(body);
+            var attribute = new Attribute(data);
             attribute.save();
             res.redirect('/admin/attributeset')       
         } catch (error) {
